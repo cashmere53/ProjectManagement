@@ -1,0 +1,65 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <%= form_for @inc_account, url: {action: "complete"} do |f| %>
+        <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
+          <tr height="40"><td><center><h4><b>確認画面</b><h4><center></td></tr>
+
+          <tr height="30"><td>　　企業名：</td></tr>
+          <tr height="30"><td>　　<%= @inc_account.inc_name %></td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>　　パスワード：</td></tr>
+          <tr height="30"><td>　　●●●●●●●●</td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>　　パスワード（確認用）：</td></tr>
+          <tr height="30"><td>　　●●●●●●●●</td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>　　メールアドレス：</td></tr>
+          <tr height="30"><td>　　<%= @inc_account.mail_address %></td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>　　電話番号：</td></tr>
+          <tr height="30"><td>　　<%= @inc_account.phone_num %></td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>　　口座番号：</td></tr>
+          <tr height="30"><td>　　<%= @inc_account.account_name %></td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-4"><center><%= f.submit "キャンセル", name: "cancel", class: "btn btn-warning" %></center></div>
+              <div class="col-sm-4"><center><%= f.submit "登録", name: "regist", class: "btn btn-success" %></center></div>
+              <div class="col-sm-2"></div>
+            </div>
+          </td></tr>
+          <tr height="10"><td></td></tr>
+        </table>
+        <%= f.hidden_field :inc_name %>
+        <%= f.hidden_field :password %>
+        <%= f.hidden_field :password_confirmation %>
+        <%= f.hidden_field :mail_address %>
+        <%= f.hidden_field :phone_num %>
+        <%= f.hidden_field :account_name %>
+      <% end %>
+    </center></div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

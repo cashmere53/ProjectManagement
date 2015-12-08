@@ -1,0 +1,29 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
+        <tr height="40"><td><center><h4><b>メール送信完了</b><h4><center></td></tr>
+        <tr height="30"><td><center>入力されたメールアドレスに確認メールを送信しました。</center></td></tr>
+        <tr height="30"><td></td><tr>
+        <tr height="30"><td><center>送信されたメールに添付されているURLにアクセスし、登録を完了してください。</center></td></tr>
+        <tr height="30"><td></td></tr>
+        <tr height="30"><td><center><%= button_to "ログイン画面へ", inc_accounts_login_path, :method => :get, :class => "btn btn-success" %></center></td></tr>
+        <tr height="10"><td></td></tr>
+      </table>
+    </center></div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<%= @user.password = "" %>
+<%= @user.password_confirmation = "" %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <%= form_for @user, url: {action: "confirm"} do |f| %>
+        <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
+          <tr height="40"><td><center><h4><b>ユーザ新規登録</b><h4><center></td></tr>
+          <% if @message %><tr><td><center><font color="red"><%= @message %></font></center></td></tr><% end %>
+
+          <tr height="30" style="padding: 5px;"><td>　　ユーザ名：</td></tr>
+          <tr height="30"><td><center><%= f.text_field :user_name, :placeholder => "ユーザ名を入力", :size => "50", :maxlength => "50" %></center></td></tr>
+          <tr height="30"><td><font color="red">　　<%= @user.errors.messages[:user_name][0] %></font></td><tr>
+
+          <tr height="30"><td>　　パスワード：</td></tr>
+          <tr height="30"><td><center><%= f.password_field :password, :placeholder => "パスワードを入力", :size =>"50", :maxlength => "50" %></center></td></tr>
+          <tr height="30"><td><font color="red">　　<%= @user.errors.messages[:password][0] %></font></td><tr>
+
+          <tr height="30"><td>　　パスワード（確認用）：</td></tr>
+          <tr height="30"><td><center><%= f.password_field :password_confirmation, :placeholder => "パスワード（確認用）を入力", :size => "50", :maxlength => "50" %></center></td></tr>
+          <tr height="30"><td><font color="red">　　<%= @user.errors.messages[:password_confirmation][0] %></font></td><tr>
+
+          <tr height="30"><td>　　メールアドレス：</td></tr>
+          <tr height="30"><td><center><%= f.text_field :mail_address, :placeholder => "メールアドレスを入力", :size => "50", :maxlength => "50" %></center></td></tr>
+          <tr height="30"><td><font color="red">　　<%= @user.errors.messages[:mail_address][0] %></font></td><tr>
+
+          <tr height="30"><td><center><%= f.submit "確認", name: "confirm", class: "btn btn-success" %></center></td></tr>
+          <tr height="10"><td></td></tr>
+        </table>
+      <% end %>
+    </center></div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>

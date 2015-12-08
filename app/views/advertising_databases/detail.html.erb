@@ -1,0 +1,22 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<table>
+  <tbody>
+  <tr><td>広告情報</td> <td><%= @advertising.advertise_info%></td> </tr>
+  <tr><td>広告画像</td>  <td><%= image_tag(advertising_databases_image_path(@advertising.id), :size => '100x100')%></td> </tr>
+  <tr><td>広告画像URL</td>  <td><%= @advertising.image_content_type%></td> </tr>
+  <tr><td>契約更新日</td>  <td><%= @advertising.contract_date%></td> </tr>
+  </tbody>
+</table>
+
+<%= link_to '編集', advertising_databases_editDatabases_path(@advertising.id) %>
+<%= link_to '削除', advertising_databases_destroy_path(@advertising.id),method: 'delete',"data-confirm" => "本当に削除しますか？" %>
+<%= link_to '一覧へ戻る', advertising_databases_showTables_path(@inc.id)%>

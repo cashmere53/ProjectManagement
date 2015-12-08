@@ -1,0 +1,45 @@
+<!-- ############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = 使用条件：@user_nameが存在する;
+# date     = 2015/11/29 ;
+# author   = Kenta Togashi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+############################################################# -->
+
+<div style="height:80px; background: #ffffff url('http://jsrun.it/assets/U/Q/U/k/UQUkL.png');">
+<div class="container-fluid" style="padding: 10px;"><div class="row">
+    <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
+        <input type="hidden" name="user_name" value="<%= @user_name %>" >
+
+        <div class="col-xs-4">
+            <img src="http://jsrun.it/assets/C/y/z/k/Cyzkz.png" alt="Good Measure" class="img-responsive img-thumbnail" onclick="document.menu_form.submit();">
+            <input type="submit" value="ホーム" class="btn btn-primary">
+        </div>
+
+        <% if @user_name==nil||@user_name=='' then %>
+            <div class="col-xs-8 text-right">
+                <input type="submit" value="新規登録" formaction='/users/new' formmethod='get' class="btn btn-primary">
+                <input type="submit" value="ログイン" formaction='/users/login' formmethod='get' class="btn btn-primary">
+            </div>
+        <% else %>
+            <input type="hidden" name="destination[d1]" value="大学">
+            <input type="hidden" name="destination[d2]" value="コンビニ">
+            <input type="hidden" name="destination[d3]" value="スーパー">
+            <input type="hidden" name="destination[d4]" value="駅">
+            <input type="hidden" name="destination[d5]" value="郵便局">
+            <input type="hidden" name="slope" value="fav">
+            <input type="hidden" name="keyword" value="">
+            <input type="hidden" name="show[sort]" value="距離が近い順">
+
+            <div class="col-xs-8 text-right">
+                <input type="submit" value="お気に入り" formaction='/search/show' class="btn btn-primary">
+                <input type="submit" value="設定" formaction='/users/edit' class="btn btn-primary">
+                <input type="submit" value="ログアウト" formaction='/search/logout' class="btn btn-primary">
+            </div>
+        <% end %>
+    <% end %>
+</div></div>
+</div>
+<div style="height:10px;"></div>

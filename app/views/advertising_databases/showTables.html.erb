@@ -1,0 +1,45 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div style="#999999">
+<div class="container-fluid" style="margin:20px;"><div class="row">
+    <center><b>企業名：<%= @inc_account.inc_name %></b></center>
+  <ul class="nav nav-tabs">
+   <li><a href="/housing_databases/showTables/<%= @inc_account.id %>">物件</a></li>
+   <li class="active"><a href="/advertising_databases/showTables/<%= @inc_account.id %>">広告</a></li>
+  </ul>
+    <div align="right"><%= button_to "広告登録", advertising_databases_registerDatabses_path(@inc_account_id), method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
+  <div class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>広告情報<%= @mexx %></th>
+        <th>イメージ</th>
+        <th>画像URL</th>
+        <th>契約更新日</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @advertising.each do |info| %>
+          <tr>
+            <td><%= info.advertise_info %></td>
+            <td><%= image_tag(advertising_databases_image_path(info)) %></td>
+            <td></td>
+            <td><%= info.contract_date %></td>
+            <td><%= link_to '詳細', advertising_databases_details_path(info.id), class: "btn btn-warning" %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+</div></div></div>

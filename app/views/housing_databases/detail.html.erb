@@ -1,0 +1,45 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<table>
+  <tbody>
+  <tr><td><%= image_tag(housing_databases_image_path(@housing.id), :size => '100x100') %></td></tr>
+  <tr><td>店舗情報</td>  <td><%= @store.store_name%></td></tr>
+  <tr><td>住所</td> <td><%= @housing.street_address%></td> </tr>
+  <tr><td>家賃</td>  <td><%= @housing.rent%></td> </tr>
+  <tr><td>管理費</td>  <td><%= @housing.administration_cost%></td> </tr>
+  <tr><td>タイプ</td>  <td><%= @housing.housing_type%></td></tr>
+  <tr><td>建築年月</td>  <td><%= @housing.building_date%></td></tr>
+  <tr><td>向き</td>  <td><%= @housing.direction%></td></tr>
+  <tr><td>間取り</td>  <td><%= @housing.layout%></td></tr>
+  <tr><td>面積</td>  <td><%= @housing.area%></td></tr>
+  <tr><td>構造</td>  <td><%= @housing.structure%></td></tr>
+  <tr><td>階建て</td>  <td><%= @housing.floor%></td></tr>
+  <tr><td>敷金</td>  <td><%= @housing.deposit%></td></tr>
+  <tr><td>礼金</td>  <td><%= @housing.recompense%></td></tr>
+  <tr><td>保証金</td>  <td><%= @housing.security_money%></td></tr>
+  <tr><td>敷引き</td>  <td><%= @housing.shikibiki%></td></tr>
+  <tr><td>保険料</td>  <td><%= @housing.insurance%></td></tr>
+  <tr><td>駐車場</td>  <td><%= @housing.parking%></td></tr>
+  <tr><td>取引態様</td>  <td><%= @housing.trading_aspect%></td></tr>
+  <tr><td>他初期費用</td>  <td><%= @housing.another_cost%></td></tr>
+  <tr><td>空き部屋情報</td>  <td><%= @housing.vacancy%></td></tr>
+  <tr><td>詳細情報</td>  <td><%= @housing.detail%></td></tr>
+  <tr><td>契約プラン</td>  <td><%= @housing.plan%></td></tr>
+  <tr><td>契約更新日</td>  <td><%= @housing.contract_update%></td></tr>
+  <tr><td>閲覧数</td>  <td><%= @housing.views%></td></tr>
+  <tr><td>お気に入り件数</td>  <td><%= @housing.favorites%></td></tr>
+
+  </tbody>
+</table>
+
+<%= link_to '編集', housing_databases_editDatabases_path(@housing.id) %>
+<%= link_to '削除', housing_databases_destroy_path(@housing.id),method: 'delete',"data-confirm" => "本当に削除しますか？" %>
+<%= link_to '一覧へ戻る', housing_databases_showTables_path(@housing.inc_id)%>

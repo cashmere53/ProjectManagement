@@ -1,0 +1,274 @@
+<!-- ############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/11/30 ;
+# author   = Kenta Togashi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+############################################################# -->
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<% housing=@housing %>
+
+<div class="container-fluid"><div class="row">
+
+<!-- 物件表示枠 -->
+<div class="col-md-9">
+<!-- 見出し -->
+<div class="container-fluid" style="background: #ffeedd;"><div class="row">
+
+<div class="col-sm-3">
+    <%= image_tag(image_search_path(housing), :class=>"img-responsive img-thumbnail") %>
+</div>
+
+<div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
+<td>
+    <%= housing.street_address %> <!-- 住所 -->
+</td>
+<td>
+    <% rent_num=housing.rent/10000.to_f %>
+    <p style="font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
+    <p style="font-size: 13px;">管理費 <%= housing.administration_cost %>円</p> <!-- 管理費 -->
+</td>
+<td>
+    <p><%= housing.housing_type %></p> <!-- タイプ -->
+    <p>築<%= Date.today.year-housing.building_date.year %>年</p> <!-- 築年月 -->
+</td>
+<td>
+    <p><%= housing.direction %></p> <!-- 方向 -->
+    <p><%= housing.layout %></p> <!-- 間取り -->
+    <% area_num=housing.area/10.to_f %>
+    <p><%= area_num %>m&sup2;</p> <!-- 面積 -->
+</td>
+</tr></table></div>
+
+<div class="col-sm-3">
+  <center>
+  <table  style="background:#ffffee;" bordercolor="#cc6633"><tr><td>
+  <canvas id="chart" width="170" height="170">
+  </canvas>
+  </td></tr>
+  <tr><td><center><b>距離得点：<%= 5.0-((@distance[@destination[0]]['value'].to_f+@distance[@destination[1]]['value'].to_f*0.7+@distance[@destination[2]]['value'].to_f*0.3+@distance[@destination[3]]['value'].to_f*0.1+@distance[@destination[4]]['value'].to_f*0.01)/@max_value.to_f).round(2) %>/5.00
+  </b></center></td></tr>
+  </table></div>
+  <script>
+    write_chart("chart",
+      "<%= @destination[0] %>",
+      "<%= @destination[1] %>",
+      "<%= @destination[2] %>",
+      "<%= @destination[3] %>",
+      "<%= @destination[4] %>",
+      Number("<%= @distance[@destination[0]]['value'].to_f %>"),
+      Number("<%= @distance[@destination[1]]['value'].to_f %>"),
+      Number("<%= @distance[@destination[2]]['value'].to_f %>"),
+      Number("<%= @distance[@destination[3]]['value'].to_f %>"),
+      Number("<%= @distance[@destination[4]]['value'].to_f %>"),
+      Number("<%= @max_value.to_f %>"))
+  </script>
+  </center>
+
+
+</div></div>
+<div style="height:40px;"></div>
+
+<!-- 詳細情報 -->
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">特徴</div>
+    <div class="col-sm-10"><%= housing.detail %></div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">構造</div>
+    <div class="col-sm-4"><%= housing.structure %></div>
+    <div class="col-sm-2" style="background:#e5e5e5">階建</div>
+    <div class="col-sm-4"><%= housing.floor %>階建</div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">空き部屋</div>
+    <div class="col-sm-10"><%= housing.vacancy %></div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">敷金</div>
+    <div class="col-sm-4"><%= housing.deposit %>円</div>
+    <div class="col-sm-2" style="background:#e5e5e5">礼金</div>
+    <div class="col-sm-4"><%= housing.recompense %>円</div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">保証金</div>
+    <div class="col-sm-4"><%= housing.security_money %>円</div>
+    <div class="col-sm-2" style="background:#e5e5e5">敷引</div>
+    <div class="col-sm-4"><%= housing.shikibiki %>円</div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">損保</div>
+    <div class="col-sm-4"><%= housing.insurance %>円</div>
+    <div class="col-sm-2" style="background:#e5e5e5">駐車場</div>
+    <div class="col-sm-4"><%= housing.parking %>円</div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">取引態様</div>
+    <div class="col-sm-10"><%= housing.trading_aspect %></div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">他初期費用</div>
+    <div class="col-sm-10"><%= housing.another_cost %>円</div>
+</div></div>
+<div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
+    <div class="col-sm-2" style="background:#e5e5e5">最終更新日</div>
+    <div class="col-sm-10">
+        <%= housing.updated_at.year %>年<%= housing.updated_at.mon %>月<%= housing.updated_at.day %>日<%= housing.updated_at.hour %>時
+    </div>
+</div></div>
+<div style="height:40px;"></div>
+
+<!-- お気に入り登録ボタン -->
+<% if @user_name!="" then %>
+<%= form_tag('/search/detail', :method => :post) do %>
+    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="housing_id" value="<%= @housing.id %>" >
+    <input type="hidden" name="max_value" value="<%= @max_value %>" >
+    <% @distance.each{|key,value| %>
+        <input type="hidden" name="distances[<%= key %>]" value=<%= value['value'] %> >
+        <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
+    <% } %>
+    <div class="container-fluid"><div class="row"><div class="col-xs-12 text-center">
+        <% if @favorite.length==0 then %>
+            <input type="hidden" name="fav" value="登録" >
+            <input type="submit" value="お気に入り登録" class="btn btn-info">
+        <% else %>
+            <input type="hidden" name="fav" value="削除" >
+            <input type="submit" value="お気に入り削除" class="btn btn-info">
+        <% end %>
+    </div></div></div>
+<% end %>
+<div style="height:20px;"></div>
+<% end %>
+
+<!-- お問い合わせ先 -->
+<div style="border: ridge 10px #ffdee7; background: #ffdee7; padding: 10px;">
+    <div style="font-weight: bold;">問い合わせ</div>
+    <%= @inc.inc_name+@store.store_name %><br>
+    住所：<%= @store.street_address %><br>
+    TEL：<%= @inc.phone_num %><br>
+    メールアドレス：<%= @inc.mail_address %><br>
+</div>
+<div style="height:20px;"></div>
+
+<!-- 写真
+<table style="min-width: 630px; max-width: 630px;"><tr><td style="border: solid 1px #000000;">
+<% (0..10).each{|num| %>
+    <img src="http://jsrun.it/assets/b/K/I/l/bKIlt.png" alt="写真" width="200" height="200">
+<% } %>
+</td></tr></table>
+-->
+
+<!-- 地図 -->
+<script>
+window.onload=function(){
+var map=new GMaps({
+    div: "#map",
+    lat: 35.710285,
+    lng: 139.77714,
+    zoom: 15
+});
+var housing_latlng;
+GMaps.geocode({ //住宅にマークをつける
+    address: "<%= housing.street_address %>",
+    callback: function(results,status){
+        if(status=='OK'){
+            housing_latlng = results[0].geometry.location;
+            map.setCenter(housing_latlng.lat(),housing_latlng.lng());
+            map.addMarker({
+                icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
+                lat: housing_latlng.lat(),
+                lng: housing_latlng.lng(),
+                infoWindow: {content: '対象物件'}
+            });
+        }
+    }
+});
+<% @distance.each{|key,value| %>
+    GMaps.geocode({ //施設にマークをつける
+        address: "<%= value['facility'].street_address %>",
+        callback: function(results,status){
+            if(status=='OK'){
+                var latlng = results[0].geometry.location;
+                map.addMarker({
+                    icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                    lat: latlng.lat(),
+                    lng: latlng.lng(),
+                    infoWindow: {content: '<%= value['facility'].name %><br>移動距離：<%= value['value'] %>m<br>徒歩所要時間：<%= value['value'].to_i/80 %>分'}
+                });
+                map.drawRoute({
+                    origin: [housing_latlng.lat(), housing_latlng.lng()],
+                    destination: [latlng.lat(), latlng.lng()],
+                    travelMode: 'walking',
+                    strokeColor: '#0000ff',
+                    strokeOpacity: 0.6,
+                    strokeWeight: 3
+                });
+            }
+        }
+    });
+<% } %>
+geocoding=function(address){
+    if(address==""){return;} //入力値が空なら処理しない
+    GMaps.geocode({
+        address: "茨城県日立市"+address,
+        callback: function(results, status){
+            if(status=='OK'){
+                var latlng = results[0].geometry.location;
+                map.setCenter(latlng.lat(), latlng.lng());
+                map.addMarker({
+                    lat: latlng.lat(),
+                    lng: latlng.lng(),
+                    infoWindow: {content: address}
+                });
+                map.drawRoute({
+                    origin: [housing_latlng.lat(), housing_latlng.lng()],
+                    destination: [latlng.lat(), latlng.lng()],
+                    travelMode: 'walking',
+                    strokeColor: '#ff0000',
+                    strokeOpacity: 0.6,
+                    strokeWeight: 3
+                });
+            }
+        }
+    });
+};
+};
+</script>
+
+<form name="geocoding_form">
+<div class="container-fluid"><div class="row"><div class="col-xs-12">
+    茨城県日立市
+    <textarea name="address" cols="25" rows="2" maxlength="50" placeholder="調べたい住所を入力(町名から)"></textarea>
+    <button type=button class="btn btn-success" onclick="geocoding(document.geocoding_form.address.value);">検索</button>
+</div></div></div>
+</form>
+<div style="height:10px;"></div>
+
+<div class="container-fluid"><div class="row"><div class="col-xs-12">
+    <div id="map" style="width:450px; height:450px;"></div> <!-- 地図表示 -->
+</div></div></div>
+<div style="height:5px;"></div>
+<div class="container-fluid"><div class="row"><div class="col-xs-12">
+  <p style="color:#ff0000;">※ルートが表示されない場合は、ページを更新してください。</p>
+</div></div></div>
+<div style="height:20px;"></div>
+</div>
+
+<!-- 広告枠 -->
+<div class="col-md-3">
+<div style="height:40px;"></div>
+広告<br>
+<table class="table">
+<% @advertisings.each{|advertising| %>
+    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+<% } %>
+</table>
+</div>
+
+</div></div>
