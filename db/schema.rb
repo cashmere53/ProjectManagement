@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206201236) do
+ActiveRecord::Schema.define(version: 20151209120925) do
 
   create_table "advertisings", force: :cascade do |t|
     t.string   "advertise_info"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20151206201236) do
     t.integer  "inc_account_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "content_type"
   end
 
   add_index "advertisings", ["inc_account_id"], name: "index_advertisings_on_inc_account_id"
