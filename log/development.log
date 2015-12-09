@@ -1,0 +1,488 @@
+  [1m[36m (1.6ms)[0m  [1mbegin transaction[0m
+  [1m[35mIncAccount Load (4.1ms)[0m  SELECT "inc_accounts".* FROM "inc_accounts"
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  select sqlite_version(*)
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateFacilities (20151206181030)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "facilities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "street_address" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151206181030"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+Migrating to CreateIncAccounts (20151206181152)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "inc_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "inc_name" varchar, "password_digest" varchar, "mail_address" varchar, "phone_num" varchar, "account_name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151206181152"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+Migrating to CreateUsers (20151206181321)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "password_digest" varchar, "mail_address" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151206181321"]]
+  [1m[35m (6.9ms)[0m  commit transaction
+Migrating to CreateAdvertisings (20151206181906)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "advertisings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "advertise_info" varchar, "image" blob(10485760), "contract_date" date, "inc_account_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_advertisings_on_inc_account_id" ON "advertisings" ("inc_account_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206181906"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateStores (20151206182052)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "stores" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "store_name" varchar, "street_address" varchar, "postal_code" varchar, "inc_account_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_stores_on_inc_account_id" ON "stores" ("inc_account_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20151206182052"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+Migrating to CreateHousings (20151206182632)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "housings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "street_address" varchar, "rent" integer, "administration_cost" integer, "housing_type" varchar, "building_date" date, "direction" varchar, "layout" varchar, "area" integer, "structure" varchar, "floor" integer, "deposit" integer, "recompense" integer, "security_money" integer, "shikibiki" integer, "insurance" integer, "parking" integer, "trading_aspect" varchar, "another_cost" integer, "vacancy" varchar, "detail" varchar, "plan" integer, "contract_update" date, "views" integer, "favorites" integer, "image" blob(10485760), "inc_account_id" integer, "store_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_housings_on_inc_account_id" ON "housings" ("inc_account_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_housings_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_housings_on_inc_account_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_housings_on_store_id" ON "housings" ("store_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206182632"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+Migrating to CreateFavorites (20151206182945)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "favorites" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "inc_account_id" integer, "store_id" integer, "housing_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.5ms)[0m  CREATE  INDEX "index_favorites_on_user_id" ON "favorites" ("user_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_favorites_on_inc_account_id" ON "favorites" ("inc_account_id")
+  [1m[36m (0.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_favorites_on_store_id" ON "favorites" ("store_id")[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_store_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_store_id' AND type='index'
+
+  [1m[36m (0.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_favorites_on_housing_id" ON "favorites" ("housing_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206182945"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+Migrating to CreateDistances (20151206183340)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "distances" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "distance" integer, "facility_id" integer, "housing_id" integer, "store_id" integer, "inc_account_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_distances_on_facility_id" ON "distances" ("facility_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_distances_on_housing_id" ON "distances" ("housing_id")
+  [1m[36m (0.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_distances_on_store_id" ON "distances" ("store_id")[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_store_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_store_id' AND type='index'
+
+  [1m[36m (0.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_distances_on_inc_account_id" ON "distances" ("inc_account_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206183340"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+Migrating to AddAvaliableToUsers (20151206201226)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "users" ADD "avaliable" boolean[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206201226"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddAvaliableToIncAccounts (20151206201236)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "inc_accounts" ADD "avaliable" boolean[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151206201236"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_advertisings_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_advertisings_on_inc_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_inc_account_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_store_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_store_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_housing_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_distances_on_facility_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_housing_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_housing_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_store_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_store_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_inc_account_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_favorites_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_housings_on_store_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_housings_on_store_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_housings_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_housings_on_inc_account_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_stores_on_inc_account_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_stores_on_inc_account_id' AND type='index'
+
+  [1m[36m (1.5ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+
+
+Started GET "/" for ::1 at 2015-12-09 13:38:45 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SearchController#form as HTML
+  [1m[35mAdvertising Load (1.9ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (251.5ms)
+  Rendered shared/_menu.html.erb (0.8ms)
+  Rendered search/form.html.erb within layouts/search (310.5ms)
+Completed 200 OK in 907ms (Views: 856.9ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/inc_accounts/login" for ::1 at 2015-12-09 13:38:49 +0900
+Processing by IncAccountsController#login as HTML
+  Rendered shared/_library.html.erb (16.2ms)
+  Rendered shared/_incmenu.html.erb (0.9ms)
+  Rendered inc_accounts/login.html.erb within layouts/inc_accounts (26.6ms)
+Completed 200 OK in 140ms (Views: 125.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/inc_accounts/new?utf8=%E2%9C%93&authenticity_token=TdaHbBZtEhMSXrAqPHipLauUcQRSz9h24ncbxD7s7d1YRFejxXw%2FzQCsDqT%2Bf4XpsWCDuuyAr9gCQ3jIayVvBg%3D%3D&inc_name=" for ::1 at 2015-12-09 13:38:55 +0900
+Processing by IncAccountsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TdaHbBZtEhMSXrAqPHipLauUcQRSz9h24ncbxD7s7d1YRFejxXw/zQCsDqT+f4XpsWCDuuyAr9gCQ3jIayVvBg==", "inc_name"=>""}
+  Rendered shared/_library.html.erb (26.5ms)
+  Rendered shared/_incmenu.html.erb (1.6ms)
+  Rendered inc_accounts/new.html.erb within layouts/inc_accounts (52.8ms)
+Completed 200 OK in 132ms (Views: 131.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/inc_accounts/confirm" for ::1 at 2015-12-09 13:39:54 +0900
+Processing by IncAccountsController#confirm as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Yy53LPb52FUEDJ1Gh31DGo2Duwz/SX1eQ7mV7Xcy6tp2vKfjJej1ixb+I8hFem/el3dJskEGCvCjjfbhIvtoAQ==", "inc_account"=>{"inc_name"=>"test_inc", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "mail_address"=>"gooblue.1027@gmail.com", "phone_num"=>"0123456789", "account_name"=>"test_inc"}, "confirm"=>"確認"}
+  [1m[36mIncAccount Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM "inc_accounts" WHERE "inc_accounts"."inc_name" = 'test_inc' LIMIT 1[0m
+  [1m[35mIncAccount Exists (0.1ms)[0m  SELECT  1 AS one FROM "inc_accounts" WHERE "inc_accounts"."mail_address" = 'gooblue.1027@gmail.com' LIMIT 1
+  Rendered shared/_library.html.erb (12.3ms)
+  Rendered shared/_incmenu.html.erb (0.2ms)
+  Rendered inc_accounts/confirm.html.erb within layouts/inc_accounts (20.6ms)
+Completed 200 OK in 228ms (Views: 114.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/inc_accounts/complete" for ::1 at 2015-12-09 13:39:57 +0900
+Processing by IncAccountsController#complete as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"n+mkQ3j71hY+RVwjv6V2a00BZtHQb19pB2NVhCorQzGKe3SMq+r7yCy34q19olqvV/WUb24gKMfnVzaIf+LB6g==", "regist"=>"登録", "inc_account"=>{"inc_name"=>"test_inc", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "mail_address"=>"gooblue.1027@gmail.com", "phone_num"=>"0123456789", "account_name"=>"test_inc"}}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mIncAccount Exists (0.1ms)[0m  SELECT  1 AS one FROM "inc_accounts" WHERE "inc_accounts"."inc_name" = 'test_inc' LIMIT 1
+  [1m[36mIncAccount Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "inc_accounts" WHERE "inc_accounts"."mail_address" = 'gooblue.1027@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (4.2ms)[0m  INSERT INTO "inc_accounts" ("inc_name", "password_digest", "mail_address", "phone_num", "account_name", "avaliable", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["inc_name", "test_inc"], ["password_digest", "$2a$10$YIL5yjcKDS1MYkg4nNOUwOcpktszvoJeTs82xcnHqohMheOXsafea"], ["mail_address", "gooblue.1027@gmail.com"], ["phone_num", "0123456789"], ["account_name", "test_inc"], ["avaliable", "f"], ["created_at", "2015-12-09 04:39:57.130838"], ["updated_at", "2015-12-09 04:39:57.130838"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+DEPRECATION WARNING: `#deliver` is deprecated and will be removed in Rails 5. Use `#deliver_now` to deliver immediately or `#deliver_later` to deliver through Active Job. (called from complete at /Users/kaneko_takayuki/Rails/ProjectManagement/app/controllers/inc_accounts_controller.rb:100)
+  Rendered inc_mailer/regist_mail.html.erb within layouts/mailer (0.3ms)
+  Rendered inc_mailer/regist_mail.text.erb within layouts/mailer (0.4ms)
+
+IncMailer#regist_mail: processed outbound mail in 340.6ms
+
+Sent mail to gooblue.1027@gmail.com (5224.2ms)
+Date: Wed, 09 Dec 2015 13:39:57 +0900
+From: good.measure.dekiru@gmail.com
+To: gooblue.1027@gmail.com
+Message-ID: <5667b09d89130_195c3ff7924a7d3c493eb@Aleph.local.mail>
+Subject: =?UTF-8?Q?=E7=99=BB=E9=8C=B2=E3=82=92=E5=AE=8C=E4=BA=86=E3=81=97=E3=81=A6=E3=81=8F=E3=81=A0=E3=81=95=E3=81=84?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5667b09d82540_195c3ff7924a7d3c4928";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_5667b09d82540_195c3ff7924a7d3c4928
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!--############################################################
+# specificat on ;
+# name     =3D Good Measure ;
+# note     =3D ;
+# date     =3D 2015/12/6 ;
+# author   =3D Takayuki Kaneko ;
+# History  =3D ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+=E7=99=BB=E9=8C=B2=E3=81=82=E3=82=8A=E3=81=8C=E3=81=A8=E3=81=86=E3=81=94=E3=
+=81=96=E3=81=84=E3=81=BE=E3=81=99=E3=80=82
+
+http://localhost:3000/inc_accounts/avaliable/test_inc
+
+
+----==_mimepart_5667b09d82540_195c3ff7924a7d3c4928
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <body>
+    <!--############################################################
+# specificat on ;
+# name     =3D Good Measure ;
+# note     =3D ;
+# date     =3D 2015/12/6 ;
+# author   =3D Takayuki Kaneko ;
+# History  =3D ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+=E7=99=BB=E9=8C=B2=E3=81=82=E3=82=8A=E3=81=8C=E3=81=A8=E3=81=86=E3=81=94=E3=
+=81=96=E3=81=84=E3=81=BE=E3=81=99=E3=80=82
+
+http://localhost:3000/inc_accounts/avaliable/test_inc
+
+  </body>
+</html>
+
+----==_mimepart_5667b09d82540_195c3ff7924a7d3c4928--
+
+  Rendered shared/_library.html.erb (12.8ms)
+  Rendered shared/_incmenu.html.erb (0.3ms)
+  Rendered inc_accounts/complete.html.erb within layouts/inc_accounts (16.9ms)
+Completed 200 OK in 5763ms (Views: 61.7ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/inc_accounts/login" for ::1 at 2015-12-09 13:40:10 +0900
+Processing by IncAccountsController#login as HTML
+  Rendered shared/_library.html.erb (13.1ms)
+  Rendered shared/_incmenu.html.erb (0.2ms)
+  Rendered inc_accounts/login.html.erb within layouts/inc_accounts (16.5ms)
+Completed 200 OK in 57ms (Views: 56.8ms | ActiveRecord: 0.0ms)
+  [1m[36mIncAccount Load (3.5ms)[0m  [1mSELECT "inc_accounts".* FROM "inc_accounts"[0m
+
+
+Started GET "/inc_accounts/avaliable/test_inc" for ::1 at 2015-12-09 13:41:23 +0900
+Processing by IncAccountsController#avaliable as HTML
+  Parameters: {"user_name"=>"test_inc"}
+  [1m[35mIncAccount Load (0.1ms)[0m  SELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."inc_name" IS NULL LIMIT 1
+  Rendered shared/_library.html.erb (13.7ms)
+  Rendered shared/_incmenu.html.erb (0.4ms)
+  Rendered inc_accounts/avaliable.html.erb within layouts/inc_accounts (17.5ms)
+Completed 200 OK in 114ms (Views: 78.6ms | ActiveRecord: 0.1ms)
+  [1m[35mIncAccount Load (0.2ms)[0m  SELECT "inc_accounts".* FROM "inc_accounts"
+
+
+Started GET "/inc_accounts/avaliable/test_inc" for ::1 at 2015-12-09 13:44:22 +0900
+Processing by IncAccountsController#avaliable as HTML
+  Parameters: {"inc_name"=>"test_inc"}
+  [1m[36mIncAccount Load (0.2ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."inc_name" = ? LIMIT 1[0m  [["inc_name", "test_inc"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "inc_accounts" SET "avaliable" = ?, "updated_at" = ? WHERE "inc_accounts"."id" = ?[0m  [["avaliable", "t"], ["updated_at", "2015-12-09 04:44:22.236290"], ["id", 1]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  Rendered shared/_library.html.erb (17.6ms)
+  Rendered shared/_incmenu.html.erb (0.3ms)
+  Rendered inc_accounts/avaliable.html.erb within layouts/inc_accounts (20.4ms)
+Completed 200 OK in 114ms (Views: 86.5ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/inc_accounts/login?utf8=%E2%9C%93&commit=%E4%BC%81%E6%A5%AD%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E7%94%BB%E9%9D%A2%E3%81%B8" for ::1 at 2015-12-09 13:44:24 +0900
+Processing by IncAccountsController#login as HTML
+  Parameters: {"utf8"=>"✓", "commit"=>"企業ログイン画面へ"}
+  Rendered shared/_library.html.erb (14.2ms)
+  Rendered shared/_incmenu.html.erb (0.2ms)
+  Rendered inc_accounts/login.html.erb within layouts/inc_accounts (17.0ms)
+Completed 200 OK in 71ms (Views: 70.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/inc_accounts/auth" for ::1 at 2015-12-09 13:44:31 +0900
+Processing by IncAccountsController#auth as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"0THe8FGnU5G2a725Uxxg/6dn9E4qPktxc58oO6qTMh/Eow4/grZ+T6SZAzeRG0w7vZMG8JRxPN+Tq0s3/1qwxA==", "inc_name"=>"test_inc", "password"=>"[FILTERED]", "login"=>"ログイン"}
+  [1m[36mIncAccount Load (0.2ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."inc_name" = ? LIMIT 1[0m  [["inc_name", "test_inc"]]
+  Rendered shared/_library.html.erb (13.9ms)
+  Rendered shared/_incmenu.html.erb (0.3ms)
+  [1m[35mHousing Load (0.2ms)[0m  SELECT "housings".* FROM "housings" WHERE "housings"."inc_account_id" = ?  [["inc_account_id", 1]]
+  Rendered housing_databases/showTables.html.erb within layouts/inc_accounts (18.6ms)
+Completed 200 OK in 161ms (Views: 83.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/advertising_databases/showTables/1" for ::1 at 2015-12-09 13:44:33 +0900
+Processing by AdvertisingDatabasesController#showTables as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mIncAccount Load (0.2ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered shared/_library.html.erb (16.7ms)
+  Rendered shared/_incmenu.html.erb (0.3ms)
+  [1m[35mAdvertising Load (1.3ms)[0m  SELECT "advertisings".* FROM "advertisings" WHERE "advertisings"."inc_account_id" = ?  [["inc_account_id", 1]]
+  Rendered advertising_databases/showTables.html.erb within layouts/databases (29.0ms)
+Completed 200 OK in 97ms (Views: 91.6ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/housing_databases/showTables/1" for ::1 at 2015-12-09 13:44:34 +0900
+Processing by HousingDatabasesController#showTables as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mIncAccount Load (0.1ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered shared/_library.html.erb (21.8ms)
+  Rendered shared/_incmenu.html.erb (0.5ms)
+  [1m[35mHousing Load (0.1ms)[0m  SELECT "housings".* FROM "housings" WHERE "housings"."inc_account_id" = ?  [["inc_account_id", 1]]
+  Rendered housing_databases/showTables.html.erb within layouts/housing_databases (28.6ms)
+Completed 200 OK in 105ms (Views: 103.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/advertising_databases/showTables/1" for ::1 at 2015-12-09 13:44:35 +0900
+Processing by AdvertisingDatabasesController#showTables as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mIncAccount Load (0.1ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered shared/_library.html.erb (12.2ms)
+  Rendered shared/_incmenu.html.erb (0.4ms)
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings" WHERE "advertisings"."inc_account_id" = ?  [["inc_account_id", 1]]
+  Rendered advertising_databases/showTables.html.erb within layouts/databases (19.0ms)
+Completed 200 OK in 84ms (Views: 82.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/housing_databases/showTables/1" for ::1 at 2015-12-09 13:44:36 +0900
+Processing by HousingDatabasesController#showTables as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mIncAccount Load (0.1ms)[0m  [1mSELECT  "inc_accounts".* FROM "inc_accounts" WHERE "inc_accounts"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered shared/_library.html.erb (11.9ms)
+  Rendered shared/_incmenu.html.erb (0.4ms)
+  [1m[35mHousing Load (0.1ms)[0m  SELECT "housings".* FROM "housings" WHERE "housings"."inc_account_id" = ?  [["inc_account_id", 1]]
+  Rendered housing_databases/showTables.html.erb within layouts/housing_databases (17.4ms)
+Completed 200 OK in 80ms (Views: 79.1ms | ActiveRecord: 0.2ms)
