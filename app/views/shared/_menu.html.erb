@@ -18,7 +18,7 @@
             <input type="submit" value="ホーム" class="btn btn-primary">
         </div>
 
-        <% if @user_name==nil||@user_name=='' then %>
+        <% if session[@user_name]==nil||session[@user_name]=='' then %>
             <div class="col-xs-8 text-right">
                 <input type="submit" value="新規登録" formaction='/users/new' formmethod='get' class="btn btn-primary">
                 <input type="submit" value="ログイン" formaction='/users/login' formmethod='get' class="btn btn-primary">

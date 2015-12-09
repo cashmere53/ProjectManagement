@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   #ユーザ周り
   get '/users/login' => 'users#login'
+  post '/users/auth' => 'users#auth'
   get '/users/new' => 'users#new'
   post '/users/edit' => 'users#edit'
   post '/users/update' => 'users#update'
