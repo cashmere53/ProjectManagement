@@ -15,6 +15,26 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def auth
+    @user = User.find_by(user_name: params[:user_name])
+    if @user && @user.authenticate(params[:password])
+      @user_name = @user.user_name
+      session[@user_name] = @user_name
+      #広告取得
+      advertisings=Advertising.all
+      @advertisings=[]
+      if advertisings.length>0 then
+          (0..1).each{|num|
+              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+          }
+      end
+      render :template => "/search/form"
+    else
+      @message = "ユーザ名かパスワードが違います。"
+      render :template => "users/login"
+    end
+  end
+
   #ユーザの新規作成フォームを表示する
   def new
     @user = User.new
