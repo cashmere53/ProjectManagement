@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  distance: 1
+  facility_id: 
+  housing_id: 
+  store_id: 
+  inc_account_id: 
+
+two:
+  distance: 1
+  facility_id: 
+  housing_id: 
+  store_id: 
+  inc_account_id: 

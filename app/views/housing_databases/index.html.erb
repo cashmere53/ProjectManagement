@@ -1,0 +1,23 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<div class="container-fluid"><div class="row">
+<div class="col-sm-1"></div>
+  <div class="col-sm-10">
+    <ul class="nav nav-tabs">
+     <li class="active"><a href="/housing_databases/showTables/<%= @inc_account_id %>">物件</a></li>
+     <li><a href="/advertising_databases/showTables/<%= @inc_account_id %>">広告</a></li>
+    </ul>
+  </div>
+<div class="col-sm-1"></div>
+</div></div>

@@ -1,0 +1,35 @@
+<!-- ############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = 使用条件：@inc_account_idが存在する;
+# date     = 2015/11/29 ;
+# author   = Kenta Togashi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+############################################################# -->
+
+<div style="height:80px; background: #ffffee url('http://jsrun.it/assets/U/Q/U/k/UQUkL.png');">
+<div class="container-fluid" style="padding: 10px;"><div class="row">
+    <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
+        <input type="hidden" name="inc_name" value="<%= @inc_name %>" >
+
+        <div class="col-xs-4">
+            <img src="http://jsrun.it/assets/C/y/z/k/Cyzkz.png" alt="Good Measure" class="img-responsive img-thumbnail" onclick="document.menu_form.submit();">
+            <input type="submit" value="ホーム" class="btn btn-primary">
+        </div>
+
+        <% if @inc_account_id==nil||@inc_account_id=='' then %>
+            <div class="col-xs-8 text-right">
+                <input type="submit" value="企業新規登録" formaction='/inc_accounts/new' formmethod='get' class="btn btn-primary">
+                <input type="submit" value="企業ログイン" formaction='/inc_accounts/login' formmethod='get' class="btn btn-primary">
+            </div>
+        <% else %>
+            <div class="col-xs-8 text-right">
+                <input type="submit" value="設定" formaction='/inc_accounts/edit' class="btn btn-primary">
+                <input type="submit" value="ログアウト" formaction='/search/form' class="btn btn-primary">
+            </div>
+        <% end %>
+    <% end %>
+</div></div>
+</div>
+<div style="height:10px;"></div>

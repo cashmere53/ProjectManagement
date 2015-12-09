@@ -1,0 +1,23 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<div style="height:80px; background: #ffffff url('http://jsrun.it/assets/U/Q/U/k/UQUkL.png');">
+<div class="container-fluid" style="padding: 10px;"><div class="row">
+    <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
+        <input type="hidden" name="user_name" value="<%= @user_name %>" >
+
+        <div class="col-xs-4">
+            <img src="http://jsrun.it/assets/C/y/z/k/Cyzkz.png" alt="Good Measure" class="img-responsive img-thumbnail" onclick="document.menu_form.submit();">
+            <input type="submit" value="ホーム" class="btn btn-primary">
+        </div>
+    <% end %>
+</div></div>
+</div>
+<div style="height:10px;"></div>

@@ -1,0 +1,54 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div class="container-fluid" style="margin:20px;"><div class="row">
+  <center><b>企業名：<%= @inc_account.inc_name %></b></center>
+  <ul class="nav nav-tabs">
+   <li class="active"><a href="/housing_databases/showTables/<%= @inc_account_id %>">物件</a></li>
+   <li><a href="/advertising_databases/showTables/<%= @inc_account_id %>">広告</a></li>
+  </ul>
+  <div align="right"><%= button_to "物件登録", housing_databases_registerDatabases_path(@inc_account_id), method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+        <th>イメージ</th>
+        <th>住所</th>
+        <th>家賃</th>
+        <th>管理費</th>
+        <th>タイプ</th>
+        <th>建築年月</th>
+        <th>向き</th>
+        <th>間取り</th>
+        <th>面積</th>
+        <th>契約更新日</th>
+      </thead>
+      <tbody>
+        <% @housing.each do |info| %>
+        <tr>
+          <td><%= image_tag(housing_databases_image_path(info.id), :size => '100x100') %></td>
+          <td><%= info.street_address %></td>
+          <td><%= info.rent %></td>
+          <td><%= info.administration_cost %></td>
+          <td><%= info.housing_type %></td>
+          <td><%= info.building_date %></td>
+          <td><%= info.direction %></td>
+          <td><%= info.layout %></td>
+          <td><%= info.area %></td>
+          <td><%= info.contract_update %></td>
+          <td><%= button_to '詳細', housing_databases_details_path(info.id), class: "btn btn-warning" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div></div>

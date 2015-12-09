@@ -1,0 +1,138 @@
+<!-- ############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/11/29 ;
+# author   = Kenta Togashi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+############################################################# -->
+
+<!-- 検索が正しく行われなかった -->
+<% if @error==true then %>
+    <%= form_tag('/search/form', :method => :post) do %>
+        <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <% end %>
+    <script>
+        alert("「近くにあってほしい建物」の選択した項目が重複しています。");
+        document.forms[0].submit();
+    </script>
+<% end %>
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<div class="container-fluid">
+<div class="row">
+
+<!-- 物件一覧枠 -->
+<div class="col-md-9">
+<!-- 絞り込み検索 -->
+<%= form_tag('/search/show', :method => :post) do %>
+    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="destination[d1]" value="<%= @destination[0] %>">
+    <input type="hidden" name="destination[d2]" value="<%= @destination[1] %>">
+    <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
+    <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
+    <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
+    <input type="hidden" name="slope" value="<%= @slope %>">
+    <input type="text" name="keyword" size="50" maxlength="20" placeholder="キーワードを入力" value="<%= @keyword %>">
+    <input type="submit" value="絞り込み検索" class="btn btn-success"><br>
+    <div style="height:10px;"></div>
+    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["面積が広い順", "面積が広い順"]] , :selected=>@sort %>
+    <input type="submit" value="並び替え" class="btn btn-warning">
+    <div style="height:40px;"></div>
+<% end %>
+<!-- 物件一覧 -->
+<% @distances.each{|distance| %>
+    <% housing_id=@housings[distance["id"]].id %>
+    <div class="container-fluid" style="background: #ffeedd;"><div class="row">
+
+    <div class="col-sm-3">
+        <%= image_tag(image_search_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
+    </div>
+
+    <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
+        <td>
+        <%= @housings[distance["id"]].street_address %> <!-- 住所 -->
+        </td>
+        <td>
+        <% rent_num=@housings[distance["id"]].rent/10000.to_f %>
+        <p style="font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
+        <p style="font-size: 13px;">
+            管理費 <%= @housings[distance["id"]].administration_cost %>円 <!-- 管理費 -->
+        </p>
+        </td>
+        <td>
+        <p><%= @housings[distance["id"]].housing_type %></p> <!-- タイプ -->
+        <p>築<%= Date.today.year-@housings[distance["id"]].building_date.year %>年</p> <!-- 築年月 -->
+        </td>
+        <td>
+        <p><%= @housings[distance["id"]].direction %></p> <!-- 方向 -->
+        <p><%= @housings[distance["id"]].layout %></p> <!-- 間取り -->
+        <% area_num=@housings[distance["id"]].area/10.to_f %>
+        <p><%= area_num %>m&sup2;</p> <!-- 面積 -->
+        </td>
+    </tr></table></div>
+
+    <!--グラフ-->
+    <% housing_id=@housings[distance["id"]].id %>
+    <div class="col-sm-3" style="padding:5px;">
+      <center>
+      <table  style="background:#ffffee;" bordercolor="#cc6633"><tr><td>
+      <canvas id="chart<%= housing_id %>" width="180" height="170">
+      </canvas>
+    </td></tr>
+    <tr><td><center><b>距離得点：<%= (5.0-(distance[@destination[0]]['value'].to_f+distance[@destination[1]]['value'].to_f*0.7+distance[@destination[2]]['value'].to_f*0.3+distance[@destination[3]]['value'].to_f*0.1+distance[@destination[4]]['value'].to_f*0.01).to_f/@max_value.to_f).round(2) %>/5.00
+    </b></center></td></tr>
+    </table></div>
+      <script>
+        write_chart("chart<%= housing_id %>",
+          "<%= @destination[0] %>",
+          "<%= @destination[1] %>",
+          "<%= @destination[2] %>",
+          "<%= @destination[3] %>",
+          "<%= @destination[4] %>",
+          Number("<%= distance[@destination[0]]['value'] %>"),
+          Number("<%= distance[@destination[1]]['value'] %>"),
+          Number("<%= distance[@destination[2]]['value'] %>"),
+          Number("<%= distance[@destination[3]]['value'] %>"),
+          Number("<%= distance[@destination[4]]['value'] %>"),
+          Number("<%= @max_value %>"))
+      </script>
+    </center>
+    </div></div>
+
+    <%= form_tag('/search/detail', :method => :post) do %>
+        <input type="hidden" name="user_name" value="<%= @user_name %>" >
+        <input type="hidden" name="housing_id" value="<%= @housings[distance["id"]].id %>" >
+        <input type="hidden" name="max_value" value="<%= @max_value %>" >
+        <% distance.each{|key,value| %>
+            <% if key=='id'||key=='value' then next end %>
+            <input type="hidden" name="distances[<%= key %>]" value=<%= value['value'] %> >
+            <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
+        <% } %>
+        <input type="hidden" name="fav" value="-" >
+        <div style="height:20px;"></div>
+        <div class="container-fluid"><div class="row"><div class="col-xs-12 text-right">
+            <input type="submit" value="詳細" class="btn btn-info">
+        </div></div></div>
+        <div style="height:40px;"></div>
+    <% end %>
+<% } %>
+</table>
+</div>
+
+<!-- 広告枠 -->
+<div class="col-md-3">
+    <center><b><h4>掲載希望の方は<%= link_to "こちら", :controller => "inc_accounts", :action => "login" %></h4></b></center>
+<div style="height:40px;"></div>
+広告<br>
+<table class="table">
+<% @advertisings.each{|advertising| %>
+    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+<% } %>
+</table>
+</div>
+
+</div></div>

@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  street_address: MyString
+  rent: 1
+  administration_cost: 1
+  housing_type: MyString
+  building_date: 2015-12-07
+  direction: MyString
+  layout: MyString
+  area: 1
+  structure: MyString
+  floor: 1
+  deposit: 1
+  recompense: 1
+  security_money: 1
+  shikibiki: 1
+  insurance: 1
+  parking: 1
+  trading_aspect: MyString
+  another_cost: 1
+  vacancy: MyString
+  detail: MyString
+  plan: 1
+  contract_update: 2015-12-07
+  views: 1
+  favorites: 1
+  image: 
+  inc_account_id: 
+  store_id: 
+
+two:
+  street_address: MyString
+  rent: 1
+  administration_cost: 1
+  housing_type: MyString
+  building_date: 2015-12-07
+  direction: MyString
+  layout: MyString
+  area: 1
+  structure: MyString
+  floor: 1
+  deposit: 1
+  recompense: 1
+  security_money: 1
+  shikibiki: 1
+  insurance: 1
+  parking: 1
+  trading_aspect: MyString
+  another_cost: 1
+  vacancy: MyString
+  detail: MyString
+  plan: 1
+  contract_update: 2015-12-07
+  views: 1
+  favorites: 1
+  image: 
+  inc_account_id: 
+  store_id: 

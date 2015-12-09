@@ -1,0 +1,22 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= form_tag advertising_databases_editDatabases_path(@advertising.id), method: 'patch', multipart: true do%>
+    <table>
+
+      <tbody>
+      <tr><td>広告情報</td> <td><%= text_field_tag :advertise_info,@advertising.advertise_info, :placeholder => "広告情報" %></td> </tr>
+      <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
+
+      </tbody>
+    </table>
+
+    <%= submit_tag "編集完了" %>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  advertise_info: MyString
+  image: 
+  contract_date: 2015-12-07
+  inc_account_id: 
+
+two:
+  advertise_info: MyString
+  image: 
+  contract_date: 2015-12-07
+  inc_account_id: 

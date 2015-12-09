@@ -1,0 +1,32 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <%= form_tag '/users/login', :method => :get do %>
+        <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
+          <tr height="40"><td><center><h4><b><%= @title %></b><h4><center></td></tr>
+
+          <tr height="30"><td></td></tr>
+          <tr height="30"><td><center><%= @message %></center></td></tr>
+          <tr height="30"><td></td><tr>
+
+          <tr height="30"><td><center><%= submit_tag "ログイン画面へ", class: "btn btn-success" %></center></td></tr>
+          <tr height="10"><td></td></tr>
+        </table>
+      <% end %>
+    </center></div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>
