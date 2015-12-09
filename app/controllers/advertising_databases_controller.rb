@@ -12,7 +12,15 @@ class AdvertisingDatabasesController < DatabasesController
   def showTables
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
-    if @inc_account_id==nil || @inc_account_id==''
+    if session[@inc_account_id]==nil || session[@inc_account_id]==''
+      #広告取得
+      advertisings=Advertising.all
+      @advertisings=[]
+      if advertisings.length>0 then
+          (0..1).each{|num|
+              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+          }
+      end
       render :template => "search/form"
     end
     @advertising = Advertising.where(inc_account_id: @inc_account_id)

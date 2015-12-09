@@ -124,9 +124,9 @@
 <div style="height:40px;"></div>
 
 <!-- お気に入り登録ボタン -->
-<% if @user_name!="" then %>
+<% if session[@user_name]!="" then %>
 <%= form_tag('/search/detail', :method => :post) do %>
-    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="user_name" value="<%= session[@user_name] %>" >
     <input type="hidden" name="housing_id" value="<%= @housing.id %>" >
     <input type="hidden" name="max_value" value="<%= @max_value %>" >
     <% @distance.each{|key,value| %>

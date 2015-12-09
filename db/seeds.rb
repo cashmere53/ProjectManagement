@@ -6,9 +6,9 @@ User.create(:user_name=>'b' , :password=>'bbbbbbbb', :password_confirmation=>'bb
 User.create(:user_name=>'c' , :password=>'cccccccc', :password_confirmation=>'cccccccc', :mail_address=>'c@pm.jp')
 
 #企業用アカウント
-IncAccount.create(:inc_name=>'A不動産' , :password=>'AAAAAAAA', :password_confirmation=>'AAAAAAAA', :mail_address=>'A@pm.jp' , :phone_num=>'012345678901' , :account_name=>'ｴｰﾌﾄﾞｳｻﾝ')
-IncAccount.create(:inc_name=>'B不動産' , :password=>'BBBBBBBB', :password_confirmation=>'BBBBBBBB', :mail_address=>'B@pm.jp' , :phone_num=>'123456789012' , :account_name=>'ﾋﾞｰﾌﾄﾞｳｻﾝ')
-IncAccount.create(:inc_name=>'C不動産' , :password=>'CCCCCCCC', :password_confirmation=>'BBBBBBBB', :mail_address=>'C@pm.jp' , :phone_num=>'234567890123' , :account_name=>'ｼｰﾌﾄﾞｳｻﾝ')
+IncAccount.create(:inc_name=>'A' , :password=>'AAAAAAAA', :password_confirmation=>'AAAAAAAA', :mail_address=>'A@pm.jp' , :phone_num=>'012345678901' , :account_name=>'ｴｰﾌﾄﾞｳｻﾝ' , :avaliable=>true)
+IncAccount.create(:inc_name=>'B' , :password=>'BBBBBBBB', :password_confirmation=>'BBBBBBBB', :mail_address=>'B@pm.jp' , :phone_num=>'123456789012' , :account_name=>'ﾋﾞｰﾌﾄﾞｳｻﾝ', :avaliable=>true)
+IncAccount.create(:inc_name=>'C' , :password=>'CCCCCCCC', :password_confirmation=>'BBBBBBBB', :mail_address=>'C@pm.jp' , :phone_num=>'234567890123' , :account_name=>'ｼｰﾌﾄﾞｳｻﾝ', :avaliable=>true)
 
 #店舗情報
 Store.create(:inc_account_id=>1 , :store_name=>'日立支店' , :street_address=>'日立市A町1-1-1' , :postal_code=>'1111111')
