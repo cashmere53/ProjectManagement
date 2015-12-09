@@ -25,11 +25,26 @@ class IncAccountsController < ApplicationController
     if @inc_account && @inc_account.authenticate(params[:password])
       @housing = Housing.where(inc_account_id: @inc_account.id)
       @inc_account_id = @inc_account.id
+      session[@inc_account_id] = @inc_account_id
       render :template => "/housing_databases/showTables"
     else
       @message = "ユーザ名かパスワードが違います。"
       render :template => "inc_accounts/login"
     end
+  end
+
+  def logout
+    @inc_account_id = params[:inc_account_id]
+    session[@inc_account_id] = nil
+    #広告取得
+    advertisings=Advertising.all
+    @advertisings=[]
+    if advertisings.length>0 then
+        (0..1).each{|num|
+            @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+        }
+    end
+    render template: "search/form"
   end
 
   def edit

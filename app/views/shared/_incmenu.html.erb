@@ -12,13 +12,14 @@
 <div class="container-fluid" style="padding: 10px;"><div class="row">
     <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
         <input type="hidden" name="inc_name" value="<%= @inc_name %>" >
+        <input type="hidden" name="inc_account_id" value="<%= @inc_account_id %>" >
 
         <div class="col-xs-4">
             <img src="http://jsrun.it/assets/C/y/z/k/Cyzkz.png" alt="Good Measure" class="img-responsive img-thumbnail" onclick="document.menu_form.submit();">
             <input type="submit" value="ホーム" class="btn btn-primary">
         </div>
 
-        <% if @inc_account_id==nil||@inc_account_id=='' then %>
+        <% if session[@inc_account_id]==nil||session[@inc_account_id]=='' then %>
             <div class="col-xs-8 text-right">
                 <input type="submit" value="企業新規登録" formaction='/inc_accounts/new' formmethod='get' class="btn btn-primary">
                 <input type="submit" value="企業ログイン" formaction='/inc_accounts/login' formmethod='get' class="btn btn-primary">
@@ -26,7 +27,7 @@
         <% else %>
             <div class="col-xs-8 text-right">
                 <input type="submit" value="設定" formaction='/inc_accounts/edit' class="btn btn-primary">
-                <input type="submit" value="ログアウト" formaction='/search/form' class="btn btn-primary">
+                <input type="submit" value="ログアウト" formaction='/inc_accounts/logout' class="btn btn-primary">
             </div>
         <% end %>
     <% end %>
