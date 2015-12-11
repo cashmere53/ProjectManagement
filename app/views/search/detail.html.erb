@@ -266,7 +266,7 @@ geocoding=function(address){
 広告<br>
 <table class="table">
 <% @advertisings.each{|advertising| %>
-    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+    <tr><th><%= image_tag show_image_advertising_path(advertising), size: "150x150" %></td></tr>
 <% } %>
 </table>
 </div>

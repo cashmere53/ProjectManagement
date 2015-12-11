@@ -52,6 +52,12 @@ Rails.application.routes.draw do
  patch '/advertising_databases/editDatabases/:id' => 'advertising_databases#update'
  delete '/advertising_databases/details/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
 
+ resources :housings do
+    member do
+      get 'show_image'
+    end
+  end
+
  resources :advertisings do
     member do
       get 'show_image'

@@ -1,6 +1,7 @@
 class AdvertisingsController < ApplicationController
 
   def index
+    @inc_account_id = params[:id]
     @advertisings = Advertising.all
   end
 
@@ -9,13 +10,16 @@ class AdvertisingsController < ApplicationController
   end
 
   def new
+    @inc_account_id = params[:id]
     @advertising = Advertising.new
   end
 
   def create
+    @inc_account_id = advertising_params[:id]
     upload_file = advertising_params[:file]
     advertising = {}
     if upload_file != nil
+      advertising[:inc_account_id] = @inc_account_id
       advertising[:advertise_info] = advertising_params[:advertise_info]
       advertising[:image] = upload_file.read
       advertising[:content_type] = upload_file.content_type
@@ -23,10 +27,11 @@ class AdvertisingsController < ApplicationController
     end
     @advertising = Advertising.new(advertising)
     if @advertising.save
-      flash[:success] = "画像を保存しました。"
-      redirect_to action: "index"
+      @advertisings = Advertising.all
+      render action: "index"
     else
-      flash[:error] = "画像を保存できませんでした。"
+      @message = "広告を保存できませんでした"
+      render action: "new"
     end
   end
 
@@ -37,6 +42,6 @@ class AdvertisingsController < ApplicationController
 
   private
     def advertising_params
-      params.require(:advertising).permit(:advertise_info, :file)
+      params.require(:advertising).permit(:id, :advertise_info, :file)
     end
 end

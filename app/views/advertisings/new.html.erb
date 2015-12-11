@@ -1,5 +1,9 @@
 <%= form_for(@advertising) do |f| %>
-  <%= f.text_field :advertise_info %>
+  <% if @message %>
+  <font color="red"><%= @message %></font>
+  <% end %>
+  <%= f.hidden_field :id, value: @inc_account_id %>
+  <%= f.text_field :advertise_info, :placeholder => "広告情報" %>
   <%= f.file_field :file, accept: "image/*" %>
   <%= f.submit "Upload" %>
 <% end %>

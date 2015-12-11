@@ -1,0 +1,43 @@
+<%= form_for(@advertising) do |f| %>
+  <% if @message %>
+  <font color="red"><%= @message %></font>
+  <% end %>
+  <%= f.hidden_field :id, @inc_account_id %>
+  <%= f.text_field :advertise_info %>
+  <%= f.file_field :file, accept: "image/*" %>
+  <%= f.submit "Upload" %>
+<% end %>
+
+<%= form_tag housing_databases_registerDatabases_path(params[:id]),multipart: true do %>
+    <table>
+
+      <tbody>
+      <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
+      <tr><td>店舗ID</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %></td> </tr>
+      <tr><td>住所</td> <td><%= text_field_tag :street_address,nil, :placeholder => "住所" %></td> </tr>
+      <tr><td>家賃</td>  <td><%= text_field_tag :rent,nil,:placeholder => '家賃'%></td> </tr>
+      <tr><td>管理費</td>  <td><%= text_field_tag :administration_cost,nil,:placeholder => '管理費'%></td> </tr>
+      <tr><td>タイプ</td>  <td><%= text_field_tag :housing_type,nil,:placeholder => 'タイプ'%></td></tr>
+      <tr><td>建築年月</td>  <td><%= date_select :date,:building_date, :use_month_numbers => true,:discard_day => true,:default => Date.new(1950, 1, 1),:start_year =>1950,:end_year => 2050%></td></tr>
+      <tr><td>向き</td>  <td><%= text_field_tag :direction,nil,:placeholder => '向き'%></td></tr>
+      <tr><td>間取り</td>  <td><%= text_field_tag :layout,nil,:placeholder => '間取り'%></td></tr>
+      <tr><td>面積</td>  <td><%= text_field_tag :area,nil,:placeholder => '面積'%></td></tr>
+      <tr><td>構造</td>  <td><%= text_field_tag :structure,nil,:placeholder => '構造'%></td></tr>
+      <tr><td>階建て</td>  <td><%= text_field_tag :floor,nil,:placeholder => '階建て'%></td></tr>
+      <tr><td>敷金</td>  <td><%= text_field_tag :deposit,nil,:placeholder => '敷金'%></td></tr>
+      <tr><td>礼金</td>  <td><%= text_field_tag :recompense,nil,:placeholder => '礼金'%></td></tr>
+      <tr><td>保証金</td>  <td><%= text_field_tag :security_money,nil,:placeholder => '保証金'%></td></tr>
+      <tr><td>敷引き</td>  <td><%= text_field_tag :shikibiki,nil,:placeholder => '敷引き'%></td></tr>
+      <tr><td>保険料</td>  <td><%= text_field_tag :insurance,nil,:placeholder => '保険料'%></td></tr>
+      <tr><td>駐車場</td>  <td><%= text_field_tag :parking,nil,:placeholder => '駐車場'%></td></tr>
+      <tr><td>取引態様</td>  <td><%= text_field_tag :trading_aspect,nil,:placeholder => '取引態様'%></td></tr>
+      <tr><td>他初期費用</td>  <td><%= text_field_tag :another_cost,nil,:placeholder => '他初期費用'%></td></tr>
+      <tr><td>空き部屋情報</td>  <td><%= text_field_tag :vacancy,nil,:placeholder => '空き部屋情報'%></td></tr>
+      <tr><td>詳細情報</td>  <td><%= text_field_tag :detail,nil,:placeholder => '詳細情報'%></td></tr>
+      <tr><td>契約プラン</td>  <td><%= text_field_tag :plan,nil,:placeholder => '契約プラン'%></td></tr>
+
+      </tbody>
+    </table>
+
+    <%= submit_tag "保存" %>
+<% end %>

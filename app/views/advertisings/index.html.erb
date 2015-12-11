@@ -3,27 +3,31 @@
 
 <div class="container-fluid" style="margin:20px;"><div class="row">
   <div align="right">
-    <%= button_to "広告登録", new_advertising_path, method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
-  <div class="container">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>広告情報</th>
-        <th>イメージ</th>
-        <th>契約更新日</th>
-      </tr>
-      </thead>
+    <%= button_to "広告登録", new_advertising_path, method: :get, params: { id: @inc_account_id }, class: "btn btn-success", style: "margin:5px;"%></div>
+    <ul class="nav nav-tabs">
+     <li><a href="/housings?id=<%= @inc_account_id %>">物件</a></li>
+     <li class="active"><a href="/advertisings?id=<%= @inc_account_id %>">広告</a></li>
+    </ul>
+    <div class="container">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>広告情報</th>
+          <th>イメージ</th>
+          <th>契約更新日</th>
+        </tr>
+        </thead>
 
-      <tbody>
-      <% @advertisings.each do |advertising| %>
-          <tr>
-            <td><%= advertising.advertise_info %></td>
-            <td><%= image_tag show_image_advertising_path(advertising),class: "large-img" %></td>
-            <td><%= advertising.contract_date %></td>
-            <td><%= link_to '詳細', '#', class: "btn btn-warning" %></td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
+        <tbody>
+        <% @advertisings.each do |advertising| %>
+            <tr>
+              <td><%= advertising.advertise_info %></td>
+              <td><%= image_tag show_image_advertising_path(advertising), size: "150x150" %></td>
+              <td><%= advertising.contract_date %></td>
+              <td><%= link_to '詳細', '#', class: "btn btn-warning" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
 </div></div>
