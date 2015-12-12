@@ -124,7 +124,7 @@
 <div style="height:40px;"></div>
 
 <!-- お気に入り登録ボタン -->
-<% if session[@user_name]!="" then %>
+<% if session[@user_name]!=nil then %>
 <%= form_tag('/search/detail', :method => :post) do %>
     <input type="hidden" name="user_name" value="<%= session[@user_name] %>" >
     <input type="hidden" name="housing_id" value="<%= @housing.id %>" >
