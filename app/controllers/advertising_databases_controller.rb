@@ -58,7 +58,7 @@ class AdvertisingDatabasesController < DatabasesController
       adv[:advertise_info] = params[:advertise_info]
       adv[:image] = upload_file.read
       adv[:inc_account_id] = params[:id]
-      @mess = "ufofhsfhasflsh"
+      adv[:contract_date] = Date.today
     end
     @advertising = Advertising.new(adv)
 

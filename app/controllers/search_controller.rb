@@ -196,7 +196,7 @@ class SearchController < ApplicationController
 
     #お気に入り登録
     fav=params[:fav]
-    if session[@user_name]!="" && fav=="登録" then
+    if session[@user_name]!=nil && fav=="登録" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length==0 then
             Favorite.create(:user_id=>@user[0].id , :housing_id=>@housing.id , :store_id=>@store.id , :inc_account_id=>@inc.id)
@@ -204,13 +204,13 @@ class SearchController < ApplicationController
     end
 
     #お気に入り削除
-    if session[@user_name]!="" && fav=="削除" then
+    if session[@user_name]!=nil && fav=="削除" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length>0 then favorite[0].destroy end
     end
 
     #お気に入り登録しているか調べる
-    if session[@user_name]!="" then
+    if session[@user_name]!=nil then
         @favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
     end
 
