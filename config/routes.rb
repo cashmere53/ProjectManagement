@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   #企業周り
   get '/inc_accounts/login' => 'inc_accounts#login'
   get '/inc_accounts/new' => 'inc_accounts#new'
+  post '/inc_accounts/edit' => 'inc_accounts#edit'
+  post '/inc_accounts/update' => 'inc_accounts#update'
+  delete '/inc_accounts/destroy/:id' => 'inc_accounts#destroy'
   post '/inc_accounts/auth' => 'inc_accounts#auth'
   post '/inc_accounts/logout' => 'inc_accounts#logout'
   get  '/inc_accounts/avaliable/:link_pass' => 'inc_accounts#avaliable'

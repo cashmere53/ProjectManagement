@@ -49,21 +49,23 @@ class IncAccountsController < ApplicationController
 
   def edit
     @message = ""
-    @inc_account = IncAccount.find_by(inc_name: params[:inc_name])
-    if params[:inc_name]!=nil && IncAccount.find_by(inc_name: params[:inc_name])!=nil && IncAccount.find_by(inc_name: params[:inc_name]).avaliable!=false
-      @inc_name = params[:inc_name]
+    @inc_account_id = params[:inc_account_id]
+    if params[:inc_account_id]!=nil && IncAccount.find(params[:inc_account_id])!=nil && IncAccount.find(params[:inc_account_id]).avaliable!=false
+      @inc_account = IncAccount.find(params[:inc_account_id])
+      @inc_name = @inc_account.inc_name
     else
       render :template => "search/form"
     end
   end
 
   def update
-    if params[:inc_name]!=nil && IncAccount.find_by(inc_name: params[:inc_name])!=nil && IncAccount.find_by(inc_name: params[:inc_name]).avaliable!=false
-      @inc_name = params[:inc_name]
+    @inc_account_id = params[:inc_account_id]
+    if @inc_account_id!=nil && IncAccount.find(@inc_account_id)!=nil && IncAccount.find(@inc_account_id).avaliable!=false
+      @inc_account = IncAccount.find(@inc_account_id)
+      @inc_name = @inc_account.inc_name
     else
       render :template =>"search/form"
     end
-    @inc_account = IncAccount.find_by(inc_name: @inc_name)
     if @inc_account && @inc_account.authenticate(params[:old_password])
       @inc_account.password = params[:password]
       @inc_account.password_confirmation = params[:password_confirmation]
@@ -80,6 +82,12 @@ class IncAccountsController < ApplicationController
   end
 
   def destroy
+    stores = Store.where(inc_account_id: params[:id])
+    stores.delete_all
+    housings = Housing.where(inc_account_id: params[:id])
+    housings.delete_all
+    advertisings = Advertising.where(inc_account_id: params[:id])
+    advertisings.delete_all
     inc_account = IncAccount.find(params[:id])
     inc_account.destroy
 
