@@ -32,7 +32,7 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def registerDatabases
-
+    @inc_account_id = params[:id]
   end
 
   def editDatabases
@@ -40,7 +40,7 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def deleteDatabases
-
+    @inc_account_id = params[:id]
   end
 
   def details
