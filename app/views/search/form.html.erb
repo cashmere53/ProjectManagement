@@ -15,10 +15,60 @@
 <div class="row">
 
 <!-- 検索フォーム欄 -->
- <div class="col-md-9">
+ <div class="col-md-3">
+   <div class="container-fluid"><div class="row">
+       <div style="border-bottom: solid 2px #22ff00;">近くにあってほしい施設</div>
+   </div></div>
+   <%= form_tag('/search/show', :method => :post) do %>
+       <input type="hidden" name="user_name" value="<%= @user_name %>" >
 
+       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+           １番目：
+           <%= select 'destination','d1' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"大学" %>
+       </p></div></div></div>
+
+       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+           ２番目：
+           <%= select 'destination','d2' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"コンビニ" %>
+       </p></div></div></div>
+
+       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+           ３番目：
+           <%= select 'destination','d3' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"スーパー" %>
+       </p></div></div></div>
+
+       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+           ４番目：
+           <%= select 'destination','d4' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"駅" %>
+       </p></div></div></div>
+
+       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+           ５番目：
+           <%= select 'destination','d5' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"郵便局" %>
+       </p></div></div></div>
+
+       <div style="height:10px;"></div>
+       <div class="container-fluid"><div class="row"><div class="col-xs-6">
+           <div style="border-bottom: solid 2px #22ff00;">坂を気にしますか？</div>
+       </div></div></div>
+       <div class="container-fluid"><div class="row">
+       <div class="col-xs-4"><input type="radio" name="slope" value="yes">はい</div>
+       <div class="col-xs-4"><input type="radio" name="slope" value="no" checked="checked">いいえ</div>
+       </div></div>
+       <div style="height:20px;"></div>
+
+       <input type="hidden" name="keyword" value="">
+       <input type="hidden" name="show[sort]" value="距離が近い順">
+       <div class="container-fluid"><div class="row"><div class="col-xs-2">
+           <input type="submit" value="検索" class="btn btn-success btn-lg">
+       </div></div></div>
+       <div style="height:40px;"></div>
+   <% end %>
+ </div>
+
+ <div class="col-md-6">
    <!-- スライドショー -->
-   <div class="container-fluid"><div class="row"><div class="col-xs-offset-2 col-xs-8">
+   <div class="container-fluid"><div class="row">
    <div id="carousel-home" class="carousel slide" data-ride="carousel">
        <!-- 下部ボタン -->
     <ol class="carousel-indicators">
@@ -72,57 +122,6 @@ Good Measureでは、「施設（大学やコンビニ）」と「物件」と�
             </div>
         </div>
     </div>
-</div>
-
-<!-- 検索フォーム -->
-<div class="container-fluid"><div class="row"><div class="col-xs-5">
-    <div style="border-bottom: solid 2px #22ff00;">近くにあってほしい施設</div>
-</div></div></div>
-<%= form_tag('/search/show', :method => :post) do %>
-    <input type="hidden" name="user_name" value="<%= @user_name %>" >
-
-    <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
-        １番目：
-        <%= select 'destination','d1' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"大学" %>
-    </p></div></div></div>
-
-    <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
-        ２番目：
-        <%= select 'destination','d2' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"コンビニ" %>
-    </p></div></div></div>
-
-    <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
-        ３番目：
-        <%= select 'destination','d3' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"スーパー" %>
-    </p></div></div></div>
-
-    <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
-        ４番目：
-        <%= select 'destination','d4' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"駅" %>
-    </p></div></div></div>
-
-    <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
-        ５番目：
-        <%= select 'destination','d5' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"郵便局" %>
-    </p></div></div></div>
-
-    <div style="height:10px;"></div>
-    <div class="container-fluid"><div class="row"><div class="col-xs-4">
-        <div style="border-bottom: solid 2px #22ff00;">坂を気にしますか？</div>
-    </div></div></div>
-    <div class="container-fluid"><div class="row">
-    <div class="col-xs-2"><input type="radio" name="slope" value="yes">はい</div>
-    <div class="col-xs-2"><input type="radio" name="slope" value="no" checked="checked">いいえ</div>
-    </div></div>
-    <div style="height:20px;"></div>
-
-    <input type="hidden" name="keyword" value="">
-    <input type="hidden" name="show[sort]" value="距離が近い順">
-    <div class="container-fluid"><div class="row"><div class="col-xs-2">
-        <input type="submit" value="検索" class="btn btn-success btn-lg">
-    </div></div></div>
-    <div style="height:40px;"></div>
-<% end %>
 </div>
 
 <!-- 広告枠 -->

@@ -14,18 +14,16 @@ function write_chart(id, dest1, dest2, dest3, dest4, dest5, dis1, dis2, dis3, di
   };
 
   var option = {
-    scaleShowLabels: true,   // 目盛を表示
-    pointLabelFontSize : 10, // ラベルを表示
-    // 値の開始値などを自分で設定するか
-    scaleOverride : true,
+    scaleShowLabels: true,      // 目盛を表示
+    pointLabelFontSize : 10,    // ラベルを表示
+    scaleOverride : true,       // 値の開始値などを自分で設定するか
+    scaleLabel : "<%=value%>m", //Y軸の表記（単位など）
+    scaleFontSize : 8,         //フォントサイズ
 
     // 以下の 3 オプションは scaleOverride: true の時に使用
-    // 値のステップ数
-    scaleSteps : 5,
-    // 値のステップする大きさ
-    scaleStepWidth : -Math.ceil(denomi/1000)*200,
-    // 値の始まりの値
-    scaleStartValue : Math.ceil(denomi/1000)*1000,
+    scaleSteps : 5,                                // 値のステップ数
+    scaleStepWidth : -Math.ceil(denomi/1000)*200,  // 値のステップする大きさ
+    scaleStartValue : Math.ceil(denomi/1000)*1000, // 値の始まりの値
   }
 
   // Canvas にレーダーチャートを描画

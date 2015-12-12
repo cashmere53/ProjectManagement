@@ -54,24 +54,33 @@
 
     <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
         <td>
-        <%= @housings[distance["id"]].street_address %> <!-- 住所 -->
-        </td>
-        <td>
-        <% rent_num=@housings[distance["id"]].rent/10000.to_f %>
-        <p style="font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
-        <p style="font-size: 13px;">
+          <table class="table"><tr><td>
+          <% rent_num=@housings[distance["id"]].rent/10000.to_f %>
+          <p style="font-size: 18px; color: #ff0000; font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
+          <div style="font-size: 13px;">
             管理費 <%= @housings[distance["id"]].administration_cost %>円 <!-- 管理費 -->
-        </p>
+          </div>
+          </td></tr><tr><td>
+            <%= @housings[distance["id"]].housing_type %> <!-- タイプ -->
+          </td></tr><tr><td>
+            <%= @housings[distance["id"]].street_address %> <!-- 住所 -->
+          </td></tr></table>
         </td>
         <td>
-        <p><%= @housings[distance["id"]].housing_type %></p> <!-- タイプ -->
-        <p>築<%= Date.today.year-@housings[distance["id"]].building_date.year %>年</p> <!-- 築年月 -->
-        </td>
-        <td>
-        <p><%= @housings[distance["id"]].direction %></p> <!-- 方向 -->
-        <p><%= @housings[distance["id"]].layout %></p> <!-- 間取り -->
-        <% area_num=@housings[distance["id"]].area/10.to_f %>
-        <p><%= area_num %>m&sup2;</p> <!-- 面積 -->
+          <table class="table"><tr>
+            <td>築年数　：</td><td>
+            築<%= Date.today.year-@housings[distance["id"]].building_date.year %>年</td> <!-- 築年月 -->
+          </tr><tr>
+            <td>部屋向き：</td><td>
+            <%= @housings[distance["id"]].direction %></td> <!-- 方向 -->
+          </tr><tr>
+            <td>間取り　：</td><td>
+            <%= @housings[distance["id"]].layout %></td> <!-- 間取り -->
+          </tr><tr>
+            <td>専有面積：</td><td>
+            <% area_num=@housings[distance["id"]].area/10.to_f %>
+            <p><%= area_num %>m&sup2;</td> <!-- 面積 -->
+          </tr></table>
         </td>
     </tr></table></div>
 
