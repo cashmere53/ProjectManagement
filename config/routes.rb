@@ -52,6 +52,10 @@ Rails.application.routes.draw do
  patch '/advertising_databases/editDatabases/:id' => 'advertising_databases#update'
  delete '/advertising_databases/details/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
 
+#店舗登録
+  get '/store/registerStores/:id' => 'store#registerStores',as: 'registerStores'
+  post '/store/registerStores/:id' => 'store#create'
+
   resources :search do
     member { get :image }
   end
