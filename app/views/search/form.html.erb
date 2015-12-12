@@ -48,12 +48,12 @@
        </p></div></div></div>
 
        <div style="height:10px;"></div>
-       <div class="container-fluid"><div class="row"><div class="col-xs-6">
-           <div style="border-bottom: solid 2px #22ff00;">坂を気にしますか？</div>
-       </div></div></div>
        <div class="container-fluid"><div class="row">
-       <div class="col-xs-4"><input type="radio" name="slope" value="yes">はい</div>
-       <div class="col-xs-4"><input type="radio" name="slope" value="no" checked="checked">いいえ</div>
+           <div style="border-bottom: solid 2px #22ff00;">坂を気にしますか？</div>
+       </div></div>
+       <div class="container-fluid"><div class="row">
+       <div class="col-xs-6"><input type="radio" name="slope" value="yes">はい</div>
+       <div class="col-xs-6"><input type="radio" name="slope" value="no" checked="checked">いいえ</div>
        </div></div>
        <div style="height:20px;"></div>
 
@@ -131,7 +131,7 @@ Good Measureでは、「施設（大学やコンビニ）」と「物件」と�
 広告<br>
 <table class="table">
 <% @advertisings.each{|advertising| %>
-    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+    <tr><th><%= image_tag(advertising_databases_image_path(advertising.id), :size => '150x150') %></td></tr>
 <% } %>
 </table>
 </div>

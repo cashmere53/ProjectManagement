@@ -49,7 +49,7 @@
     <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
     <div class="col-sm-3">
-        <%= image_tag(image_search_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
+        <%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
     </div>
 
     <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
@@ -139,7 +139,7 @@
 広告<br>
 <table class="table">
 <% @advertisings.each{|advertising| %>
-    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+    <tr><th><%= image_tag(advertising_databases_image_path(advertising.id), :size => '150x150') %></td></tr>
 <% } %>
 </table>
 </div>
