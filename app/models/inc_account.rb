@@ -24,10 +24,10 @@ class IncAccount < ActiveRecord::Base
   validates :phone_num,
     presence: { message: "⚠︎電話番号を入力してください" },
     length: { in: 8..30, message: "⚠︎電話番号は8文字以上30文字以内で入力してください" },
-    format: { with: /\A[0-9]+\z/, message: "⚠︎パスワードは「0〜9」のみ使用してください" }
+    format: { with: /\A[0-9]+\z/, message: "⚠︎電話番号は「0〜9」のみ使用してください" }
 
   validates :account_name,
     presence: { message: "⚠︎口座名義を入力してください" },
     length: { maximum: 255, message: "⚠︎口座名義は255文字以内で入力してください" },
-    format: { with: /\A[a-zA-Z0-9-_]+\z/, message: "⚠︎パスワードは「a〜z, A〜Z, 0〜9, -, _」のみ使用してください" }
+    format: { with: /\A[a-zA-Z0-9-_]+\z/, message: "⚠︎口座名義は「a〜z, A〜Z, 0〜9, -, _」のみ使用してください" }
 end

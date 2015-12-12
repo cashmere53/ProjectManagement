@@ -39,7 +39,7 @@
           <tr height="30"><td><center><%= f.text_field :mail_address, :placeholder => "メールアドレスを入力", :size => "50", :maxlength => "50" %></center></td></tr>
           <tr height="30"><td><font color="red">　　<%= @inc_account.errors.messages[:mail_address][0] %></font></td><tr>
 
-          <tr height="30"><td>　　電話番号：</td></tr>
+          <tr height="30"><td>　　電話番号(数字のみで入力)：</td></tr>
           <tr height="30"><td><center><%= f.text_field :phone_num, :placeholder => "電話番号を入力", :size => "50", :maxlength => "50" %></center></td></tr>
           <tr height="30"><td><font color="red">　　<%= @inc_account.errors.messages[:phone_num][0] %></font></td><tr>
 
