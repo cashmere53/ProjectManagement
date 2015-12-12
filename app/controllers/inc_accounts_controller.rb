@@ -111,6 +111,13 @@ class IncAccountsController < ApplicationController
       render action: 'new'
     elsif params[:regist]
       @inc_account.avaliable = false
+      o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
+      while true do
+        @inc_account.link_pass = (0...64).map { o[rand(o.length)] }.join
+        if(IncAccount.find_by(link_pass: @inc_account.link_pass)==nil)
+          break;
+        end
+      end
       if @inc_account.save
         IncMailer.regist_mail(@inc_account.mail_address, @inc_account.inc_name).deliver
       else
@@ -122,8 +129,8 @@ class IncAccountsController < ApplicationController
 
   #登録されたユーザを有効にする
   def avaliable
-    inc_name = params[:inc_name]
-    @inc_account = IncAccount.find_by(inc_name: inc_name)
+    link_pass = params[:link_pass]
+    @inc_account = IncAccount.find_by(link_pass: link_pass)
     if(@inc_account && @inc_account.avaliable == false && @inc_account.update_attribute(:avaliable, true))
       @title = "登録完了"
       @message = "登録が完了しました。"

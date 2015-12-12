@@ -104,8 +104,15 @@ class UsersController < ApplicationController
       render action: 'new'
     elsif params[:regist]
       @user.avaliable = false
+      o = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
+      while true do
+        @user.link_pass = (0...64).map { o[rand(o.length)] }.join
+        if(User.find_by(link_pass: @user.link_pass)==nil)
+          break;
+        end
+      end
       if @user.save
-        UserMailer.regist_mail(@user.mail_address, @user.user_name).deliver
+        UserMailer.regist_mail(@user.mail_address, @user.link_pass).deliver
       else
         @message = "エラーが発生しました。"
         render action: 'new'
@@ -115,8 +122,8 @@ class UsersController < ApplicationController
 
   #登録されたユーザを有効にする
   def avaliable
-    user_name = params[:user_name]
-    @user = User.find_by(user_name: user_name)
+    link_pass = params[:link_pass]
+    @user = User.find_by(link_pass: link_pass)
     if(@user && @user.avaliable == false && @user.update_attribute(:avaliable, true))
       @title = "登録完了"
       @message = "登録が完了しました。"

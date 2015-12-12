@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post '/users/edit' => 'users#edit'
   post '/users/update' => 'users#update'
   delete '/users/destroy/:id' => 'users#destroy'
-  get  '/users/avaliable/:user_name' => 'users#avaliable'
+  get  '/users/avaliable/:link_pass' => 'users#avaliable'
   post '/users/confirm' => 'users#confirm'
   post '/users/complete' => 'users#complete'
 
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get '/inc_accounts/new' => 'inc_accounts#new'
   post '/inc_accounts/auth' => 'inc_accounts#auth'
   post '/inc_accounts/logout' => 'inc_accounts#logout'
-  get  '/inc_accounts/avaliable/:inc_name' => 'inc_accounts#avaliable'
+  get  '/inc_accounts/avaliable/:link_pass' => 'inc_accounts#avaliable'
   post '/inc_accounts/confirm' => 'inc_accounts#confirm'
   post '/inc_accounts/complete' => 'inc_accounts#complete'
 
