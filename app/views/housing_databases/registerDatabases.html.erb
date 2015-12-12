@@ -13,7 +13,8 @@
 
       <tbody>
       <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
-      <tr><td>店舗ID</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %></td> </tr>
+      <tr><td>店舗選択</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %></td> </tr>
+      <tr><td>店舗新規登録</td> <td><%= text_field_tag :reg_store_name,nil, :placeholder => "新規登録" %></td> </tr>
       <tr><td>住所</td> <td><%= text_field_tag :street_address,nil, :placeholder => "住所" %></td> </tr>
       <tr><td>家賃</td>  <td><%= text_field_tag :rent,nil,:placeholder => '家賃'%></td> </tr>
       <tr><td>管理費</td>  <td><%= text_field_tag :administration_cost,nil,:placeholder => '管理費'%></td> </tr>

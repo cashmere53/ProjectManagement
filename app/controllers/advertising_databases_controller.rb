@@ -27,8 +27,8 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def image
-    @advertising = AdvertisingTable.find(params[:id])
-    send_data @image.file, :type => 'image/jpeg', :disposition => 'inline'
+    @advertising = Advertising.find(params[:id])
+    send_data(@advertising.image, :type => 'image/jpeg', disposition: :inline)
   end
 
   def registerDatabases
