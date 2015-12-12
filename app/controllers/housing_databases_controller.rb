@@ -28,7 +28,7 @@ class HousingDatabasesController < DatabasesController
 
   def image
     @housing = Housing.find(params[:id])
-    send_data(@housing.image, type: @housing.image_content_type, disposition: :inline)
+    send_data(@housing.image, :type => 'image/jpeg', disposition: :inline)
   end
 
   def registerDatabases
@@ -58,7 +58,14 @@ class HousingDatabasesController < DatabasesController
     @housingdate = DateTime.new(@date["building_date(1i)"].to_i,@date["building_date(2i)"].to_i,@date["building_date(3i)"].to_i)
     @selected = params[:selectedstore_id]
 
-    @housing.store_id = @selected["store_id"].to_i
+    if @selected.present?
+      @housing.store_id = @selected["store_id"].to_i
+    else
+      @store = Store.new
+      @store.store_name = params[:reg_store_name]
+      @store.inc_account_id = params[:id]
+    end
+
     @housing.inc_account_id = params[:id]
     @housing.street_address = params[:street_address]
     @housing.rent = params[:rent].to_i
@@ -84,7 +91,7 @@ class HousingDatabasesController < DatabasesController
 
     if params[:image].present?
       @housing.image = params[:image].read
-      @housing.image_content_type = params[:image].content_type
+
     end
 
     @housing.save
@@ -122,7 +129,7 @@ class HousingDatabasesController < DatabasesController
 
     if params[:image].present?
       @housing.image = params[:image].read
-      @housing.image_content_type = params[:image].content_type
+
     end
 
     @housing.save
