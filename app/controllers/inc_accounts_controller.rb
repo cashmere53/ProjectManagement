@@ -127,7 +127,7 @@ class IncAccountsController < ApplicationController
         end
       end
       if @inc_account.save
-        IncMailer.regist_mail(@inc_account.mail_address, @inc_account.inc_name).deliver
+        IncMailer.regist_mail(@inc_account.mail_address, @inc_account.link_pass).deliver
       else
         @message = "エラーが発生しました。"
         render action: 'new'
