@@ -8,9 +8,9 @@
 # end of specification ;
 #############################################################-->
 
-<%= form_tag('/housing_databases/showTables', :method => :get) do %>
+<%= form_tag('/advertising_databases/showTables', :method => :get) do %>
   <input type="hidden" name="inc_account_id" value="<%= @inc_account_id %>" >
-  <input type="submit" value="戻る" formaction='/housing_databases/showTables/<%= @inc_account_id %>' formmethod='get' class="btn btn-warning">
+  <input type="submit" value="戻る" formaction='/advertising_databases/showTables/<%= @inc_account_id %>' formmethod='get' class="btn btn-warning">
 <% end %>
 
 <%= form_tag advertising_databases_registerDatabses_path(params[:id]), multipart: true do%>

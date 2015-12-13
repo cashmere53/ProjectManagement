@@ -41,7 +41,8 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @message = ""
+    @message1 = ""
+    @message2 = ""
     @user = User.find_by(user_name: params[:user_name])
     if params[:user_name]!=nil && User.find_by(user_name: params[:user_name])!=nil && User.find_by(user_name: params[:user_name]).avaliable!=false
       @user_name = params[:user_name]
@@ -62,12 +63,16 @@ class UsersController < ApplicationController
       @user.password_confirmation = params[:password_confirmation]
       if @user.valid?
         @user.save
-        @message = "パスワードを変更しました。"
+        @message1 = "パスワードを変更しました。"
       else
-        @message = "パスワードが違います。"
+        if @user.password == @user.password_confirmation
+          @message2 = "パスワードは8文字以上30文字以内で入力してください。"
+        else
+          @message2 = "パスワードが一致していません。再度入力してください。"
+        end
       end
     else
-      @message = "パスワードが違います。"
+      @message1 = "古いパスワードが違います。"
     end
     render action: 'edit'
   end

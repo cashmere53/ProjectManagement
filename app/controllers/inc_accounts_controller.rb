@@ -48,7 +48,8 @@ class IncAccountsController < ApplicationController
   end
 
   def edit
-    @message = ""
+    @message1 = ""
+    @message2 = ""
     @inc_account_id = params[:inc_account_id]
     if params[:inc_account_id]!=nil && IncAccount.find(params[:inc_account_id])!=nil && IncAccount.find(params[:inc_account_id]).avaliable!=false
       @inc_account = IncAccount.find(params[:inc_account_id])
@@ -71,12 +72,16 @@ class IncAccountsController < ApplicationController
       @inc_account.password_confirmation = params[:password_confirmation]
       if @inc_account.valid?
         @inc_account.save
-        @message = "パスワードを変更しました。"
+        @message2 = "パスワードを変更しました。"
       else
-        @message = "パスワードが違います。"
+        if @inc_account.password == @inc_account.password_confirmation
+          @message2 = "パスワードは8文字以上30文字以内で入力してください。"
+        else
+          @message2 = "パスワードが一致していません。再度入力してください。"
+        end
       end
     else
-      @message = "パスワードが違います。"
+      @message1 = "古いパスワードが違います。"
     end
     render action: 'edit'
   end

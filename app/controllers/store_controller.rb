@@ -14,7 +14,7 @@ class StoreController < ApplicationController
   end
 
   def registerStores
-
+    @inc_account_id = params[:id]
   end
 
   def editStores
