@@ -38,7 +38,7 @@
             <td><%= image_tag(advertising_databases_image_path(info.id), :size => '100x100') %></td>
             <td></td>
             <td><%= info.contract_date %></td>
-            <td><%= link_to '詳細', advertising_databases_details_path(info.id), class: "btn btn-warning" %></td>
+            <td><%= link_to '詳細', advertising_databases_details_path(info.id), method: :get, class: "btn btn-warning" %></td>
           </tr>
       <% end %>
       </tbody>
