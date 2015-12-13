@@ -42,4 +42,4 @@
 
 <%= link_to '編集', housing_databases_editDatabases_path(@housing.id) %>
 <%= link_to '削除', housing_databases_destroy_path(@housing.id),method: 'delete',"data-confirm" => "本当に削除しますか？" %>
-<%= link_to '一覧へ戻る', housing_databases_showTables_path(@housing.inc_id)%>
+<%= link_to '一覧へ戻る', housing_databases_showTables_path(@housing.inc_account_id)%>

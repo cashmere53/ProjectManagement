@@ -47,7 +47,7 @@
           <td><%= info.layout %></td>
           <td><%= info.area %></td>
           <td><%= info.contract_update %></td>
-          <td><%= button_to '詳細', housing_databases_details_path(info.id), class: "btn btn-warning" %></td>
+          <td><%= button_to '詳細', housing_databases_detail_path(info.id), method: :get, class: "btn btn-warning" %></td>
         </tr>
         <% end %>
       </tbody>

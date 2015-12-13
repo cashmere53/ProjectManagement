@@ -38,7 +38,7 @@ class HousingDatabasesController < DatabasesController
 
   def editDatabases
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @store = @inc.Store
   end
 
@@ -46,9 +46,9 @@ class HousingDatabasesController < DatabasesController
 
   end
 
-  def details
+  def detail
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @store = Store.find(@housing.store_id)
   end
 
@@ -136,12 +136,12 @@ class HousingDatabasesController < DatabasesController
     end
 
     @housing.save
-    redirect_to housing_databases_details_path(@housing.id), notice: "住宅情報の編集を完了しました"
+    redirect_to housing_databases_detail_path(@housing.id), notice: "住宅情報の編集を完了しました"
   end
 
   def destroy
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @housing.destroy
     redirect_to housing_databases_showTables_path(@inc.id)
   end

@@ -33,7 +33,7 @@
             <td><%= info.store_name %></td>
             <td><%= info.street_address %></td>
             <td><%= info.postal_code %></td>
-            <td><%= button_to '詳細', housing_databases_details_path(info.id), class: "btn btn-warning" %></td>
+            <td><%= button_to '詳細', housing_databases_detail_path(info.id), class: "btn btn-warning" %></td>
           </tr>
       <% end %>
       </tbody>
