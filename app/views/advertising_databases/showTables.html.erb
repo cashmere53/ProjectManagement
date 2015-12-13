@@ -26,7 +26,6 @@
       <tr>
         <th>広告情報<%= @mexx %></th>
         <th>イメージ</th>
-        <th>画像URL</th>
         <th>契約更新日</th>
       </tr>
       </thead>
@@ -36,9 +35,8 @@
           <tr>
             <td><%= info.advertise_info %></td>
             <td><%= image_tag(advertising_databases_image_path(info.id), :size => '100x100') %></td>
-            <td></td>
             <td><%= info.contract_date %></td>
-            <td><%= link_to '詳細', advertising_databases_details_path(info.id), class: "btn btn-warning" %></td>
+            <td><%= link_to '編集', advertising_databases_editDatabases_path(info.id), class: "btn btn-warning" %> <%= link_to '削除', advertising_databases_destroy_path(info.id),method: 'delete', class: "btn btn-warning" ,"data-confirm" => "本当に削除しますか？"%></td>
           </tr>
       <% end %>
       </tbody>

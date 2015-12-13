@@ -50,12 +50,15 @@ Rails.application.routes.draw do
  get '/advertising_databases/:id/image/' => 'advertising_databases#image',as: 'advertising_databases_image'
  post '/advertising_databases/registerDatabases/:id' => 'advertising_databases#create'
  patch '/advertising_databases/editDatabases/:id' => 'advertising_databases#update'
- delete '/advertising_databases/details/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
+ delete '/advertising_databases/showTables/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
 
 #店舗登録
   get '/store/registerStores/:id' => 'store#registerStores',as: 'registerStores'
   get '/store/showStores/:id' => 'store#showStores',as:'showStores'
+  get '/store/editStores/:id' => 'store#editStores',as:'editStores'
   post '/store/registerStores/:id' => 'store#create'
+  patch '/store/editStores/:id' => 'store#update'
+  delete '/store/showStores/:id' => 'store#destroy',as:'store_destroy'
 
   resources :search do
     member { get :image }
