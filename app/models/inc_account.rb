@@ -1,7 +1,7 @@
 class IncAccount < ActiveRecord::Base
   has_many :Store, dependent: :destroy
-  has_many :HousingTable, dependent: :destroy, through: :Store
-  has_many :AdvertisingTable, dependent: :destroy
+  has_many :Housing, dependent: :destroy, through: :Store
+  has_many :Advertising, dependent: :destroy
 
   has_secure_password validations: false
   validates :inc_name,
