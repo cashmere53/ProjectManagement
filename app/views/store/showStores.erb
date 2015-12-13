@@ -1,0 +1,41 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div class="container-fluid" style="margin:20px;"><div class="row">
+  <center><b>企業名：<%= @inc_account.inc_name %></b></center>
+  <ul class="nav nav-tabs">
+    <li ><a href="/housing_databases/showTables/<%= @inc_account.id %>">物件</a></li>
+    <li><a href="/advertising_databases/showTables/<%= @inc_account.id %>">広告</a></li>
+    <li class="active"><a href="/store/showStores/<%= @inc_account.id %>">店舗</a></li>
+  </ul>
+  <div align="right"><%= button_to "店舗登録", registerStores_path(@inc_account_id), method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
+  <div class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>店舗名</th>
+        <th>住所</th>
+        <th>郵便番号</th>
+      </thead>
+      <tbody>
+      <% @store.each do |info| %>
+          <tr>
+            <td><%= info.store_name %></td>
+            <td><%= info.street_address %></td>
+            <td><%= info.postal_code %></td>
+            <td><%= button_to '詳細', housing_databases_details_path(info.id), class: "btn btn-warning" %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div></div>
