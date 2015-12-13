@@ -16,6 +16,7 @@
   <ul class="nav nav-tabs">
    <li class="active"><a href="/housing_databases/showTables/<%= @inc_account_id %>">物件</a></li>
    <li><a href="/advertising_databases/showTables/<%= @inc_account_id %>">広告</a></li>
+    <li><a href="/store/showStores/<%= @inc_account_id %>">店舗</a></li>
   </ul>
   <div align="right"><%= button_to "物件登録", housing_databases_registerDatabases_path(@inc_account_id), method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
   <div class="container">

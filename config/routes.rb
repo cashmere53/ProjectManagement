@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
 #店舗登録
   get '/store/registerStores/:id' => 'store#registerStores',as: 'registerStores'
+  get '/store/showStores/:id' => 'store#showStores',as:'showStores'
   post '/store/registerStores/:id' => 'store#create'
 
   resources :search do
