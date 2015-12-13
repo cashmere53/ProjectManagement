@@ -12,7 +12,8 @@
 <%= render 'shared/menu' %>
 
 <div class="container-fluid"><div class="row">
-  <div class="col-sm-3"></div>
+  <div class="col-sm-3">
+  </div>
     <div class="col-sm-6">
       <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
         <input type="hidden" name="user_name" value="<%= @user_name %>">
@@ -41,7 +42,7 @@
 
           <tr height="30"><td><center><input type="submit" value="パスワード変更" formaction='/users/update' class="btn btn-success"></center></td></tr>
           <% end %>
-          <tr height="30"><td><center><%= button_to "削除", { :action => "destroy", :id => @user.id }, :confirm => "本当に削除しますか?", :method => :delete, :class => "btn btn-warning" %></center></td></tr>
+          <tr height="30"><td><center><%= button_to "アカウント削除", { :action => "destroy", :id => @user.id }, data: {confirm: "本当に削除しますか?"}, :method => :delete, :class => "btn btn-warning", style: "margin:5px;" %></center></td></tr>
           <tr height="10"><td></td></tr>
         </table>
     </center></div>

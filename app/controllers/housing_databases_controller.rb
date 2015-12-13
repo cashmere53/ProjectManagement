@@ -32,6 +32,7 @@ class HousingDatabasesController < DatabasesController
   end
 
   def registerDatabases
+    @inc_account_id = params[:id]
     @inc = IncAccount.find(params[:id])
     @store = @inc.Store
   end

@@ -90,16 +90,6 @@ class IncAccountsController < ApplicationController
     advertisings.delete_all
     inc_account = IncAccount.find(params[:id])
     inc_account.destroy
-
-    #広告取得
-    advertisings=Advertising.all
-    @advertisings=[]
-    if advertisings.length>0 then
-        (0..1).each{|num|
-            @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
-        }
-    end
-    render :template => "search/form"
   end
 
   #確認画面を表示する

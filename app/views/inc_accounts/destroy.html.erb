@@ -1,0 +1,27 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/menu' %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
+        <tr height="40"><td><center><h4><b>削除完了</b><h4><center></td></tr>
+        <tr height="30"><td><center>企業データが削除されました。</center></td></tr>
+        <tr height="30"><td></td></tr>
+        <tr height="30"><td><center><%= button_to "ホーム画面へ", {controller: "search", action: "form"}, {class: "btn btn-success", method: :get}  %></center></td></tr>
+        <tr height="10"><td></td></tr>
+      </table>
+    </center></div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>
