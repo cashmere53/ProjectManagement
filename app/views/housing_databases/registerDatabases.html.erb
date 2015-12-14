@@ -13,8 +13,10 @@
 
       <tbody>
       <% if @message %><tr><td><center><font color="red"><%= @message %></font></center></td></tr><% end %>
-      <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
+      <tr><td>画像</td> <td><%= file_field_tag 'image' %></td> </tr>
       <tr><td>店舗選択</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %> <td><%= submit_tag "店舗情報新規登録" ,:name => 'store_register'%></td></td> </tr>
+      <tr><td colspan="2"><font color="red">　<%= if @store.blank?
+                                                  "店舗情報がありません。登録してください" end %></font></td><tr>
       <tr><td>住所</td> <td><%= text_field_tag :street_address,@housing.street_address, :placeholder => "住所" %></td> </tr>
 
       <tr><td>家賃</td>  <td><%= text_field_tag :rent,@housing.rent,:placeholder => '家賃'%></td> </tr>
