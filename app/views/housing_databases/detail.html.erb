@@ -27,12 +27,17 @@
   <tr><td>保証金</td>  <td><%= @housing.security_money%></td></tr>
   <tr><td>敷引き</td>  <td><%= @housing.shikibiki%></td></tr>
   <tr><td>保険料</td>  <td><%= @housing.insurance%></td></tr>
-  <tr><td>駐車場</td>  <td><%= @housing.parking%></td></tr>
+  <tr><td>駐車場料金</td>  <td><%= if @housing.parking == -1
+                                "駐車場なし" end%></td></tr>
   <tr><td>取引態様</td>  <td><%= @housing.trading_aspect%></td></tr>
   <tr><td>他初期費用</td>  <td><%= @housing.another_cost%></td></tr>
   <tr><td>空き部屋情報</td>  <td><%= @housing.vacancy%></td></tr>
   <tr><td>詳細情報</td>  <td><%= @housing.detail%></td></tr>
-  <tr><td>契約プラン</td>  <td><%= @housing.plan%></td></tr>
+  <tr><td>契約プラン</td>  <td><%= if @housing.plan == 1
+                                    "年契約"
+                                    else
+                                      "月契約"
+                                    end%></td></tr>
   <tr><td>契約更新日</td>  <td><%= @housing.contract_update%></td></tr>
   <tr><td>閲覧数</td>  <td><%= @housing.views%></td></tr>
   <tr><td>お気に入り件数</td>  <td><%= @housing.favorites%></td></tr>
