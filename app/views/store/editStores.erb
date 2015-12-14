@@ -17,7 +17,7 @@
       <tr><td>住所</td>  <td><%= text_field_tag :street_address,@store.street_address,:placeholder => '住所'%></td> </tr>
       <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:street_address] %></font></td><tr>
       <tr><td>郵便番号</td>  <td><%= text_field_tag :postal_code,@store.postal_code,:placeholder => '郵便番号'%></td> </tr>
-      <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:postal_code][0] %></font></td><tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:postal_code] %></font></td><tr>
       </tbody>
     </table>
 
