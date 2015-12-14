@@ -15,11 +15,11 @@
       <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
       <tr><td>店舗ID</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name,:selected => @housing.store_id) %></td> </tr>
       <tr><td>住所</td> <td><%= text_field_tag :street_address,@housing.street_address, :placeholder => "住所" %></td> </tr>
-      <tr height="30"><td><font color="red">　　<%= @housing.errors.messages[:street_address] %></font></td><tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:street_address] %></font></td><tr>
       <tr><td>家賃</td>  <td><%= text_field_tag :rent,@housing.rent,:placeholder => '家賃'%></td> </tr>
-      <tr height="30"><td><font color="red">　　<%= @housing.errors.messages[:rent] %></font></td><tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:rent] %></font></td><tr>
       <tr><td>管理費</td>  <td><%= text_field_tag :administration_cost,@housing.administration_cost,:placeholder => '管理費'%></td> </tr>
-      <tr height="30"><td><font color="red">　　<%= @housing.errors.messages[:administration_cost] %></font></td><tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:administration_cost] %></font></td><tr>
       <tr><td>タイプ</td>  <td><%= text_field_tag :housing_type,@housing.housing_type,:placeholder => 'タイプ'%></td></tr>
       <tr><td>建築年月</td>  <td><%= date_select :date,:building_date, :use_month_numbers => true,:discard_day => true,:default => @housing.building_date,:start_year =>1950,:end_year => 2050%></td></tr>
       <tr><td>向き</td>  <td><%= text_field_tag :direction,@housing.direction,:placeholder => '向き'%></td></tr>
@@ -36,10 +36,10 @@
       <tr><td>取引態様</td>  <td><%= text_field_tag :trading_aspect,@housing.trading_aspect,:placeholder => '取引態様'%></td></tr>
       <tr><td>他初期費用</td>  <td><%= text_field_tag :another_cost,@housing.another_cost,:placeholder => '他初期費用'%></td></tr>
       <tr><td>空き部屋情報</td>  <td><%= text_field_tag :vacancy,@housing.vacancy,:placeholder => '空き部屋情報'%></td></tr>
-      <tr><td>詳細情報</td>  <td><%= text_field_tag :detail,@housing.detail,:placeholder => '詳細情報'%></td></tr>
+      <tr><td>詳細情報</td>  <td><%= text_area_tag :detail,@housing.detail,:placeholder => '詳細情報' ,:size => "50x10"%></td></tr>
       <tr><td>契約プラン</td>  <td><%= radio_button_tag :plan, 1 %> <%= label_tag :plan_name, "年契約" %>
         <%= radio_button_tag :plan, 2 %> <%= label_tag :plan_name, "月契約" %></td></tr>
-      <tr height="30"><td><font color="red">　　<%= @housing.errors.messages[:plan] %></font></td><tr>
+      <tr height="30" colspan="2"><td><font color="red">　　<%= @housing.errors.messages[:plan] %></font></td><tr>
 
       </tbody>
     </table>

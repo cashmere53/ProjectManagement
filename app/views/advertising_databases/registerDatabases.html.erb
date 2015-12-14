@@ -12,8 +12,9 @@
     <table>
 
       <tbody>
-      <tr><td>広告情報</td> <td><%= text_field_tag :advertise_info,nil, :placeholder => "広告情報" %></td> </tr>
+      <tr><td>広告情報</td> <td><%= text_field_tag :advertise_info,@advertising.advertise_info, :placeholder => "広告情報" %></td> </tr>
       <tr><td>画像URL</td> <td><%= file_field_tag 'image' %></td> </tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @advertising.errors.messages[:image] %></font></td><tr>
 
       </tbody>
     </table>

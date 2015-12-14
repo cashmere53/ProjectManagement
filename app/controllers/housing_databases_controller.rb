@@ -100,12 +100,8 @@ class HousingDatabasesController < DatabasesController
         @housing.image = params[:image].read
       end
 
-      if @housing.save
-        redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
-      else
-        render :registerDatabases
-      end
-
+      @housing.save
+      redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
     end
 
   end
@@ -150,11 +146,8 @@ class HousingDatabasesController < DatabasesController
       @housing.image = params[:image].read
     end
 
-    if @housing.save
-      redirect_to housing_databases_detail_path(params[:id]), notice: "住宅情報を登録しました"
-    else
-      render :editDatabases
-    end
+    @housing.save
+    redirect_to housing_databases_detail_path(params[:id]), notice: "住宅情報を登録しました"
   end
 
   def destroy
