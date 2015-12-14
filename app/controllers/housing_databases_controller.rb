@@ -68,6 +68,7 @@ class HousingDatabasesController < DatabasesController
 
       end
 
+      #住宅情報を登録
       @housing.inc_account_id = params[:id]
       @housing.street_address = params[:street_address]
       @housing.rent = params[:rent].to_i
@@ -90,13 +91,25 @@ class HousingDatabasesController < DatabasesController
       @housing.vacancy = params[:vacancy]
       @housing.detail = params[:detail]
       @housing.plan = params[:plan].to_i
-
       if params[:image].present?
         @housing.image = params[:image].read
-
       end
-
       @housing.save
+
+      #距離情報を登録
+      housing_id = Housing.last.id
+      store_id = @selected["store_id"].to_i
+      facilities = Facility.all
+      facilities.each{|facility|
+        distance = Distance.new
+        distance.distance = rand(3000) + 1
+        distance.facility_id = facility.id
+        distance.housing_id = housing_id
+        distance.store_id = store_id
+        distance.inc_account_id = params[:id]
+        distance.save
+      }
+
       redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
     end
 
