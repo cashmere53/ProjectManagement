@@ -19,7 +19,7 @@
   <tr><td>建築年月</td>  <td><%= @housing.building_date%></td></tr>
   <tr><td>向き</td>  <td><%= @housing.direction%></td></tr>
   <tr><td>間取り</td>  <td><%= @housing.layout%></td></tr>
-  <tr><td>面積</td>  <td><%= @housing.area%></td></tr>
+  <tr><td>面積</td>  <td><%= @housing.area.to_f / 10%></td></tr>
   <tr><td>構造</td>  <td><%= @housing.structure%></td></tr>
   <tr><td>階建て</td>  <td><%= @housing.floor%></td></tr>
   <tr><td>敷金</td>  <td><%= @housing.deposit%></td></tr>

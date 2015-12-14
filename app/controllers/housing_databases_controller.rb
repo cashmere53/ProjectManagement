@@ -103,7 +103,7 @@ class HousingDatabasesController < DatabasesController
       if @housing.save
         redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
       else
-        render :action => ""
+        render :registerDatabases
       end
 
     end

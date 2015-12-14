@@ -11,4 +11,7 @@ class Housing < ActiveRecord::Base
   validates :administration_cost,
             presence: { message: "⚠管理費が入力されていません" }
 
+  validates :plan,
+            presence: { message: "⚠契約プランが選択されていません" }
+
 end
