@@ -1,9 +1,9 @@
 class CreateHousings < ActiveRecord::Migration
   def change
     create_table :housings do |t|
-      t.string :street_address
-      t.integer :rent
-      t.integer :administration_cost
+      t.string :street_address, :null => false
+      t.integer :rent, :null => false
+      t.integer :administration_cost, :null => false
       t.string :housing_type
       t.date :building_date
       t.string :direction
@@ -16,12 +16,12 @@ class CreateHousings < ActiveRecord::Migration
       t.integer :security_money
       t.integer :shikibiki
       t.integer :insurance
-      t.integer :parking
+      t.integer :parking, :null => false
       t.string :trading_aspect
       t.integer :another_cost
       t.string :vacancy
       t.string :detail
-      t.integer :plan
+      t.integer :plan, :null => false
       t.date :contract_update
       t.integer :views
       t.integer :favorites

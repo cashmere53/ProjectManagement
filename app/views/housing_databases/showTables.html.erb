@@ -44,7 +44,7 @@
           <td><%= info.building_date %></td>
           <td><%= info.direction %></td>
           <td><%= info.layout %></td>
-          <td><%= info.area %></td>
+          <td><%= info.area.to_f / 10%></td>
           <td><%= info.contract_update %></td>
           <td><%= button_to '詳細', housing_databases_detail_path(info.id), method: :get, class: "btn btn-warning" %></td>
         </tr>
