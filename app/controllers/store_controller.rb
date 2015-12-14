@@ -17,8 +17,8 @@ class StoreController < ApplicationController
 
   end
 
-  def editDatabases
-
+  def editStores
+    @store = Store.find(params[:id])
   end
 
   def showStores
@@ -46,5 +46,21 @@ class StoreController < ApplicationController
     @store.postal_code = params[:postal_code]
     @store.save
     redirect_to showStores_path(params[:id])
+  end
+
+  def update
+    @store = Store.find(params[:id])
+    @store.store_name = params[:store_name]
+    @store.street_address = params[:street_address]
+    @store.postal_code = params[:postal_code]
+    @store.save
+    redirect_to showStores_path(@store.inc_account_id)
+  end
+
+  def destroy
+    @store = Store.find(params[:id])
+    @inc_account_id = IncAccount.find(@store.inc_account_id).id
+    @store.destroy
+    redirect_to showStores_path(@inc_account_id)
   end
 end

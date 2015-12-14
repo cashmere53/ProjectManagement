@@ -34,11 +34,12 @@ class HousingDatabasesController < DatabasesController
   def registerDatabases
     @inc = IncAccount.find(params[:id])
     @store = @inc.Store
+    @housing = Housing.new
   end
 
   def editDatabases
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @store = @inc.Store
   end
 
@@ -46,9 +47,9 @@ class HousingDatabasesController < DatabasesController
 
   end
 
-  def details
+  def detail
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @store = Store.find(@housing.store_id)
   end
 
@@ -56,16 +57,15 @@ class HousingDatabasesController < DatabasesController
     if params[:store_register]
       redirect_to registerStores_path(params[:id])
     else
+      @inc = IncAccount.find(params[:id])
+      @store = @inc.Store
+
       @housing = Housing.new
       @date = params[:date]
       @housingdate = DateTime.new(@date["building_date(1i)"].to_i,@date["building_date(2i)"].to_i,@date["building_date(3i)"].to_i)
       @selected = params[:selectedstore_id]
 
-      if @selected.present?
-        @housing.store_id = @selected["store_id"].to_i
-      else
-
-      end
+      @housing.store_id = @selected["store_id"].to_i
 
       @housing.inc_account_id = params[:id]
       @housing.street_address = params[:street_address]
@@ -83,20 +83,29 @@ class HousingDatabasesController < DatabasesController
       @housing.security_money = params[:security_money].to_i
       @housing.shikibiki = params[:shikibiki].to_i
       @housing.insurance = params[:insurance].to_i
-      @housing.parking = params[:parking].to_i
+
+      if params[:parking].present?
+        @housing.parking = params[:parking].to_i
+      else
+        @housing.parking = -1
+      end
+
       @housing.trading_aspect = params[:trading_aspect]
       @housing.another_cost = params[:another_cost].to_i
       @housing.vacancy = params[:vacancy]
       @housing.detail = params[:detail]
-      @housing.plan = params[:plan].to_i
+      @housing.plan = params[:plan]
 
       if params[:image].present?
         @housing.image = params[:image].read
-
       end
 
-      @housing.save
-      redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
+      if @housing.save
+        redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
+      else
+        render :registerDatabases
+      end
+
     end
 
   end
@@ -106,6 +115,7 @@ class HousingDatabasesController < DatabasesController
     @date = params[:date]
     @housingdate = DateTime.new(@date["building_date(1i)"].to_i,@date["building_date(2i)"].to_i,@date["building_date(3i)"].to_i)
     @selected = params[:selectedstore_id]
+    @selectedplans = params[:selectedplan]
 
     @housing.store_id = @selected["store_id"].to_i
     @housing.street_address = params[:street_address]
@@ -123,25 +133,33 @@ class HousingDatabasesController < DatabasesController
     @housing.security_money = params[:security_money].to_i
     @housing.shikibiki = params[:shikibiki].to_i
     @housing.insurance = params[:insurance].to_i
-    @housing.parking = params[:parking].to_i
+
+    if params[:parking].present?
+      @housing.parking = params[:parking].to_i
+    else
+      @housing.parking = -1
+    end
+
     @housing.trading_aspect = params[:trading_aspect]
     @housing.another_cost = params[:another_cost].to_i
     @housing.vacancy = params[:vacancy]
     @housing.detail = params[:detail]
-    @housing.plan = params[:plan].to_i
+    @housing.plan = params[:plan]
 
     if params[:image].present?
       @housing.image = params[:image].read
-
     end
 
-    @housing.save
-    redirect_to housing_databases_details_path(@housing.id), notice: "住宅情報の編集を完了しました"
+    if @housing.save
+      redirect_to housing_databases_detail_path(params[:id]), notice: "住宅情報を登録しました"
+    else
+      render :editDatabases
+    end
   end
 
   def destroy
     @housing = Housing.find(params[:id])
-    @inc = IncAccount.find(@housing.inc_id)
+    @inc = IncAccount.find(@housing.inc_account_id)
     @housing.destroy
     redirect_to housing_databases_showTables_path(@inc.id)
   end

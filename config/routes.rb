@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   #物件周り
   get '/housing_databases/showTables/:id' => 'housing_databases#showTables', as: 'housing_databases_showTables'
  get '/housing_databases/registerDatabases/:id' => 'housing_databases#registerDatabases', as: 'housing_databases_registerDatabases'
- get '/housing_databases/details/:id' => 'housing_databases#details', as: 'housing_databases_details'
+ get '/housing_databases/detail/:id' => 'housing_databases#detail', as: 'housing_databases_detail'
  get '/housing_databases/editDatabases/:id' => 'housing_databases#editDatabases',as: 'housing_databases_editDatabases'
  get '/housing_databases/:id/image/' => 'housing_databases#image',as: 'housing_databases_image'
  post '/housing_databases/registerDatabases/:id' => 'housing_databases#create'
@@ -50,12 +50,15 @@ Rails.application.routes.draw do
  get '/advertising_databases/:id/image/' => 'advertising_databases#image',as: 'advertising_databases_image'
  post '/advertising_databases/registerDatabases/:id' => 'advertising_databases#create'
  patch '/advertising_databases/editDatabases/:id' => 'advertising_databases#update'
- delete '/advertising_databases/details/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
+ delete '/advertising_databases/showTables/:id' => 'advertising_databases#destroy',as:'advertising_databases_destroy'
 
 #店舗登録
   get '/store/registerStores/:id' => 'store#registerStores',as: 'registerStores'
   get '/store/showStores/:id' => 'store#showStores',as:'showStores'
+  get '/store/editStores/:id' => 'store#editStores',as:'editStores'
   post '/store/registerStores/:id' => 'store#create'
+  patch '/store/editStores/:id' => 'store#update'
+  delete '/store/showStores/:id' => 'store#destroy',as:'store_destroy'
 
   resources :search do
     member { get :image }

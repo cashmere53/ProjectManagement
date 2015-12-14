@@ -1,0 +1,22 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Nishi ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= form_tag editStores_path(params[:id]), method: 'patch',multipart: true do%>
+    <table>
+
+      <tbody>
+      <tr><td>店舗名</td> <td><%= text_field_tag :store_name,@store.store_name, :placeholder => "店舗名" %></td> </tr>
+      <tr><td>住所</td>  <td><%= text_field_tag :street_address,@store.street_address,:placeholder => '住所'%></td> </tr>
+      <tr><td>郵便番号</td>  <td><%= text_field_tag :postal_code,@store.postal_code,:placeholder => '郵便番号'%></td> </tr>
+      </tbody>
+    </table>
+
+    <%= submit_tag "保存" %>
+<% end %>

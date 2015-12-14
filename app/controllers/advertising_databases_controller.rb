@@ -36,7 +36,7 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def editDatabases
-    @advertising = AdvertisingTable.find(params[:id])
+    @advertising = Advertising.find(params[:id])
   end
 
   def deleteDatabases
@@ -45,7 +45,7 @@ class AdvertisingDatabasesController < DatabasesController
 
   def details
     @advertising = Advertising.find(params[:id])
-    @inc = IncAccount.find(@advertising.inc_id)
+    @inc = IncAccount.find(@advertising.inc_account_id)
   end
 
   def create
@@ -69,22 +69,21 @@ class AdvertisingDatabasesController < DatabasesController
 
   def update
     @advertising = Advertising.find(params[:id])
-    @inc = IncAccount.find(@advertising.inc_id)
+    @inc = IncAccount.find(@advertising.inc_account_id)
 
     @advertising.advertise_info = params[:advertise_info]
     if params[:image].present?
       @advertising.image = params[:image].read
-      @advertising.image_content_type = params[:image].content_type
     end
 
     @advertising.save
-    redirect_to advertising_databases_details_path(@advertising.id), notice: "広告情報の編集を完了しました"
+    redirect_to advertising_databases_showTables_path(@advertising.inc_account_id), notice: "広告情報の編集を完了しました"
   end
 
   def destroy
-    @advertising = AdvertisingTable.find(params[:id])
-    @inc_id = IncAccount.find(@advertising.inc_id).id
+    @advertising = Advertising.find(params[:id])
+    @inc_account_id = IncAccount.find(@advertising.inc_account_id).id
     @advertising.destroy
-    redirect_to advertising_databases_showTables_path(@inc_id)
+    redirect_to advertising_databases_showTables_path(@inc_account_id)
   end
 end

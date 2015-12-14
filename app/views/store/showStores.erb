@@ -33,7 +33,8 @@
             <td><%= info.store_name %></td>
             <td><%= info.street_address %></td>
             <td><%= info.postal_code %></td>
-            <td><%= button_to '詳細', housing_databases_details_path(info.id), class: "btn btn-warning" %></td>
+            <td><%= link_to '編集', editStores_path(info.id), class: "btn btn-warning" %> <%= link_to '削除', store_destroy_path(info.id),method: 'delete', class: "btn btn-warning","data-confirm" => "本当に削除しますか？" %></td>
+
           </tr>
       <% end %>
       </tbody>
