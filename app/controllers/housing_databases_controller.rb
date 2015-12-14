@@ -10,6 +10,9 @@
 
 class HousingDatabasesController < DatabasesController
   def showTables
+    @housing = Housing.new
+    @inc = IncAccount.find(params[:id])
+    @store = @inc.Store
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
     if session[@inc_account_id]==nil || session[@inc_account_id]==''
@@ -32,9 +35,9 @@ class HousingDatabasesController < DatabasesController
   end
 
   def registerDatabases
+    @housing = Housing.new
     @inc = IncAccount.find(params[:id])
     @store = @inc.Store
-    @housing = Housing.new
   end
 
   def editDatabases
@@ -103,6 +106,7 @@ class HousingDatabasesController < DatabasesController
       if @housing.save
         redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
       else
+        @housingdate = nil
         render :registerDatabases
       end
 

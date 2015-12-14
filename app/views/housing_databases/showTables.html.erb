@@ -47,11 +47,7 @@
           <td><%= info.layout %></td>
           <td><%= info.area %></td>
           <td><%= info.contract_update %></td>
-<<<<<<< HEAD
-          <td><%= button_to '詳細', housing_databases_details_path(info.id), method: :get, class: "btn btn-warning" %></td>
-=======
           <td><%= button_to '詳細', housing_databases_detail_path(info.id), method: :get, class: "btn btn-warning" %></td>
->>>>>>> 24da91afcad4b6eaec2659a855a50c5e57e53123
         </tr>
         <% end %>
       </tbody>
