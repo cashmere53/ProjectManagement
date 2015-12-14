@@ -48,8 +48,8 @@
     <% housing_id=@housings[distance["id"]].id %>
     <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
-    <div class="col-sm-3">
-        <%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
+    <div class="col-sm-3" style="padding:5px;">
+        <center><%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :size => '196x196') %></center>
     </div>
 
     <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
