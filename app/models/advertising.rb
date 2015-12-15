@@ -7,6 +7,4 @@ class Advertising < ActiveRecord::Base
   validates :image,
             presence: { message: "⚠画像が選択されていません" }
 
-  validates_format_of :image, :with => %r{\.(png|jpg|jpeg)$}i, :message => "画像フォーマットが適切ではありません", :multiline => true
-
 end

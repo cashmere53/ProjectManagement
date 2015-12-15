@@ -13,7 +13,7 @@
 
       <tbody>
       <tr><td>画像</td> </tr>
-      <tr><td><%= file_field_tag 'image' %></td></tr>
+      <tr><td><%= file_field_tag 'image',:accept => "image/png,image/gif,image/jpeg" %></td></tr>
       <tr><td>店舗選択</td>  </tr>
       <tr><td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %></td> <td><%= submit_tag "店舗情報新規登録" ,:name => 'store_register'%></td></tr>
       <tr><td colspan="2"><font color="red">　<%= if @store.blank?
