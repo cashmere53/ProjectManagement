@@ -21,7 +21,7 @@ class IncAccountsController < ApplicationController
   end
 
   def auth
-    @inc_account = IncAccount.find_by(inc_name: params[:inc_name])
+    @inc_account = IncAccount.find_by(mail_address: params[:mail_address])
     if @inc_account && @inc_account.authenticate(params[:password])
       @housing = Housing.where(inc_account_id: @inc_account.id)
       @inc_account_id = @inc_account.id

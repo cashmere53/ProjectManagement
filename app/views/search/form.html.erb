@@ -22,30 +22,36 @@
    <%= form_tag('/search/show', :method => :post) do %>
        <input type="hidden" name="user_name" value="<%= @user_name %>" >
 
-       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+       <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
            １番目：
            <%= select 'destination','d1' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"大学" %>
        </p></div></div></div>
 
-       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+       <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
            ２番目：
            <%= select 'destination','d2' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"コンビニ" %>
        </p></div></div></div>
 
-       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+       <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
            ３番目：
            <%= select 'destination','d3' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"スーパー" %>
        </p></div></div></div>
 
-       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+       <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
            ４番目：
            <%= select 'destination','d4' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"駅" %>
        </p></div></div></div>
 
-       <div class="container-fluid"><div class="row"><div class="col-xs-6"><p>
+       <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
            ５番目：
            <%= select 'destination','d5' , [["大学", "大学"],["コンビニ", "コンビニ"],["スーパー", "スーパー"],["駅", "駅"],["郵便局", "郵便局"],["銀行", "銀行"],["病院", "病院"],["衣服店", "衣服店"],["居酒屋", "居酒屋"],["飲食店", "飲食店"],["本屋", "本屋"],["娯楽施設その他", "娯楽施設その他"]] , :selected=>"郵便局" %>
        </p></div></div></div>
+
+        <div style="height:10px;"></div>
+        <div class="container-fluid"><div class="row"><div class="col-xs-12"><p>
+            特に近くにあってほしい施設：
+            <%= select 'destination','filter' , [["全部", 5],["１番目だけ", 1],["２番目まで", 2],["３番目まで", 3],["４番目まで", 4]] , :selected=>"全部" %>
+        </p></div></div></div>
 
        <div style="height:10px;"></div>
        <div class="container-fluid"><div class="row">

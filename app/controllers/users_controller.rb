@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def auth
-    @user = User.find_by(user_name: params[:user_name])
+    @user = User.find_by(mail_address: params[:mail_address])
     if @user && @user.authenticate(params[:password])
       @user_name = @user.user_name
       session[@user_name] = @user_name

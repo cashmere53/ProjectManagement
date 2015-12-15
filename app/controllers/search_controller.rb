@@ -36,6 +36,7 @@ class SearchController < ApplicationController
       @destination[2]=destination['d3']
       @destination[3]=destination['d4']
       @destination[4]=destination['d5']
+      filter=destination['filter']
       @slope=params[:slope]
       keyword=params[:keyword]
       @max_value = 0;
@@ -149,7 +150,17 @@ class SearchController < ApplicationController
               }
           end
 
-          distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          if filter==4 then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1
+          elsif filter==3 then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3
+          elsif filter==2 then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7
+          elsif filter==1 then
+            distance["value"]=distance[@destination[0]]["value"]
+          else
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          end
       }
 
       #並べ替え

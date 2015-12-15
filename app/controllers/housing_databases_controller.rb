@@ -97,6 +97,7 @@ class HousingDatabasesController < DatabasesController
       @housing.vacancy = params[:vacancy]
       @housing.detail = params[:detail]
       @housing.plan = params[:plan]
+      @housing.views = 0
 
       if params[:image].present?
         @housing.image = params[:image].read
