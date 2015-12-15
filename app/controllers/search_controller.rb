@@ -150,13 +150,13 @@ class SearchController < ApplicationController
               }
           end
 
-          if filter==4 then
+          if filter=="4" then
             distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1
-          elsif filter==3 then
+          elsif filter=="3" then
             distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3
-          elsif filter==2 then
+          elsif filter=="2" then
             distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7
-          elsif filter==1 then
+          elsif filter=="1" then
             distance["value"]=distance[@destination[0]]["value"]
           else
             distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
