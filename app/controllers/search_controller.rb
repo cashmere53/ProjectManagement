@@ -58,6 +58,7 @@ class SearchController < ApplicationController
               @housings=[]
               housings=Housing.all
               housings.each{|housing|
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   flag=0
 
                   if housing.street_address.include?(keyword) then flag=1 end
@@ -72,7 +73,12 @@ class SearchController < ApplicationController
                   if flag==1 then @housings.push(housing) end #ヒットしたら登録
               }
           else #絞り込みなし
-              @housings=Housing.all
+              @housings=[]
+              housings=Housing.all
+              housings.each{|housing|
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
+                  @housings.push(housing)
+              }
           end
       else #お気に入りリスト
           if keyword!="" then #絞り込みあり
@@ -81,6 +87,7 @@ class SearchController < ApplicationController
               favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
               favorites.each{|favorite|
                   housing=Housing.find(favorite.housing_id)
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   flag=0
 
                   if housing.street_address.include?(keyword) then flag=1 end
@@ -100,6 +107,7 @@ class SearchController < ApplicationController
               favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
               favorites.each{|favorite|
                   housing=Housing.find(favorite.housing_id)
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   @housings.push(housing)
               }
           end
