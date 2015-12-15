@@ -486,3 +486,210 @@ Processing by HousingDatabasesController#showTables as HTML
   [1m[35mHousing Load (0.1ms)[0m  SELECT "housings".* FROM "housings" WHERE "housings"."inc_account_id" = ?  [["inc_account_id", 1]]
   Rendered housing_databases/showTables.html.erb within layouts/housing_databases (17.4ms)
 Completed 200 OK in 80ms (Views: 79.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/search/show" for ::1 at 2015-12-09 15:55:31 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SearchController#form as HTML
+  [1m[35mAdvertising Load (0.6ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (264.2ms)
+  Rendered shared/_menu.html.erb (1.4ms)
+  Rendered search/form.html.erb within layouts/search (289.9ms)
+Completed 200 OK in 1034ms (Views: 1009.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/search/form" for ::1 at 2015-12-09 15:55:32 +0900
+Processing by SearchController#form as HTML
+  [1m[36mAdvertising Load (0.2ms)[0m  [1mSELECT "advertisings".* FROM "advertisings"[0m
+  Rendered shared/_library.html.erb (11.2ms)
+  Rendered shared/_menu.html.erb (0.3ms)
+  Rendered search/form.html.erb within layouts/search (16.1ms)
+Completed 200 OK in 68ms (Views: 66.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2015-12-09 15:55:33 +0900
+Processing by SearchController#form as HTML
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (10.9ms)
+  Rendered shared/_menu.html.erb (0.3ms)
+  Rendered search/form.html.erb within layouts/search (15.1ms)
+Completed 200 OK in 122ms (Views: 121.1ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/" for ::1 at 2015-12-09 15:55:33 +0900
+Processing by SearchController#form as HTML
+  [1m[36mAdvertising Load (0.2ms)[0m  [1mSELECT "advertisings".* FROM "advertisings"[0m
+  Rendered shared/_library.html.erb (22.3ms)
+  Rendered shared/_menu.html.erb (0.4ms)
+  Rendered search/form.html.erb within layouts/search (39.2ms)
+Completed 200 OK in 104ms (Views: 102.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/advertising_databases.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/inc_accounts.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/housing_databases.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/advertising_databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/databases.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/housing_databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/databases.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/housing_databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/advertising_databases.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/inc_accounts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/users.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/housing_databases.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/Chart.self-bbdeb891cf9fc5749b6f8ba5afa87e0d92e280b3ef6b28fb88ba878734829eaf.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/WriteChart.self-e2c2b1fbde2968cee2102a8f4ceac7cfb81a38822ab32ff60a5719458d1eb2e8.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/inc_accounts.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/users.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/Chart.self-bbdeb891cf9fc5749b6f8ba5afa87e0d92e280b3ef6b28fb88ba878734829eaf.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/assets/WriteChart.self-e2c2b1fbde2968cee2102a8f4ceac7cfb81a38822ab32ff60a5719458d1eb2e8.js?body=1" for ::1 at 2015-12-09 15:55:33 +0900
+
+
+Started GET "/inc_accounts/login" for ::1 at 2015-12-09 15:55:39 +0900
+Processing by IncAccountsController#login as HTML
+  Rendered shared/_library.html.erb (15.4ms)
+  Rendered shared/_incmenu.html.erb (1.4ms)
+  Rendered inc_accounts/login.html.erb within layouts/inc_accounts (22.1ms)
+Completed 200 OK in 93ms (Views: 71.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/search/form" for ::1 at 2015-12-09 15:55:41 +0900
+Processing by SearchController#form as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"2FDCjrHpoAmnZJYLnyaWVRTNu9DGGCOWwNSNwis+Yoawjm8Gu6Ro9zQaKM7tILdcka+OET0oyXVY+P5DOH27RA==", "inc_name"=>""}
+  [1m[35mAdvertising Load (0.2ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (20.6ms)
+  Rendered shared/_menu.html.erb (0.7ms)
+  Rendered search/form.html.erb within layouts/search (28.9ms)
+Completed 200 OK in 104ms (Views: 102.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/search/show" for ::1 at 2015-12-09 15:55:43 +0900
+Processing by SearchController#show as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nIqDmM9rfCWlTeY8/Ej55QoXxyONg9KondR6XLA2ra70VC4QxSa02zYzWPmOTtjsj3Xy4nazOEsF+Ando3V0bA==", "user_name"=>"", "destination"=>{"d1"=>"大学", "d2"=>"コンビニ", "d3"=>"スーパー", "d4"=>"駅", "d5"=>"郵便局"}, "slope"=>"no", "keyword"=>"", "show"=>{"sort"=>"距離が近い順"}}
+  [1m[36mHousing Load (0.8ms)[0m  [1mSELECT "housings".* FROM "housings"[0m
+  [1m[35mAdvertising Load (0.2ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (13.1ms)
+  Rendered shared/_menu.html.erb (0.4ms)
+  Rendered search/show.html.erb within layouts/search (21.9ms)
+Completed 200 OK in 86ms (Views: 71.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/users/new?utf8=%E2%9C%93&authenticity_token=w38xktXSy5mahwwSoZkQE9hishTFjXsQR9F3D04jhCqroZwa358DZwn5stfTnzEaXQCH1T69kfPf%2FQSOXWBd6A%3D%3D&user_name=" for ::1 at 2015-12-09 15:55:47 +0900
+Processing by UsersController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"w38xktXSy5mahwwSoZkQE9hishTFjXsQR9F3D04jhCqroZwa358DZwn5stfTnzEaXQCH1T69kfPf/QSOXWBd6A==", "user_name"=>""}
+  Rendered shared/_library.html.erb (11.0ms)
+  Rendered shared/_menu.html.erb (0.5ms)
+  Rendered users/new.html.erb within layouts/users (30.8ms)
+Completed 200 OK in 94ms (Views: 84.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/search/form" for ::1 at 2015-12-09 15:55:48 +0900
+Processing by SearchController#form as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Id2JXaRnucci+G06BeXrtRxjy+2I2Z5kuoGxO65GZ6RJAyTVripxObGG0/9348q8mQH+LHPpdIcircK6vQW+Zg==", "user_name"=>""}
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."user_name" = ? LIMIT 1[0m  [["user_name", ""]]
+  [1m[35mAdvertising Load (0.2ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (10.3ms)
+  Rendered shared/_menu.html.erb (0.5ms)
+  Rendered search/form.html.erb within layouts/search (16.7ms)
+Completed 200 OK in 78ms (Views: 62.2ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/search/show" for ::1 at 2015-12-09 15:55:50 +0900
+Processing by SearchController#show as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"YXcOXzc3ibCtu9i6alcTn+P7ygAEZffEDw4JAO4GCLEJqaPXPXpBTj7FZn8YUTKWZpn/wf9VHSeXInqB/UXRcw==", "user_name"=>"", "destination"=>{"d1"=>"大学", "d2"=>"コンビニ", "d3"=>"スーパー", "d4"=>"駅", "d5"=>"郵便局"}, "slope"=>"no", "keyword"=>"", "show"=>{"sort"=>"距離が近い順"}}
+  [1m[36mHousing Load (0.2ms)[0m  [1mSELECT "housings".* FROM "housings"[0m
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (10.3ms)
+  Rendered shared/_menu.html.erb (0.7ms)
+  Rendered search/show.html.erb within layouts/search (13.8ms)
+Completed 200 OK in 58ms (Views: 56.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/search/form" for ::1 at 2015-12-09 15:56:06 +0900
+Processing by SearchController#form as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"55UDqPiv6+Bdi45tPHylTuPtKqhRue3floISaGS5qUiPS64g8uIjHs71MKhOeoRHZo8faaqJBzwOrmHpd/pwig==", "user_name"=>""}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."user_name" = ? LIMIT 1[0m  [["user_name", ""]]
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (15.6ms)
+  Rendered shared/_menu.html.erb (0.5ms)
+  Rendered search/form.html.erb within layouts/search (23.3ms)
+Completed 200 OK in 90ms (Views: 87.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/search/form" for ::1 at 2015-12-09 15:56:22 +0900
+Processing by SearchController#form as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"kugBhmWfAj/LphBKnb6kg9zTsR9+oYd2D1kwP8qR06b6NqwOb9LKwVjYro/vuIWKWbGE3oWRbZWXdUO+2dIKZA==", "user_name"=>""}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."user_name" = ? LIMIT 1[0m  [["user_name", ""]]
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (16.3ms)
+  Rendered shared/_menu.html.erb (0.5ms)
+  Rendered search/form.html.erb within layouts/search (24.5ms)
+Completed 200 OK in 85ms (Views: 83.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/search/form" for ::1 at 2015-12-09 15:56:23 +0900
+Processing by SearchController#form as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7kTY6I5vgxqSbcZTuoBzLK7IfSbzFXlSmJPY/+TlVz6GmnVghCJL5AETeJbIhlIlK6pI5wglk7EAv6t+96aO/A==", "user_name"=>""}
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."user_name" = ? LIMIT 1[0m  [["user_name", ""]]
+  [1m[35mAdvertising Load (0.2ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (8.8ms)
+  Rendered shared/_menu.html.erb (0.2ms)
+  Rendered search/form.html.erb within layouts/search (12.6ms)
+Completed 200 OK in 82ms (Views: 80.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/search/show" for ::1 at 2015-12-09 15:56:29 +0900
+Processing by SearchController#show as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"q09iooEOblmBZmrKdn3GaTFMuVA/0ZsWG09ngMfoJ07Dkc8qi0OmpxIY1A8Ee+dgtC6MkcThcfWDYxQB1Kv+jA==", "user_name"=>"", "destination"=>{"d1"=>"大学", "d2"=>"コンビニ", "d3"=>"スーパー", "d4"=>"駅", "d5"=>"郵便局"}, "slope"=>"no", "keyword"=>"", "show"=>{"sort"=>"距離が近い順"}}
+  [1m[36mHousing Load (0.2ms)[0m  [1mSELECT "housings".* FROM "housings"[0m
+  [1m[35mAdvertising Load (0.1ms)[0m  SELECT "advertisings".* FROM "advertisings"
+  Rendered shared/_library.html.erb (9.8ms)
+  Rendered shared/_menu.html.erb (0.2ms)
+  Rendered search/show.html.erb within layouts/search (13.7ms)
+Completed 200 OK in 60ms (Views: 57.9ms | ActiveRecord: 0.3ms)
