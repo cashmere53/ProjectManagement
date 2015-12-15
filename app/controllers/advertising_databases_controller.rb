@@ -9,6 +9,7 @@
 #############################################################
 
 class AdvertisingDatabasesController < DatabasesController
+  # 広告情報の一覧表示を行っている関数
   def showTables
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
@@ -26,29 +27,35 @@ class AdvertisingDatabasesController < DatabasesController
     @advertising = Advertising.where(inc_account_id: @inc_account_id)
   end
 
+  # 画像の表示に必要なデータをとりだし、send_dataで送信している
   def image
     @advertising = Advertising.find(params[:id])
     send_data(@advertising.image, :type => 'image/jpeg', disposition: :inline)
   end
 
+  # 登録ページの表示を行っている
   def registerDatabases
     @inc_account_id = params[:id]
     @advertising = Advertising.new
   end
 
+  # 編集ページの表示を行っている
   def editDatabases
     @advertising = Advertising.find(params[:id])
   end
 
+  # 削除
   def deleteDatabases
     @inc_account_id = params[:id]
   end
 
+  # 詳細ページの表示を行っている
   def details
     @advertising = Advertising.find(params[:id])
     @inc = IncAccount.find(@advertising.inc_account_id)
   end
 
+  # 登録ページにて登録ボタンが押された場合に呼び出される　データを入力してDBに登録
   def create
     @inc_account = IncAccount.find(params[:id])
     @inc_account_id = params[:id]
@@ -79,6 +86,7 @@ class AdvertisingDatabasesController < DatabasesController
 
   end
 
+  #編集ページにて編集ボタンが押された場合に呼び出される　編集元データを取得、及び更新
   def update
     @advertising = Advertising.find(params[:id])
     @inc = IncAccount.find(@advertising.inc_account_id)
@@ -96,6 +104,7 @@ class AdvertisingDatabasesController < DatabasesController
 
   end
 
+  # 削除ボタンを押した場合に呼び出される
   def destroy
     @advertising = Advertising.find(params[:id])
     @inc_account_id = IncAccount.find(@advertising.inc_account_id).id

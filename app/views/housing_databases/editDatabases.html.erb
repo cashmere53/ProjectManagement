@@ -30,7 +30,7 @@
       <tr><td>タイプ</td>  </tr>
       <tr><td><%= text_field_tag :housing_type,@housing.housing_type,:placeholder => 'タイプ'%></td></tr>
       <tr><td>建築年月</td>  </tr>
-      <tr><td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => Date.new(1950, 1, 1),:start_year =>1950,:end_year => 2050)%></td></tr>
+      <tr><td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => Date.new(1950, 1, 1),:start_year =>1950,:end_year => Time.now.year.to_i)%></td></tr>
       <tr><td>向き</td> </tr>
       <tr><td><%= text_field_tag :direction,@housing.direction,:placeholder => '向き'%></td></tr>
       <tr><td>間取り</td>  </tr>
