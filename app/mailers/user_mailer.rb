@@ -11,8 +11,8 @@
 class UserMailer < ApplicationMailer
   default from: "good.measure.dekiru@gmail.com"
 
-  def regist_mail(mail_to, user_name)
-    @url = "http://localhost:3000/users/avaliable/" + user_name
+  def regist_mail(mail_to, link_pass)
+    @url = "http://localhost:3000/users/avaliable/" + link_pass
     mail to: mail_to, subject: "登録を完了してください"
   end
 end

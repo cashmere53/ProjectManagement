@@ -14,38 +14,49 @@
 <% housing=@housing %>
 
 <div class="container-fluid"><div class="row">
-
 <!-- 物件表示枠 -->
 <div class="col-md-9">
 <!-- 見出し -->
 <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
 <div class="col-sm-3">
-    <%= image_tag(image_search_path(housing), :class=>"img-responsive img-thumbnail") %>
+    <%= image_tag(housing_databases_image_path(@housing.id), :class=>"img-responsive img-thumbnail") %>
 </div>
 
 <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
-<td>
-    <%= housing.street_address %> <!-- 住所 -->
-</td>
-<td>
-    <% rent_num=housing.rent/10000.to_f %>
-    <p style="font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
-    <p style="font-size: 13px;">管理費 <%= housing.administration_cost %>円</p> <!-- 管理費 -->
-</td>
-<td>
-    <p><%= housing.housing_type %></p> <!-- タイプ -->
-    <p>築<%= Date.today.year-housing.building_date.year %>年</p> <!-- 築年月 -->
-</td>
-<td>
-    <p><%= housing.direction %></p> <!-- 方向 -->
-    <p><%= housing.layout %></p> <!-- 間取り -->
-    <% area_num=housing.area/10.to_f %>
-    <p><%= area_num %>m&sup2;</p> <!-- 面積 -->
-</td>
+  <td>
+    <table class="table"><tr><td>
+      <% rent_num=housing.rent/10000.to_f %>
+      <p style="font-size: 18px; color: #ff0000; font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
+      <div style="font-size: 13px;">
+        管理費 <%= housing.administration_cost %>円 <!-- 管理費 -->
+      </div>
+    </td></tr><tr><td>
+      <%= housing.housing_type %> <!-- タイプ -->
+    </td></tr><tr><td>
+              <%= housing.street_address %> <!-- 住所 -->
+            </td></tr></table>
+          </td>
+          <td>
+            <table class="table"><tr>
+              <td>築年数　：</td><td>
+                築<%= Date.today.year-housing.building_date.year %>年</td> <!-- 築年月 -->
+              </tr><tr>
+              <td>部屋向き：</td><td>
+                <%= housing.direction %></td> <!-- 方向 -->
+              </tr><tr>
+                <td>間取り　：</td><td>
+                  <%= housing.layout %></td> <!-- 間取り -->
+                </tr><tr>
+                  <td>専有面積：</td><td>
+                    <% area_num=housing.area/10.to_f %>
+                    <p><%= area_num %>m&sup2;</td> <!-- 面積 -->
+                    </tr></table>
+                  </td>
 </tr></table></div>
 
-<div class="col-sm-3">
+<!-- グラフ -->
+<div class="col-sm-3" style="padding:5px;">
   <center>
   <table  style="background:#ffffee;" bordercolor="#cc6633"><tr><td>
   <canvas id="chart" width="170" height="170">
@@ -124,9 +135,9 @@
 <div style="height:40px;"></div>
 
 <!-- お気に入り登録ボタン -->
-<% if @user_name!="" then %>
+<% if session[@user_name]!=nil then %>
 <%= form_tag('/search/detail', :method => :post) do %>
-    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="user_name" value="<%= session[@user_name] %>" >
     <input type="hidden" name="housing_id" value="<%= @housing.id %>" >
     <input type="hidden" name="max_value" value="<%= @max_value %>" >
     <% @distance.each{|key,value| %>
@@ -266,7 +277,7 @@ geocoding=function(address){
 広告<br>
 <table class="table">
 <% @advertisings.each{|advertising| %>
-    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+    <tr><th><%= image_tag(advertising_databases_image_path(advertising.id), :size => '150x150') %></td></tr>
 <% } %>
 </table>
 </div>

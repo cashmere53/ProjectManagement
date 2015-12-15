@@ -13,10 +13,10 @@
 
 <div style="#999999">
 <div class="container-fluid" style="margin:20px;"><div class="row">
-    <center><b>企業名：<%= @inc_account.inc_name %></b></center>
   <ul class="nav nav-tabs">
    <li><a href="/housing_databases/showTables/<%= @inc_account.id %>">物件</a></li>
    <li class="active"><a href="/advertising_databases/showTables/<%= @inc_account.id %>">広告</a></li>
+    <li><a href="/store/showStores/<%= @inc_account.id %>">店舗</a></li>
   </ul>
     <div align="right"><%= button_to "広告登録", advertising_databases_registerDatabses_path(@inc_account_id), method: :get, class: "btn btn-success", style: "margin:5px;"%></div>
   <div class="container">
@@ -25,7 +25,6 @@
       <tr>
         <th>広告情報<%= @mexx %></th>
         <th>イメージ</th>
-        <th>画像URL</th>
         <th>契約更新日</th>
       </tr>
       </thead>
@@ -34,10 +33,9 @@
       <% @advertising.each do |info| %>
           <tr>
             <td><%= info.advertise_info %></td>
-            <td><%= image_tag(advertising_databases_image_path(info)) %></td>
-            <td></td>
+            <td><%= image_tag(advertising_databases_image_path(info.id), :size => '100x100') %></td>
             <td><%= info.contract_date %></td>
-            <td><%= link_to '詳細', advertising_databases_details_path(info.id), class: "btn btn-warning" %></td>
+            <td><%= link_to '編集', advertising_databases_editDatabases_path(info.id), class: "btn btn-warning" %> <%= link_to '削除', advertising_databases_destroy_path(info.id),method: 'delete', class: "btn btn-warning" ,"data-confirm" => "本当に削除しますか？"%></td>
           </tr>
       <% end %>
       </tbody>

@@ -39,7 +39,7 @@
     <input type="text" name="keyword" size="50" maxlength="20" placeholder="キーワードを入力" value="<%= @keyword %>">
     <input type="submit" value="絞り込み検索" class="btn btn-success"><br>
     <div style="height:10px;"></div>
-    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["面積が広い順", "面積が広い順"]] , :selected=>@sort %>
+    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"]] , :selected=>@sort %>
     <input type="submit" value="並び替え" class="btn btn-warning">
     <div style="height:40px;"></div>
 <% end %>
@@ -48,30 +48,39 @@
     <% housing_id=@housings[distance["id"]].id %>
     <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
-    <div class="col-sm-3">
-        <%= image_tag(image_search_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
+    <div class="col-sm-3" style="padding:5px;">
+        <center><%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :size => '196x196') %></center>
     </div>
 
     <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
         <td>
-        <%= @housings[distance["id"]].street_address %> <!-- 住所 -->
-        </td>
-        <td>
-        <% rent_num=@housings[distance["id"]].rent/10000.to_f %>
-        <p style="font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
-        <p style="font-size: 13px;">
+          <table class="table"><tr><td>
+          <% rent_num=@housings[distance["id"]].rent/10000.to_f %>
+          <p style="font-size: 18px; color: #ff0000; font-weight: bold;"><%= rent_num %>万円</p> <!-- 家賃 -->
+          <div style="font-size: 13px;">
             管理費 <%= @housings[distance["id"]].administration_cost %>円 <!-- 管理費 -->
-        </p>
+          </div>
+          </td></tr><tr><td>
+            <%= @housings[distance["id"]].housing_type %> <!-- タイプ -->
+          </td></tr><tr><td>
+            <%= @housings[distance["id"]].street_address %> <!-- 住所 -->
+          </td></tr></table>
         </td>
         <td>
-        <p><%= @housings[distance["id"]].housing_type %></p> <!-- タイプ -->
-        <p>築<%= Date.today.year-@housings[distance["id"]].building_date.year %>年</p> <!-- 築年月 -->
-        </td>
-        <td>
-        <p><%= @housings[distance["id"]].direction %></p> <!-- 方向 -->
-        <p><%= @housings[distance["id"]].layout %></p> <!-- 間取り -->
-        <% area_num=@housings[distance["id"]].area/10.to_f %>
-        <p><%= area_num %>m&sup2;</p> <!-- 面積 -->
+          <table class="table"><tr>
+            <td>築年数　：</td><td>
+            築<%= Date.today.year-@housings[distance["id"]].building_date.year %>年</td> <!-- 築年月 -->
+          </tr><tr>
+            <td>部屋向き：</td><td>
+            <%= @housings[distance["id"]].direction %></td> <!-- 方向 -->
+          </tr><tr>
+            <td>間取り　：</td><td>
+            <%= @housings[distance["id"]].layout %></td> <!-- 間取り -->
+          </tr><tr>
+            <td>専有面積：</td><td>
+            <% area_num=@housings[distance["id"]].area/10.to_f %>
+            <p><%= area_num %>m&sup2;</td> <!-- 面積 -->
+          </tr></table>
         </td>
     </tr></table></div>
 
@@ -109,7 +118,7 @@
         <input type="hidden" name="max_value" value="<%= @max_value %>" >
         <% distance.each{|key,value| %>
             <% if key=='id'||key=='value' then next end %>
-            <input type="hidden" name="distances[<%= key %>]" value=<%= value['value'] %> >
+            <input type="hidden" name="distances[<%= key %>]" value="<%= value['value'] %>" >
             <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
         <% } %>
         <input type="hidden" name="fav" value="-" >
@@ -125,12 +134,11 @@
 
 <!-- 広告枠 -->
 <div class="col-md-3">
-    <center><b><h4>掲載希望の方は<%= link_to "こちら", :controller => "inc_accounts", :action => "login" %></h4></b></center>
 <div style="height:40px;"></div>
 広告<br>
 <table class="table">
 <% @advertisings.each{|advertising| %>
-    <tr><th><%= image_tag(image_search_path(advertising), :width=>"150", :height=>"150") %></td></tr>
+    <tr><th><%= image_tag(advertising_databases_image_path(advertising.id), :size => '150x150') %></td></tr>
 <% } %>
 </table>
 </div>

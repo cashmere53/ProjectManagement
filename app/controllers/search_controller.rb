@@ -13,18 +13,9 @@
 class SearchController < ApplicationController
   def form
 
-    if params[:login]
-      user = User.find_by(user_name: params[:user_name])
-      if user!=nil && user.avaliable && user.authenticate(params[:password])
-        @user_name = user.user_name
-      else
-        @message = "ユーザ名かパスワードが違います。"
-        render :template => "users/login"
-      end
-    elsif params[:user_name]!=nil && User.find_by(user_name: params[:user_name])!=nil && User.find_by(user_name: params[:user_name]).avaliable!=false
+    if params[:user_name]!=nil && User.find_by(user_name: params[:user_name])!=nil && User.find_by(user_name: params[:user_name]).avaliable!=false
       @user_name = params[:user_name]
     end
-
 
       #広告取得
       advertisings=Advertising.all
@@ -158,6 +149,8 @@ class SearchController < ApplicationController
         @distances.sort!{|a, b| a["value"] <=> b["value"] }
       elsif @sort=="賃料が安い順" then
         @distances.sort!{|a, b| @housings[a["id"]].rent <=> @housings[b["id"]].rent }
+      elsif @sort=="賃料が高い順" then
+        @distances.sort!{|a, b| @housings[b["id"]].rent <=> @housings[a["id"]].rent }
       elsif @sort=="面積が広い順" then
         @distances.sort!{|a, b| @housings[b["id"]].area <=> @housings[a["id"]].area }
       end
@@ -203,7 +196,7 @@ class SearchController < ApplicationController
 
     #お気に入り登録
     fav=params[:fav]
-    if @user_name!="" && fav=="登録" then
+    if session[@user_name]!=nil && fav=="登録" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length==0 then
             Favorite.create(:user_id=>@user[0].id , :housing_id=>@housing.id , :store_id=>@store.id , :inc_account_id=>@inc.id)
@@ -211,13 +204,13 @@ class SearchController < ApplicationController
     end
 
     #お気に入り削除
-    if @user_name!="" && fav=="削除" then
+    if session[@user_name]!=nil && fav=="削除" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length>0 then favorite[0].destroy end
     end
 
     #お気に入り登録しているか調べる
-    if @user_name!="" then
+    if session[@user_name]!=nil then
         @favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
     end
 
@@ -239,6 +232,8 @@ class SearchController < ApplicationController
   end
 
   def logout
+      @user_name = params[:user_name]
+      session[@user_name] = nil
       redirect_to '/search/form'
   end
 
