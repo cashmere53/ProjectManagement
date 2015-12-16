@@ -36,6 +36,7 @@ class SearchController < ApplicationController
       @destination[2]=destination['d3']
       @destination[3]=destination['d4']
       @destination[4]=destination['d5']
+      filter=destination['filter']
       @slope=params[:slope]
       keyword=params[:keyword]
       @max_value = 0;
@@ -58,6 +59,7 @@ class SearchController < ApplicationController
               @housings=[]
               housings=Housing.all
               housings.each{|housing|
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   flag=0
 
                   if housing.street_address.include?(keyword) then flag=1 end
@@ -72,7 +74,12 @@ class SearchController < ApplicationController
                   if flag==1 then @housings.push(housing) end #ヒットしたら登録
               }
           else #絞り込みなし
-              @housings=Housing.all
+              @housings=[]
+              housings=Housing.all
+              housings.each{|housing|
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
+                  @housings.push(housing)
+              }
           end
       else #お気に入りリスト
           if keyword!="" then #絞り込みあり
@@ -81,6 +88,7 @@ class SearchController < ApplicationController
               favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
               favorites.each{|favorite|
                   housing=Housing.find(favorite.housing_id)
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   flag=0
 
                   if housing.street_address.include?(keyword) then flag=1 end
@@ -100,6 +108,7 @@ class SearchController < ApplicationController
               favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
               favorites.each{|favorite|
                   housing=Housing.find(favorite.housing_id)
+                  if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
                   @housings.push(housing)
               }
           end
@@ -141,7 +150,17 @@ class SearchController < ApplicationController
               }
           end
 
-          distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          if filter=="4" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1
+          elsif filter=="3" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3
+          elsif filter=="2" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7
+          elsif filter=="1" then
+            distance["value"]=distance[@destination[0]]["value"]
+          else
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          end
       }
 
       #並べ替え

@@ -44,6 +44,9 @@
     <div style="height:40px;"></div>
 <% end %>
 <!-- 物件一覧 -->
+<% if @distances.length==0 then %> <!-- 住宅が一つもない時 -->
+該当する住宅はないよ！
+<% end %>
 <% @distances.each{|distance| %>
     <% housing_id=@housings[distance["id"]].id %>
     <div class="container-fluid" style="background: #ffeedd;"><div class="row">
