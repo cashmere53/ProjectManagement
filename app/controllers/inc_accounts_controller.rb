@@ -22,7 +22,7 @@ class IncAccountsController < ApplicationController
 
   def auth
     @inc_account = IncAccount.find_by(mail_address: params[:mail_address])
-    if @inc_account && @inc_account.authenticate(params[:password])
+    if @inc_account && @inc_account.authenticate(params[:password]) && @inc_account.avaliable==true
       @housing = Housing.where(inc_account_id: @inc_account.id)
       @inc_account_id = @inc_account.id
       session[@inc_account_id] = @inc_account_id
@@ -55,6 +55,14 @@ class IncAccountsController < ApplicationController
       @inc_account = IncAccount.find(params[:inc_account_id])
       @inc_name = @inc_account.inc_name
     else
+      #広告取得
+      advertisings=Advertising.all
+      @advertisings=[]
+      if advertisings.length>0 then
+          (0..1).each{|num|
+              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+          }
+      end
       render :template => "search/form"
     end
   end
