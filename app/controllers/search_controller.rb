@@ -173,6 +173,10 @@ class SearchController < ApplicationController
         @distances.sort!{|a, b| @housings[b["id"]].rent <=> @housings[a["id"]].rent }
       elsif @sort=="面積が広い順" then
         @distances.sort!{|a, b| @housings[b["id"]].area <=> @housings[a["id"]].area }
+      elsif @sort=="人気が高い順" then
+        @distances.sort!{|a, b| @housings[b["id"]].favorites <=> @housings[a["id"]].favorites }
+      elsif @sort=="閲覧が多い順" then
+        @distances.sort!{|a, b| @housings[b["id"]].views <=> @housings[a["id"]].views }
       end
 
       #最も大きい評価値を調べる
@@ -221,17 +225,22 @@ class SearchController < ApplicationController
         if favorite.length==0 then
             Favorite.create(:user_id=>@user[0].id , :housing_id=>@housing.id , :store_id=>@store.id , :inc_account_id=>@inc.id)
         end
+        @housing.favorites+=1 #お気に入り件数増やす
+        @housing.save
     end
 
     #お気に入り削除
     if session[@user_name]!=nil && fav=="削除" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length>0 then favorite[0].destroy end
+        @housing.favorites-=1 #お気に入り件数減らす
+        @housing.save
     end
 
     #お気に入り登録しているか調べる
     if session[@user_name]!=nil then
         @favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
+        
     end
 
     #閲覧数カウント
