@@ -124,6 +124,7 @@
             <input type="hidden" name="distances[<%= key %>]" value="<%= value['value'] %>" >
             <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
         <% } %>
+        <input type="hidden" name="slope" value="<%= @slope %>" >
         <input type="hidden" name="fav" value="-" >
         <div style="height:20px;"></div>
         <div class="container-fluid"><div class="row"><div class="col-xs-12 text-right">
