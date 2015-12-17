@@ -269,6 +269,21 @@ geocoding=function(address){
   <p style="color:#ff0000;">※ルートが表示されない場合は、ページを更新してください。</p>
 </div></div></div>
 <div style="height:20px;"></div>
+
+<!-- 物件一覧に戻る -->
+<%= form_tag('/search/show', :method => :post) do %>
+    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="destination[d1]" value="<%= @destination[0] %>">
+    <input type="hidden" name="destination[d2]" value="<%= @destination[1] %>">
+    <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
+    <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
+    <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
+    <input type="hidden" name="slope" value="<%= @slope %>">
+    <input type="submit" value="物件一覧に戻る" class="btn btn-default"><br>
+    <div style="height:40px;"></div>
+<% end %>
+
+<div style="height:20px;"></div>
 </div>
 
 <!-- 広告枠 -->

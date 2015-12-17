@@ -39,9 +39,10 @@ class SearchController < ApplicationController
       filter=destination['filter']
       @slope=params[:slope]
       keyword=params[:keyword]
-      @max_value = 0;
+      if keyword==nil then keyword="" end #キーワードがnilなら空にする
       @keyword=keyword
-      @sort=params[:show]['sort']
+      @max_value = 0;
+      if defined?(params[:show]['sort']) then @sort=params[:show]['sort'] else @sort="距離が近い順" end
 
       #選択した施設が重複していないかチェック
       @error=false
@@ -207,7 +208,7 @@ class SearchController < ApplicationController
         @distance[key]={ "value"=>value , "facility"=>Facility.find(params[:facilities][dis_num]) }
         dis_num+=1
     }
-
+    @slope=params[:slope]
     @user=User.select("id,user_name").where("user_name = :user_name",user_name: @user_name)
     @housing=Housing.find(housing_id)
     @inc=IncAccount.find(@housing.inc_account_id)
