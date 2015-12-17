@@ -279,7 +279,8 @@ geocoding=function(address){
     <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
     <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
     <input type="hidden" name="slope" value="<%= @slope %>">
-    <input type="submit" value="物件一覧に戻る" class="btn btn-default"><br>
+    <% if @slope=="yes" || @slope=="no" then %><input type="submit" value="物件一覧に戻る" class="btn btn-default">
+    <% else %><input type="submit" value="お気に入り物件一覧に戻る" class="btn btn-default"><% end %>
     <div style="height:40px;"></div>
 <% end %>
 
