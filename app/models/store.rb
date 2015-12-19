@@ -14,5 +14,5 @@ class Store < ActiveRecord::Base
   validates :postal_code,
             presence: { message: "⚠郵便番号が入力されていません" },
             length: {in: 7..7, message: "⚠︎郵便番号は数字のみ7文字で入力してください" },
-            numericality: { :only_integer => true, message: "⚠︎数字のみの形式で入力してください(XXX-YYYY→XXXYYYY)" }
+            format: {with: /\A[0-9]+$\Z/, message: "⚠︎数字のみの形式で入力してください(XXX-YYYY→XXXYYYY)"}
 end

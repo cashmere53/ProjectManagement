@@ -39,17 +39,11 @@ class HousingDatabasesController < DatabasesController
 
   # 登録ページの表示を行っている
   def registerDatabases
-<<<<<<< HEAD
-    @housing = Housing.new
-    @inc = IncAccount.find(params[:id])
-    @store = @inc.Store
-=======
     @inc_account_id = params[:id]
     @inc = IncAccount.find(params[:id])
     @store = @inc.Store
     @housing = Housing.new
     @housingdate = Date.new(1960, 1, 1)
->>>>>>> 238b6fd562c1b35b6079c65b64aaa34d37488c08
   end
 
   # 編集ページの表示を行っている
@@ -89,29 +83,29 @@ class HousingDatabasesController < DatabasesController
       #住宅情報を登録
       @housing.inc_account_id = params[:id]
       @housing.street_address = params[:street_address]
-      @housing.rent = params[:rent].to_i
-      @housing.administration_cost = params[:administration_cost].to_i
+      @housing.rent = params[:rent]
+      @housing.administration_cost = params[:administration_cost]
       @housing.housing_type = params[:housing_type]
       @housing.building_date = @housingdate
       @housing.direction = params[:direction]
       @housing.layout = params[:layout]
-      @housing.area = params[:area].to_i
+      @housing.area = params[:area]
       @housing.structure = params[:structure]
-      @housing.floor = params[:floor].to_i
-      @housing.deposit = params[:deposit].to_i
-      @housing.recompense = params[:recompense].to_i
-      @housing.security_money = params[:security_money].to_i
-      @housing.shikibiki = params[:shikibiki].to_i
-      @housing.insurance = params[:insurance].to_i
+      @housing.floor = params[:floor]
+      @housing.deposit = params[:deposit]
+      @housing.recompense = params[:recompense]
+      @housing.security_money = params[:security_money]
+      @housing.shikibiki = params[:shikibiki]
+      @housing.insurance = params[:insurance]
 
       if params[:parking].present?
-        @housing.parking = params[:parking].to_i
+        @housing.parking = params[:parking]
       else
         @housing.parking = -1
       end
 
       @housing.trading_aspect = params[:trading_aspect]
-      @housing.another_cost = params[:another_cost].to_i
+      @housing.another_cost = params[:another_cost]
       @housing.vacancy = params[:vacancy]
       @housing.detail = params[:detail]
       @housing.plan = params[:plan]
@@ -148,47 +142,58 @@ class HousingDatabasesController < DatabasesController
 
   #編集ページにて編集ボタンが押された場合に呼び出される　編集元データを取得、及び更新
   def update
-    @housing = Housing.find(params[:id])
-    @date = params[:date]
-    @housingdate = DateTime.new(@date["building_date(1i)"].to_i,@date["building_date(2i)"].to_i,@date["building_date(3i)"].to_i)
-    @selected = params[:selectedstore_id]
-    @selectedplans = params[:selectedplan]
-
-    @housing.store_id = @selected["store_id"].to_i
-    @housing.street_address = params[:street_address]
-    @housing.rent = params[:rent].to_i
-    @housing.administration_cost = params[:administration_cost].to_i
-    @housing.housing_type = params[:housing_type]
-    @housing.building_date = @housingdate
-    @housing.direction = params[:direction]
-    @housing.layout = params[:layout]
-    @housing.area = params[:area].to_i
-    @housing.structure = params[:structure]
-    @housing.floor = params[:floor].to_i
-    @housing.deposit = params[:deposit].to_i
-    @housing.recompense = params[:recompense].to_i
-    @housing.security_money = params[:security_money].to_i
-    @housing.shikibiki = params[:shikibiki].to_i
-    @housing.insurance = params[:insurance].to_i
-
-    if params[:parking].present?
-      @housing.parking = params[:parking].to_i
+    if params[:store_register]
+      redirect_to registerStores_path(params[:id])
     else
-      @housing.parking = -1
+      @housing = Housing.find(params[:id])
+      @date = params[:date]
+      @housingdate = DateTime.new(@date["building_date(1i)"].to_i,@date["building_date(2i)"].to_i,@date["building_date(3i)"].to_i)
+      @selected = params[:selectedstore_id]
+      @selectedplans = params[:selectedplan]
+      @inc = IncAccount.find(@housing.inc_account_id)
+      @store = @inc.Store
+
+      @housing.store_id = @selected["store_id"].to_i
+      @housing.street_address = params[:street_address]
+      @housing.rent = params[:rent]
+      @housing.administration_cost = params[:administration_cost]
+      @housing.housing_type = params[:housing_type]
+      @housing.building_date = @housingdate
+      @housing.direction = params[:direction]
+      @housing.layout = params[:layout]
+      @housing.area = params[:area]
+      @housing.structure = params[:structure]
+      @housing.floor = params[:floor]
+      @housing.deposit = params[:deposit]
+      @housing.recompense = params[:recompense]
+      @housing.security_money = params[:security_money]
+      @housing.shikibiki = params[:shikibiki]
+      @housing.insurance = params[:insurance]
+
+      if params[:parking].present?
+        @housing.parking = params[:parking]
+      else
+        @housing.parking = -1
+      end
+
+      @housing.trading_aspect = params[:trading_aspect]
+      @housing.another_cost = params[:another_cost]
+      @housing.vacancy = params[:vacancy]
+      @housing.detail = params[:detail]
+      @housing.plan = params[:plan]
+
+      if params[:image].present?
+        @housing.image = params[:image].read
+      end
+
+      if @housing.save
+        redirect_to housing_databases_detail_path(params[:id]), notice: "住宅情報を登録しました"
+      else
+        @date = nil
+        render action: "editDatabases"
+      end
     end
 
-    @housing.trading_aspect = params[:trading_aspect]
-    @housing.another_cost = params[:another_cost].to_i
-    @housing.vacancy = params[:vacancy]
-    @housing.detail = params[:detail]
-    @housing.plan = params[:plan]
-
-    if params[:image].present?
-      @housing.image = params[:image].read
-    end
-
-    @housing.save
-    redirect_to housing_databases_detail_path(params[:id]), notice: "住宅情報を登録しました"
   end
 
   # 削除ボタンを押した場合に呼び出される
