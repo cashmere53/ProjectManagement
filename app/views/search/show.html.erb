@@ -46,13 +46,17 @@
 <% end %>
 <!-- 物件一覧 -->
 <% if @slope!="yes" && @slope!="no" then %> <!-- お気に入り物件一覧 -->
-お気に入り物件<br>
-<div style="height:40px;"></div>
+<p class="text-center bg-warning">お気に入り物件</p>
+<div style="height:20px;"></div>
 <% end %>
+<span style="font-size: 32px; color: #0000ff; font-weight: bold;"><%= @distances.length %></span>件<br> <!-- ヒット件数 -->
+<div style="height:40px;"></div>
 <% if @distances.length==0 then %> <!-- 住宅が一つもない時 -->
-該当する住宅がありません。
+<p>該当する住宅がありません。</p>
 <% end %>
 <% @distances.each{|distance| %>
+    <% @dis_num+=1 %>
+    <% if @dis_num<(@page-1)*10 || @dis_num>@page*10-1 then next end %> <!-- ページ外の物件は飛ばす -->
     <% housing_id=@housings[distance["id"]].id %>
     <% if @options[distance["id"]]["favorite"]==0 then %><div class="container-fluid" style="background: #ffeedd;">
     <% else %><div class="container-fluid" style="background: #ffff99;"><% end %>
@@ -135,6 +139,7 @@
         <input type="hidden" name="slope" value="<%= @slope %>" >
         <input type="hidden" name="keyword" value="<%= @keyword %>" >
         <input type="hidden" name="sort" value="<%= @sort %>" >
+        <input type="hidden" name="page" value="<%= @page %>">
         <input type="hidden" name="fav" value="-" >
         <div style="height:5px;"></div>
         <div class="container-fluid"><div class="row"><div class="col-xs-12 text-right">
@@ -143,7 +148,28 @@
         <div style="height:40px;"></div>
     <% end %>
 <% } %>
-</table>
+<!-- ページャ -->
+<%= form_tag('/search/show', :method => :post, :name => 'page_form') do %>
+    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="destination[d1]" value="<%= @destination[0] %>">
+    <input type="hidden" name="destination[d2]" value="<%= @destination[1] %>">
+    <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
+    <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
+    <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
+    <input type="hidden" name="destination[filter]" value="<%= @filter %>">
+    <input type="hidden" name="slope" value="<%= @slope %>">
+    <input type="hidden" name="keyword" value="<%= @keyword %>">
+    <input type="hidden" name="show[sort]" value="<%= @sort %>">
+    <input type="hidden" name="page" value="<%= @page %>">
+<% end %>
+<ul class="pager">
+    <li><a onclick="document.page_form.page.value='<%= 1 %>'; document.page_form.submit();">«</a></li>
+    <li><a onclick="document.page_form.page.value='<%= @page-1 %>'; document.page_form.submit();">前のページ</a></li>
+    <%= @page %> / <%= @max_page %>
+    <li><a onclick="document.page_form.page.value='<%= @page+1 %>'; document.page_form.submit();">次のページ</a></li>
+    <li><a onclick="document.page_form.page.value='<%= @max_page %>'; document.page_form.submit();">»</a></li>
+</ul>
+<div style="height:40px;"></div>
 </div>
 
 <!-- 広告枠 -->

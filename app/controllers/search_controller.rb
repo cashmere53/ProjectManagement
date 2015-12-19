@@ -43,6 +43,7 @@ class SearchController < ApplicationController
       @keyword=keyword
       @max_value = 0;
       if defined?(params[:show]['sort']) then @sort=params[:show]['sort'] else @sort="距離が近い順" end
+      @page=params[:page].to_i
 
       #選択した施設が重複していないかチェック
       @error=false
@@ -75,15 +76,18 @@ class SearchController < ApplicationController
               
               flag=0
               if keyword!="" then #絞り込みあり
-                  #物件情報から
-                  if housing.street_address.include?(keyword) then flag=1 end
+                  #見出し情報から
                   if housing.housing_type.include?(keyword) then flag=1 end
+                  if housing.street_address.include?(keyword) then flag=1 end
                   if housing.direction.include?(keyword) then flag=1 end
                   if housing.layout.include?(keyword) then flag=1 end
+                  
+                  #詳細
+                  if housing.detail.include?(keyword) then flag=1 end
                   if housing.structure.include?(keyword) then flag=1 end
                   if housing.trading_aspect.include?(keyword) then flag=1 end
                   if housing.vacancy.include?(keyword) then flag=1 end
-                  if housing.detail.include?(keyword) then flag=1 end
+                  
                   #お気に入り登録されているもの
                   if keyword=="お気に入り"||keyword=="おきに入り"||keyword=="お気にいり"||keyword=="おきにいり"||keyword=="オキニイリ"||keyword=="okiniiri"||keyword=="favorite"||keyword=="favorites" then
                       if fav_flag==1 then flag=1 end
@@ -170,8 +174,16 @@ class SearchController < ApplicationController
             @max_value = distance[@destination[num]]["value"]
           end
         }
-
       }
+      
+      #ページ情報取得
+      len=@distances.length-1
+      if len<0 then len=0 end
+      @max_page=(len/10)+1 #最大ページ番号
+      if @page==nil then @page=1 #デフォルトは1
+      elsif @page<1 then @page=1 #最小1
+      elsif @page>@max_page then @page=@max_page end #最大は@max_page
+      @dis_num=-1 #焦点を当てている物件番号
 
       #広告取得
       advertisings=Advertising.all
@@ -200,6 +212,7 @@ class SearchController < ApplicationController
     @slope=params[:slope]
     @keyword=params[:keyword]
     @sort=params[:sort]
+    @page=params[:page].to_i
     @user=User.select("id,user_name").where("user_name = :user_name",user_name: @user_name)
     @housing=Housing.find(housing_id)
     @inc=IncAccount.find(@housing.inc_account_id)
