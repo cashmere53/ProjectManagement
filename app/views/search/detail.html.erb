@@ -36,25 +36,20 @@
     </td></tr><tr><td>
       <%= housing.housing_type %> <!-- タイプ -->
     </td></tr><tr><td>
-              <%= housing.street_address %> <!-- 住所 -->
-            </td></tr></table>
-          </td>
-          <td>
-            <table class="table"><tr>
-              <td>築年数　：</td><td>
-                築<%= Date.today.year-housing.building_date.year %>年</td> <!-- 築年月 -->
-              </tr><tr>
-              <td>部屋向き：</td><td>
-                <%= housing.direction %></td> <!-- 方向 -->
-              </tr><tr>
-                <td>間取り　：</td><td>
-                  <%= housing.layout %></td> <!-- 間取り -->
-                </tr><tr>
-                  <td>専有面積：</td><td>
-                    <% area_num=housing.area/10.to_f %>
-                    <p><%= area_num %>m&sup2;</td> <!-- 面積 -->
-                    </tr></table>
-                  </td>
+      <%= housing.street_address %> <!-- 住所 -->
+    </td></tr></table>
+  </td>
+  <td>
+    <table class="table"><tr>
+        <td>築年数　：</td><td>築<%= Date.today.year-housing.building_date.year %>年</td> <!-- 築年月 -->
+    </tr><tr>
+        <td>部屋向き：</td><td><%= housing.direction %></td> <!-- 方向 -->
+    </tr><tr>
+        <td>間取り　：</td><td><%= housing.layout %></td> <!-- 間取り -->
+    </tr><tr>
+        <td>専有面積：</td><td><% area_num=housing.area/10.to_f %><p><%= area_num %>m&sup2;</td> <!-- 面積 -->
+    </tr></table>
+  </td>
 </tr></table></div>
 
 <!-- グラフ -->

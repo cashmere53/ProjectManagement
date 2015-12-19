@@ -76,22 +76,32 @@ class SearchController < ApplicationController
               
               flag=0
               if keyword!="" then #絞り込みあり
-                  #見出し情報から
-                  if housing.housing_type.include?(keyword) then flag=1 end
-                  if housing.street_address.include?(keyword) then flag=1 end
-                  if housing.direction.include?(keyword) then flag=1 end
-                  if housing.layout.include?(keyword) then flag=1 end
-                  
-                  #詳細
-                  if housing.detail.include?(keyword) then flag=1 end
-                  if housing.structure.include?(keyword) then flag=1 end
-                  if housing.trading_aspect.include?(keyword) then flag=1 end
-                  if housing.vacancy.include?(keyword) then flag=1 end
-                  
-                  #お気に入り登録されているもの
-                  if keyword=="お気に入り"||keyword=="おきに入り"||keyword=="お気にいり"||keyword=="おきにいり"||keyword=="オキニイリ"||keyword=="okiniiri"||keyword=="favorite"||keyword=="favorites" then
-                      if fav_flag==1 then flag=1 end
-                  end
+                  keyword=keyword.gsub("　"," ")
+                  keywords=keyword.split(" ") #複数あるキーワードを分割
+                  flags=0
+                  keywords.each{|keyword|
+                      #見出し情報から
+                      if housing.housing_type.include?(keyword) then flags+=1 end
+                      if housing.street_address.include?(keyword) then flags+=1 end
+                      if housing.direction.include?(keyword) then flags+=1 end
+                      if housing.layout.include?(keyword) then flags+=1 end
+                      #詳細
+                      if housing.detail.include?(keyword) then flags+=1 end
+                      if housing.structure.include?(keyword) then flags+=1 end
+                      if housing.trading_aspect.include?(keyword) then flags+=1 end
+                      if housing.vacancy.include?(keyword) then flags+=1 end
+                      
+                      #お気に入り登録されていないもの
+                      if keyword=="お気に入り以外"||keyword=="お気に入りいがい"||keyword=="おきに入り以外"||keyword=="おきに入りいがい"||keyword=="お気にいり以外"||keyword=="お気にいりいがい"||keyword=="おきにいり以外"||keyword=="おきにいりいがい" then
+                          if fav_flag==0 then flags+=1 end
+                      #お気に入り登録されているもの
+                      elsif keyword=="お気に入り"||keyword=="おきに入り"||keyword=="お気にいり"||keyword=="おきにいり"||keyword=="オキニイリ"||keyword=="okiniiri"||keyword=="favorite"||keyword=="favorites" then
+                          if fav_flag==1 then flags+=1 end
+                      end
+                      
+                  }
+                  if keywords.length==flags then flag=1 end #全てひっかかればOK
+                  @keyword=keyword
               else
                   flag=1
               end
