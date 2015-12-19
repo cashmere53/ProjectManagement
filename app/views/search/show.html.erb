@@ -38,12 +38,36 @@
     <input type="hidden" name="destination[filter]" value="<%= @filter %>">
     <input type="hidden" name="slope" value="<%= @slope %>">
     <input type="text" name="keyword" size="50" maxlength="20" placeholder="キーワードを入力" value="<%= @keyword %>">
-    <input type="submit" value="絞り込み検索" class="btn btn-success"><br>
+    <input type="submit" value="絞り込み検索" class="btn btn-success">
+    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_keyword">？</button><br>
     <div style="height:10px;"></div>
     <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"],["人気が高い順", "人気が高い順"],["閲覧が多い順", "閲覧が多い順"]] , :selected=>@sort %>
     <input type="submit" value="並び替え" class="btn btn-warning">
     <div style="height:40px;"></div>
 <% end %>
+
+<!-- モーダルウィンドウ -->
+<div class="modal fade" id="modal_keyword">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">絞り込み検索</h4>
+            </div>
+            <div class="modal-body">
+　絞り込み検索は、基本的に「住宅のタイプ」「住所」「部屋向き」「間取り」「特徴」「構造」「空き部屋情報」「取引態様」の検索が可能です。<br><br>
+<< 例 >><br>
+○アパートを探したい → 『アパート』と入力<br>
+○鉄筋コンクリートの建物を探したい → 『鉄筋コンクリート』と入力<br>
+○鉄筋コンクリートのアパートを探したい → 『鉄筋コンクリート　アパート』と入力
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 物件一覧 -->
 <% if @slope!="yes" && @slope!="no" then %> <!-- お気に入り物件一覧 -->
 <p class="text-center bg-warning">お気に入り物件</p>
