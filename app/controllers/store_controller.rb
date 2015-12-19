@@ -14,7 +14,8 @@ class StoreController < ApplicationController
   end
 
   def registerStores
-
+    @inc_account_id = params[:id]
+    @store = Store.new
   end
 
   def editStores
@@ -44,8 +45,11 @@ class StoreController < ApplicationController
     @store.inc_account_id = params[:id]
     @store.street_address = params[:street_address]
     @store.postal_code = params[:postal_code]
-    @store.save
-    redirect_to showStores_path(params[:id])
+    if @store.save
+      redirect_to showStores_path(@store.inc_account_id)
+    else
+      render :action => 'registerStores'
+    end
   end
 
   def update
@@ -53,8 +57,12 @@ class StoreController < ApplicationController
     @store.store_name = params[:store_name]
     @store.street_address = params[:street_address]
     @store.postal_code = params[:postal_code]
-    @store.save
-    redirect_to showStores_path(@store.inc_account_id)
+    if @store.save
+      redirect_to showStores_path(@store.inc_account_id)
+    else
+      render :action => 'editStores'
+    end
+
   end
 
   def destroy

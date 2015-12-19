@@ -48,8 +48,8 @@
     <% housing_id=@housings[distance["id"]].id %>
     <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
-    <div class="col-sm-3">
-        <%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :class=>"img-responsive img-thumbnail") %>
+    <div class="col-sm-3" style="padding:5px;">
+        <center><%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :size => '196x196') %></center>
     </div>
 
     <div class="col-sm-6" style="padding: 5px;"><table class="table table-bordered" style="background:#ffffff;"><tr>
@@ -118,7 +118,7 @@
         <input type="hidden" name="max_value" value="<%= @max_value %>" >
         <% distance.each{|key,value| %>
             <% if key=='id'||key=='value' then next end %>
-            <input type="hidden" name="distances[<%= key %>]" value=<%= value['value'] %> >
+            <input type="hidden" name="distances[<%= key %>]" value="<%= value['value'] %>" >
             <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
         <% } %>
         <input type="hidden" name="fav" value="-" >
@@ -134,7 +134,6 @@
 
 <!-- 広告枠 -->
 <div class="col-md-3">
-    <center><b><h4>掲載希望の方は<%= link_to "こちら", :controller => "inc_accounts", :action => "login" %></h4></b></center>
 <div style="height:40px;"></div>
 広告<br>
 <table class="table">

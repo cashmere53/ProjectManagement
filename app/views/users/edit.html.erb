@@ -12,39 +12,33 @@
 <%= render 'shared/menu' %>
 
 <div class="container-fluid"><div class="row">
-  <div class="col-sm-3"></div>
-    <div class="col-sm-6">
+  <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <p><div align="left"><h3><b>設定画面</b></h3></div></p>
       <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
         <input type="hidden" name="user_name" value="<%= @user_name %>">
-        <center><table width="400" style="background:#ffffee;" bordercolor="#cc6633"></center>
-          <tr height="40"><td><center><h4><b>設定画面</b><h4><center></td></tr>
+        <center><table width="800px" style="background:#ffffee;" bordercolor="#cc6633"></center>
 
-          <tr height="30"><td>　　ユーザ名：</td></tr>
-          <tr height="30"><td>　　<%= @user.user_name %></td></tr>
-          <tr height="30"><td></td><tr>
+          <tr height="30"><td>　　ユーザ名：</td><td>　　<%= @user.user_name %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
 
-          <tr height="30"><td>　　メールアドレス：</td></tr>
-          <tr height="30"><td>　　<%= @user.mail_address%></td></tr>
-          <tr height="30"><td></td><tr>
+          <tr height="30"><td>　　メールアドレス：</td><td>　　<%= @user.mail_address %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
 
-          <tr height="30"><td>　　古いパスワード：</td></tr>
-          <tr height="30"><td><center><input type="password" name="old_password" size="50" maxlength="50" placeholder="古いパスワードを入力"></center></td></tr>
-          <tr height="30"><td></td><tr>
+          <tr height="30"><td>　　古いパスワード：</td><td><input type="password" name="old_password" size="50" maxlength="50" placeholder="古いパスワードを入力"></td></tr>
+          <tr height="30"><td></td><td><center><font color="red"><%= @message1 %></font></center></td><tr>
 
-          <tr height="30"><td>　　新しいパスワード：</td></tr>
-          <tr height="30"><td><center><input type="password" name="password" size="50" maxlength="50" placeholder="新しいパスワードを入力"></center></td></tr>
-          <tr height="30"><td></td><tr>
+          <tr height="30"><td>　　新しいパスワード：</td><td><input type="password" name="password" size="50" maxlength="50" placeholder="新しいパスワードを入力"></td></tr>
+          <tr height="30"><td></td><td></td><tr>
 
-          <tr height="30"><td>　　新しいパスワード（確認用）：</td></tr>
-          <tr height="30"><td><center><input type="password" name="password_confirmation" size="50" maxlength="50" placeholder="新しいパスワード（確認用）を入力"></center></td></tr>
-          <tr height="30"><td><center><font color="red"><%= @message %></font></center></td><tr>
+          <tr height="30"><td>　　新しいパスワード（確認用）：</td><td><input type="password" name="password_confirmation" size="50" maxlength="50" placeholder="新しいパスワード（確認用）を入力"></td></tr>
+          <tr height="30"><td></td><td><center><font color="red"><%= @message2 %></font></center></td><tr>
 
-          <tr height="30"><td><center><input type="submit" value="パスワード変更" formaction='/users/update' class="btn btn-success"></center></td></tr>
+          <tr height="30"><td><center><input type="submit" value="パスワード変更" formaction='/users/update' class="btn btn-success"></center></td>
           <% end %>
-          <tr height="30"><td><center><%= button_to "削除", { :action => "destroy", :id => @user.id }, :confirm => "本当に削除しますか?", :method => :delete, :class => "btn btn-warning" %></center></td></tr>
-          <tr height="10"><td></td></tr>
+                          <td><center><%= button_to "アカウント削除", { :action => "destroy", :id => @user.id }, data: {confirm: "本当に削除しますか?"}, :method => :delete, :class => "btn btn-warning", style: "margin:5px;" %></center></td></tr>
         </table>
     </center></div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-2"></div>
   </div>
 </div>

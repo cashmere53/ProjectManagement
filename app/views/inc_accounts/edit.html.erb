@@ -1,0 +1,56 @@
+<!--############################################################
+# specificat on ;
+# name     = Good Measure ;
+# note     = ;
+# date     = 2015/12/6 ;
+# author   = Takayuki Kaneko ;
+# History  = ver1.0.0 ;
+# end of specification ;
+#############################################################-->
+
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
+<div class="container-fluid"><div class="row">
+  <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <p><div align="left"><h3><b>設定画面</b></h3></div>
+      <div align="right">
+        <%= form_tag('/housing_databases/showTables', :method => :get) do %>
+          <input type="hidden" name="inc_account_id" value="<%= @inc_account_id %>" >
+          <input type="submit" value="一覧画面へ" formaction='/housing_databases/showTables/<%= @inc_account_id %>' formmethod='get' class="btn btn-success" style="margin:5px;">
+        <% end %>
+      </div></p>
+      <%= form_tag('/search/form', :method => :post , :name => "menu_form") do %>
+        <input type="hidden" name="inc_account_id" value="<%= @inc_account_id %>">
+        <center><table width="800px" style="background:#ffffee;" bordercolor="#cc6633"></center>
+
+          <tr height="30"><td>　　企業名：</td><td>　　<%= @inc_account.inc_name %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
+
+          <tr height="30"><td>　　メールアドレス：</td><td>　　<%= @inc_account.mail_address %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
+
+          <tr height="30"><td>　　電話番号：</td><td>　　<%= @inc_account.phone_num %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
+
+          <tr height="30"><td>　　口座名義：</td><td>　　<%= @inc_account.account_name %></td></tr>
+          <tr height="30"><td></td><td></td><tr>
+
+          <tr height="30"><td>　　古いパスワード：</td><td><input type="password" name="old_password" size="50" maxlength="50" placeholder="古いパスワードを入力"></td></tr>
+          <tr height="30"><td></td><td><center><font color="red"><%= @message1 %></font></center></td><tr>
+
+          <tr height="30"><td>　　新しいパスワード：</td><td><input type="password" name="password" size="50" maxlength="50" placeholder="新しいパスワードを入力"></td></tr>
+          <tr height="30"><td></td><td></td><tr>
+
+          <tr height="30"><td>　　新しいパスワード（確認用）：</td><td><input type="password" name="password_confirmation" size="50" maxlength="50" placeholder="新しいパスワード（確認用）を入力"></td></tr>
+          <tr height="30"><td></td><td><center><font color="red"><%= @message2 %></font></center></td><tr>
+
+          <tr height="30"><td><center><input type="submit" value="パスワード変更" formaction='/inc_accounts/update' class="btn btn-success"></center></td>
+          <% end %>
+                          <td><center><%= button_to "アカウント削除", { :action => "destroy", :id => @inc_account_id }, data: {confirm: "本当に削除しますか?"}, :method => :delete, :class => "btn btn-warning", style: "margin:5px;" %></center></td></tr>
+        </table>
+    </center></div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
