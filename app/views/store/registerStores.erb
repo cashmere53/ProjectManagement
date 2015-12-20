@@ -17,14 +17,17 @@
     <table>
 
       <tbody>
-      <tr><td>店舗名</td> <td><%= text_field_tag :store_name,@store.store_name, :placeholder => "店舗名" %></td> </tr>
+      <tr><td>店舗名</td> </tr>
+      <tr><td><%= text_field_tag :store_name,@store.store_name, :placeholder => "店舗名" %></td></tr>
       <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:store_name] %></font></td><tr>
-      <tr><td>住所</td>  <td><%= text_field_tag :street_address,@store.street_address,:placeholder => '住所'%></td> </tr>
+      <tr><td>住所</td> </tr>
+      <tr><td><%= text_field_tag :street_address,@store.street_address,:placeholder => '住所'%></td></tr>
       <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:street_address] %></font></td><tr>
-      <tr><td>郵便番号</td>  <td><%= text_field_tag :postal_code,@store.postal_code,:placeholder => '郵便番号'%></td> </tr>
+      <tr><td>郵便番号（半角数字７桁）</td> </tr>
+      <tr><td><%= text_field_tag :postal_code,@store.postal_code,:placeholder => '郵便番号'%></td></tr>
       <tr height="30"><td colspan="2"><font color="red">　　<%= @store.errors.messages[:postal_code] %></font></td><tr>
       </tbody>
     </table>
 
-    <%= submit_tag "保存" %>
+    <%= submit_tag "登録" ,"data-confirm" => "登録を行いますか？"%>
 <% end %>

@@ -26,7 +26,7 @@ class IncAccountsController < ApplicationController
       @housing = Housing.where(inc_account_id: @inc_account.id)
       @inc_account_id = @inc_account.id
       session[@inc_account_id] = @inc_account_id
-      render :template => "/housing_databases/showTables"
+      render :template => "/housing_databases/showTables/"
     else
       @message = "ユーザ名かパスワードが違います。"
       render :template => "inc_accounts/login"
