@@ -187,11 +187,21 @@
     <input type="hidden" name="page" value="<%= @page %>">
 <% end %>
 <ul class="pager">
-    <li><a onclick="document.page_form.page.value='<%= 1 %>'; document.page_form.submit();">«</a></li>
-    <li><a onclick="document.page_form.page.value='<%= @page-1 %>'; document.page_form.submit();">前のページ</a></li>
+    <% if @page!=1 then %>
+        <li><a onclick="document.page_form.page.value='<%= 1 %>'; document.page_form.submit();">«</a></li>
+        <li><a onclick="document.page_form.page.value='<%= @page-1 %>'; document.page_form.submit();">前のページ</a></li>
+    <% else %>
+        <li class="disabled"><a>«</a></li>
+        <li class="disabled"><a>前のページ</a></li>
+    <% end %>
     <%= @page %> / <%= @max_page %>
-    <li><a onclick="document.page_form.page.value='<%= @page+1 %>'; document.page_form.submit();">次のページ</a></li>
-    <li><a onclick="document.page_form.page.value='<%= @max_page %>'; document.page_form.submit();">»</a></li>
+    <% if @page!=@max_page then %>
+        <li><a onclick="document.page_form.page.value='<%= @page+1 %>'; document.page_form.submit();">次のページ</a></li>
+        <li><a onclick="document.page_form.page.value='<%= @max_page %>'; document.page_form.submit();">»</a></li>
+    <% else %>
+        <li class="disabled"><a>次のページ</a></li>
+        <li class="disabled"><a>»</a></li>
+    <% end %>
 </ul>
 <div style="height:40px;"></div>
 </div>
