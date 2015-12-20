@@ -70,6 +70,7 @@ class HousingDatabasesController < DatabasesController
     if params[:store_register]
       redirect_to registerStores_path(params[:id])
     else
+      @inc_account_id = params[:id]
       @inc = IncAccount.find(params[:id])
       @store = @inc.Store
 

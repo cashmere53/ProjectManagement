@@ -8,6 +8,9 @@
 # end of specification ;
 #############################################################-->
 
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
 <%= form_tag('/store/showStores', :method => :get) do %>
   <input type="hidden" name="inc_account_id" value="<%= params[:id] %>" >
   <input type="submit" value="戻る" formaction='/store/showStores/<%= params[:id] %>' formmethod='get' class="btn btn-warning">
