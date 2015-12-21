@@ -12,6 +12,9 @@ class HousingDatabasesController < DatabasesController
 
   # 一覧表示を行う
   def showTables
+    @housing = Housing.new
+    @inc = IncAccount.find(params[:id])
+    @store = @inc.Store
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
     if session[@inc_account_id]==nil || session[@inc_account_id]==''
@@ -67,6 +70,7 @@ class HousingDatabasesController < DatabasesController
     if params[:store_register]
       redirect_to registerStores_path(params[:id])
     else
+      @inc_account_id = params[:id]
       @inc = IncAccount.find(params[:id])
       @store = @inc.Store
 
@@ -107,6 +111,7 @@ class HousingDatabasesController < DatabasesController
       @housing.detail = params[:detail]
       @housing.plan = params[:plan]
       @housing.views = 0
+      @housing.favorites = 0
 
       if params[:image].present?
         @housing.image = params[:image].read

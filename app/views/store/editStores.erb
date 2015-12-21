@@ -8,6 +8,9 @@
 # end of specification ;
 #############################################################-->
 
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
 <%= form_tag editStores_path(params[:id]), method: 'patch',multipart: true do%>
     <table>
 

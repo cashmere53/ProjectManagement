@@ -17,9 +17,7 @@
 <!-- 物件表示枠 -->
 <div class="col-md-9">
 <!-- 見出し -->
-<% if @favorite.length==0 then %><div class="container-fluid" style="background: #ffeedd;">
-<% else %><div class="container-fluid" style="background: #ffff99;"><% end %>
-<div class="row">
+<div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
 <div class="col-sm-3">
     <%= image_tag(housing_databases_image_path(@housing.id), :class=>"img-responsive img-thumbnail") %>
@@ -118,10 +116,7 @@
     <div class="col-sm-2" style="background:#e5e5e5">損保</div>
     <div class="col-sm-4"><%= housing.insurance %>円</div>
     <div class="col-sm-2" style="background:#e5e5e5">駐車場</div>
-    <div class="col-sm-4">
-        <% if housing.parking>=0 then %><%= housing.parking %>円 <!-- 料金がある -->
-        <% else %>なし<% end %> <!-- 駐車場なし -->
-    </div>
+    <div class="col-sm-4"><%= housing.parking %>円</div>
 </div></div>
 <div class="container-fluid" style="border: solid 1px #bbbbbb;"><div class="row">
     <div class="col-sm-2" style="background:#e5e5e5">取引態様</div>
@@ -145,10 +140,6 @@
     <input type="hidden" name="user_name" value="<%= session[@user_name] %>" >
     <input type="hidden" name="housing_id" value="<%= @housing.id %>" >
     <input type="hidden" name="max_value" value="<%= @max_value %>" >
-    <input type="hidden" name="filter" value="<%= @filter %>">
-    <input type="hidden" name="slope" value="<%= @slope %>" >
-    <input type="hidden" name="keyword" value="<%= @keyword %>" >
-    <input type="hidden" name="sort" value="<%= @sort %>" >
     <% @distance.each{|key,value| %>
         <input type="hidden" name="distances[<%= key %>]" value=<%= value['value'] %> >
         <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
@@ -264,46 +255,19 @@ geocoding=function(address){
 <form name="geocoding_form">
 <div class="container-fluid"><div class="row"><div class="col-xs-12">
     茨城県日立市
-    <textarea name="address" cols="25" rows="2" maxlength="50" placeholder="調べたい施設名や住所(町名から)を入力"></textarea>
+    <textarea name="address" cols="25" rows="2" maxlength="50" placeholder="調べたい住所を入力(町名から)"></textarea>
     <button type=button class="btn btn-success" onclick="geocoding(document.geocoding_form.address.value);">検索</button>
 </div></div></div>
 </form>
 <div style="height:10px;"></div>
 
-<div class="container-fluid"><div class="row">
-<div class="col-sm-8">
+<div class="container-fluid"><div class="row"><div class="col-xs-12">
     <div id="map" style="width:450px; height:450px;"></div> <!-- 地図表示 -->
-    <div style="height:5px;"></div>
-    <p style="color:#ff0000;">※ルートが表示されない場合は、ページを更新してください。</p>
-</div>
-<div class="col-sm-4">
-    <table class="table table-bordered">
-        <tr><th>施設名</th><th>距離</th></tr>
-        <% @distance.each{|key,value| %>
-            <tr><td><%= value['facility'].name %></td><td><%= value['value'] %>m</td></tr>
-        <% } %>
-    </table>
-</div>
-</div></div>
-<div style="height:20px;"></div>
-
-<!-- 物件一覧に戻るボタン -->
-<%= form_tag('/search/show', :method => :post) do %>
-    <input type="hidden" name="user_name" value="<%= @user_name %>" >
-    <input type="hidden" name="destination[d1]" value="<%= @destination[0] %>">
-    <input type="hidden" name="destination[d2]" value="<%= @destination[1] %>">
-    <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
-    <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
-    <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
-    <input type="hidden" name="destination[filter]" value="<%= @filter %>">
-    <input type="hidden" name="slope" value="<%= @slope %>">
-    <input type="hidden" name="keyword" value="<%= @keyword %>">
-    <input type="hidden" name="show[sort]" value="<%= @sort %>">
-    <% if @slope=="yes" || @slope=="no" then %><input type="submit" value="物件一覧に戻る" class="btn btn-primary">
-    <% else %><input type="submit" value="お気に入り物件一覧に戻る" class="btn btn-default"><% end %>
-    <div style="height:40px;"></div>
-<% end %>
-
+</div></div></div>
+<div style="height:5px;"></div>
+<div class="container-fluid"><div class="row"><div class="col-xs-12">
+  <p style="color:#ff0000;">※ルートが表示されない場合は、ページを更新してください。</p>
+</div></div></div>
 <div style="height:20px;"></div>
 </div>
 

@@ -35,28 +35,18 @@
     <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
     <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
     <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
-    <input type="hidden" name="destination[filter]" value="<%= @filter %>">
     <input type="hidden" name="slope" value="<%= @slope %>">
     <input type="text" name="keyword" size="50" maxlength="20" placeholder="キーワードを入力" value="<%= @keyword %>">
     <input type="submit" value="絞り込み検索" class="btn btn-success"><br>
     <div style="height:10px;"></div>
-    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"],["人気が高い順", "人気が高い順"],["閲覧が多い順", "閲覧が多い順"]] , :selected=>@sort %>
+    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"]] , :selected=>@sort %>
     <input type="submit" value="並び替え" class="btn btn-warning">
     <div style="height:40px;"></div>
 <% end %>
 <!-- 物件一覧 -->
-<% if @slope!="yes" && @slope!="no" then %> <!-- お気に入り物件一覧 -->
-お気に入り物件<br>
-<div style="height:40px;"></div>
-<% end %>
-<% if @distances.length==0 then %> <!-- 住宅が一つもない時 -->
-該当する住宅がありません。
-<% end %>
 <% @distances.each{|distance| %>
     <% housing_id=@housings[distance["id"]].id %>
-    <% if @options[distance["id"]]["favorite"]==0 then %><div class="container-fluid" style="background: #ffeedd;">
-    <% else %><div class="container-fluid" style="background: #ffff99;"><% end %>
-    <div class="row">
+    <div class="container-fluid" style="background: #ffeedd;"><div class="row">
 
     <div class="col-sm-3" style="padding:5px;">
         <center><%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :size => '196x196') %></center>
@@ -131,14 +121,10 @@
             <input type="hidden" name="distances[<%= key %>]" value="<%= value['value'] %>" >
             <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
         <% } %>
-        <input type="hidden" name="filter" value="<%= @filter %>">
-        <input type="hidden" name="slope" value="<%= @slope %>" >
-        <input type="hidden" name="keyword" value="<%= @keyword %>" >
-        <input type="hidden" name="sort" value="<%= @sort %>" >
         <input type="hidden" name="fav" value="-" >
-        <div style="height:5px;"></div>
+        <div style="height:20px;"></div>
         <div class="container-fluid"><div class="row"><div class="col-xs-12 text-right">
-            <input type="submit" value="詳細" class="btn btn-info btn-block">
+            <input type="submit" value="詳細" class="btn btn-info">
         </div></div></div>
         <div style="height:40px;"></div>
     <% end %>
