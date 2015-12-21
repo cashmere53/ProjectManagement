@@ -35,18 +35,56 @@
     <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
     <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
     <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
+    <input type="hidden" name="destination[filter]" value="<%= @filter %>">
     <input type="hidden" name="slope" value="<%= @slope %>">
     <input type="text" name="keyword" size="50" maxlength="20" placeholder="キーワードを入力" value="<%= @keyword %>">
-    <input type="submit" value="絞り込み検索" class="btn btn-success"><br>
+    <input type="submit" value="絞り込み検索" class="btn btn-success">
+    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_keyword">？</button><br>
     <div style="height:10px;"></div>
-    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"]] , :selected=>@sort %>
+    <%= select 'show','sort' , [["距離が近い順", "距離が近い順"],["賃料が安い順", "賃料が安い順"],["賃料が高い順", "賃料が高い順"],["面積が広い順", "面積が広い順"],["人気が高い順", "人気が高い順"],["閲覧が多い順", "閲覧が多い順"]] , :selected=>@sort %>
     <input type="submit" value="並び替え" class="btn btn-warning">
     <div style="height:40px;"></div>
 <% end %>
+
+<!-- モーダルウィンドウ -->
+<div class="modal fade" id="modal_keyword">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">絞り込み検索</h4>
+            </div>
+            <div class="modal-body">
+　絞り込み検索は、基本的に「住宅のタイプ」「住所」「部屋向き」「間取り」「特徴」「構造」「空き部屋情報」「取引態様」の検索が可能です。<br><br>
+<< 例 >><br>
+○アパートを探したい → 『アパート』と入力<br>
+○鉄筋コンクリートの建物を探したい → 『鉄筋コンクリート』と入力<br>
+○鉄筋コンクリートのアパートを探したい → 『鉄筋コンクリート　アパート』と入力
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 物件一覧 -->
+<% if @slope!="yes" && @slope!="no" then %> <!-- お気に入り物件一覧 -->
+<p class="text-center bg-warning">お気に入り物件</p>
+<div style="height:20px;"></div>
+<% end %>
+<span style="font-size: 32px; color: #0000ff; font-weight: bold;"><%= @distances.length %></span>件<br> <!-- ヒット件数 -->
+<div style="height:40px;"></div>
+<% if @distances.length==0 then %> <!-- 住宅が一つもない時 -->
+<p>該当する住宅がありません。</p>
+<% end %>
 <% @distances.each{|distance| %>
+    <% @dis_num+=1 %>
+    <% if @dis_num<(@page-1)*10 || @dis_num>@page*10-1 then next end %> <!-- ページ外の物件は飛ばす -->
     <% housing_id=@housings[distance["id"]].id %>
-    <div class="container-fluid" style="background: #ffeedd;"><div class="row">
+    <% if @options[distance["id"]]["favorite"]==0 then %><div class="container-fluid" style="background: #ffeedd;">
+    <% else %><div class="container-fluid" style="background: #ffff99;"><% end %>
+    <div class="row">
 
     <div class="col-sm-3" style="padding:5px;">
         <center><%= image_tag(housing_databases_image_path(@housings[distance["id"]]), :size => '196x196') %></center>
@@ -121,15 +159,51 @@
             <input type="hidden" name="distances[<%= key %>]" value="<%= value['value'] %>" >
             <input type="hidden" name="facilities[]" value="<%= value['facility'].id %>" >
         <% } %>
+        <input type="hidden" name="filter" value="<%= @filter %>">
+        <input type="hidden" name="slope" value="<%= @slope %>" >
+        <input type="hidden" name="keyword" value="<%= @keyword %>" >
+        <input type="hidden" name="sort" value="<%= @sort %>" >
+        <input type="hidden" name="page" value="<%= @page %>">
         <input type="hidden" name="fav" value="-" >
-        <div style="height:20px;"></div>
+        <div style="height:5px;"></div>
         <div class="container-fluid"><div class="row"><div class="col-xs-12 text-right">
-            <input type="submit" value="詳細" class="btn btn-info">
+            <input type="submit" value="詳細" class="btn btn-info btn-block">
         </div></div></div>
         <div style="height:40px;"></div>
     <% end %>
 <% } %>
-</table>
+<!-- ページャ -->
+<%= form_tag('/search/show', :method => :post, :name => 'page_form') do %>
+    <input type="hidden" name="user_name" value="<%= @user_name %>" >
+    <input type="hidden" name="destination[d1]" value="<%= @destination[0] %>">
+    <input type="hidden" name="destination[d2]" value="<%= @destination[1] %>">
+    <input type="hidden" name="destination[d3]" value="<%= @destination[2] %>">
+    <input type="hidden" name="destination[d4]" value="<%= @destination[3] %>">
+    <input type="hidden" name="destination[d5]" value="<%= @destination[4] %>">
+    <input type="hidden" name="destination[filter]" value="<%= @filter %>">
+    <input type="hidden" name="slope" value="<%= @slope %>">
+    <input type="hidden" name="keyword" value="<%= @keyword %>">
+    <input type="hidden" name="show[sort]" value="<%= @sort %>">
+    <input type="hidden" name="page" value="<%= @page %>">
+<% end %>
+<ul class="pager">
+    <% if @page!=1 then %>
+        <li><a onclick="document.page_form.page.value='<%= 1 %>'; document.page_form.submit();">«</a></li>
+        <li><a onclick="document.page_form.page.value='<%= @page-1 %>'; document.page_form.submit();">前のページ</a></li>
+    <% else %>
+        <li class="disabled"><a>«</a></li>
+        <li class="disabled"><a>前のページ</a></li>
+    <% end %>
+    <%= @page %> / <%= @max_page %>
+    <% if @page!=@max_page then %>
+        <li><a onclick="document.page_form.page.value='<%= @page+1 %>'; document.page_form.submit();">次のページ</a></li>
+        <li><a onclick="document.page_form.page.value='<%= @max_page %>'; document.page_form.submit();">»</a></li>
+    <% else %>
+        <li class="disabled"><a>次のページ</a></li>
+        <li class="disabled"><a>»</a></li>
+    <% end %>
+</ul>
+<div style="height:40px;"></div>
 </div>
 
 <!-- 広告枠 -->
