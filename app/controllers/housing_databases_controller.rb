@@ -44,6 +44,7 @@ class HousingDatabasesController < DatabasesController
     @store = @inc.Store
     @housing = Housing.new
     @housingdate = Date.new(1960, 1, 1)
+    @facilities = Facility.all
   end
 
   # 編集ページの表示を行っている
@@ -73,6 +74,7 @@ class HousingDatabasesController < DatabasesController
       @inc_account_id = params[:id]
       @inc = IncAccount.find(params[:id])
       @store = @inc.Store
+      @facilities = Facility.all
 
       @housing = Housing.new
       @date = params[:date]
@@ -118,12 +120,13 @@ class HousingDatabasesController < DatabasesController
       end
 
       #距離情報を登録
+      distances = params[:distance]
       housing_id = Housing.last.id
       store_id = @selected["store_id"].to_i
       facilities = Facility.all
       facilities.each{|facility|
         distance = Distance.new
-        distance.distance = rand(3000) + 1
+        distance.distance = distances[facility.id.to_s]
         distance.facility_id = facility.id
         distance.housing_id = housing_id
         distance.store_id = store_id
