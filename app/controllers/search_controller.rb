@@ -36,11 +36,13 @@ class SearchController < ApplicationController
       @destination[2]=destination['d3']
       @destination[3]=destination['d4']
       @destination[4]=destination['d5']
+      @filter=destination['filter']
       @slope=params[:slope]
       keyword=params[:keyword]
-      @max_value = 0;
+      if keyword==nil then keyword="" end #キーワードがnilなら空にする
       @keyword=keyword
-      @sort=params[:show]['sort']
+      @max_value = 0;
+      if defined?(params[:show]['sort']) then @sort=params[:show]['sort'] else @sort="距離が近い順" end
 
       #選択した施設が重複していないかチェック
       @error=false
@@ -53,13 +55,27 @@ class SearchController < ApplicationController
       end
 
       #住宅取得
-      if @slope=="yes" || @slope=="no" then #通常
-          if keyword!="" then #絞り込みあり
-              @housings=[]
-              housings=Housing.all
-              housings.each{|housing|
-                  flag=0
-
+      @housings=[]
+      @options=[] #住宅の付随情報
+      if session[@user_name]!=nil then user=User.select("id").where("user_name = :user_name",user_name: @user_name)
+      else user=nil end
+      housings=Housing.all
+      housings.each{|housing|
+              if housing.vacancy=="" then next end #空き部屋がない住宅は飛ばす
+              
+              #お気に入り登録されているか調べる
+              fav_flag=0
+              if user!=nil then
+                  favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: user[0].id,housing_id: housing.id)
+                  if favorite.length>0 then fav_flag=1 end
+              else fav_flag=0 end
+              
+              #お気に入りリスト表示の場合、お気に入り登録されていない奴は飛ばす
+              if @slope!="yes" && @slope!="no" && fav_flag==0 then next end
+              
+              flag=0
+              if keyword!="" then #絞り込みあり
+                  #物件情報から
                   if housing.street_address.include?(keyword) then flag=1 end
                   if housing.housing_type.include?(keyword) then flag=1 end
                   if housing.direction.include?(keyword) then flag=1 end
@@ -68,42 +84,19 @@ class SearchController < ApplicationController
                   if housing.trading_aspect.include?(keyword) then flag=1 end
                   if housing.vacancy.include?(keyword) then flag=1 end
                   if housing.detail.include?(keyword) then flag=1 end
-
-                  if flag==1 then @housings.push(housing) end #ヒットしたら登録
-              }
-          else #絞り込みなし
-              @housings=Housing.all
-          end
-      else #お気に入りリスト
-          if keyword!="" then #絞り込みあり
-              @housings=[]
-              user=User.select("id,user_name").where("user_name = :user_name",user_name: @user_name)
-              favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
-              favorites.each{|favorite|
-                  housing=Housing.find(favorite.housing_id)
-                  flag=0
-
-                  if housing.street_address.include?(keyword) then flag=1 end
-                  if housing.housing_type.include?(keyword) then flag=1 end
-                  if housing.direction.include?(keyword) then flag=1 end
-                  if housing.layout.include?(keyword) then flag=1 end
-                  if housing.structure.include?(keyword) then flag=1 end
-                  if housing.trading_aspect.include?(keyword) then flag=1 end
-                  if housing.vacancy.include?(keyword) then flag=1 end
-                  if housing.detail.include?(keyword) then flag=1 end
-
-                  if flag==1 then @housings.push(housing) end #ヒットしたら登録
-              }
-          else #絞り込みなし
-              @housings=[]
-              user=User.select("id,user_name").where("user_name = :user_name",user_name: @user_name)
-              favorites=Favorite.where("user_id = :user_id",user_id: user[0].id)
-              favorites.each{|favorite|
-                  housing=Housing.find(favorite.housing_id)
+                  #お気に入り登録されているもの
+                  if keyword=="お気に入り"||keyword=="おきに入り"||keyword=="お気にいり"||keyword=="おきにいり"||keyword=="オキニイリ"||keyword=="okiniiri"||keyword=="favorite"||keyword=="favorites" then
+                      if fav_flag==1 then flag=1 end
+                  end
+              else
+                  flag=1
+              end
+              
+              if flag==1 then #ヒットしたら登録
                   @housings.push(housing)
-              }
-          end
-      end
+                  @options.push({"favorite" => fav_flag})
+              end
+      }
 
       #距離情報取得
       @distances=[]
@@ -141,7 +134,18 @@ class SearchController < ApplicationController
               }
           end
 
-          distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          if @filter=="4" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1
+          elsif @filter=="3" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3
+          elsif @filter=="2" then
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7
+          elsif @filter=="1" then
+            distance["value"]=distance[@destination[0]]["value"]
+          else
+            @filter="5"
+            distance["value"]=distance[@destination[0]]["value"]+distance[@destination[1]]["value"]*0.7+distance[@destination[2]]["value"]*0.3+distance[@destination[3]]["value"]*0.1+distance[@destination[4]]["value"]*0.01
+          end
       }
 
       #並べ替え
@@ -153,6 +157,10 @@ class SearchController < ApplicationController
         @distances.sort!{|a, b| @housings[b["id"]].rent <=> @housings[a["id"]].rent }
       elsif @sort=="面積が広い順" then
         @distances.sort!{|a, b| @housings[b["id"]].area <=> @housings[a["id"]].area }
+      elsif @sort=="人気が高い順" then
+        @distances.sort!{|a, b| @housings[b["id"]].favorites <=> @housings[a["id"]].favorites }
+      elsif @sort=="閲覧が多い順" then
+        @distances.sort!{|a, b| @housings[b["id"]].views <=> @housings[a["id"]].views }
       end
 
       #最も大きい評価値を調べる
@@ -188,7 +196,10 @@ class SearchController < ApplicationController
         @distance[key]={ "value"=>value , "facility"=>Facility.find(params[:facilities][dis_num]) }
         dis_num+=1
     }
-
+    @filter=params[:filter]
+    @slope=params[:slope]
+    @keyword=params[:keyword]
+    @sort=params[:sort]
     @user=User.select("id,user_name").where("user_name = :user_name",user_name: @user_name)
     @housing=Housing.find(housing_id)
     @inc=IncAccount.find(@housing.inc_account_id)
@@ -200,18 +211,26 @@ class SearchController < ApplicationController
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
         if favorite.length==0 then
             Favorite.create(:user_id=>@user[0].id , :housing_id=>@housing.id , :store_id=>@store.id , :inc_account_id=>@inc.id)
+            @housing.favorites+=1 #お気に入り件数増やす
+            @housing.save
         end
     end
 
     #お気に入り削除
     if session[@user_name]!=nil && fav=="削除" then
         favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
-        if favorite.length>0 then favorite[0].destroy end
+        if favorite.length>0 then
+            favorite[0].destroy
+            @housing.favorites-=1 #お気に入り件数減らす
+            @housing.save
+        end
     end
 
     #お気に入り登録しているか調べる
+    @favorite=[]
     if session[@user_name]!=nil then
-        @favorite=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
+        favorites=Favorite.where("user_id = :user_id and housing_id = :housing_id",user_id: @user[0].id,housing_id: @housing.id)
+        if favorites.length>0 then @favorite.push(favorites[0]) end
     end
 
     #閲覧数カウント

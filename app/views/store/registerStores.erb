@@ -15,7 +15,7 @@
 
 <%= form_tag registerStores_path(params[:id]),multipart: true do%>
     <table>
-
+      <% if @message %><tr><td><center><font color="red"><%= @message %></font></center></td></tr><% end %>
       <tbody>
       <tr><td>店舗名</td> </tr>
       <tr><td><%= text_field_tag :store_name,@store.store_name, :placeholder => "店舗名" %></td></tr>
