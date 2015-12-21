@@ -32,7 +32,11 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def registerDatabases
+<<<<<<< Temporary merge branch 1
     @inc_account_id = params[:id]
+=======
+    @advertising = Advertising.new
+>>>>>>> Temporary merge branch 2
   end
 
   def editDatabases
@@ -52,19 +56,30 @@ class AdvertisingDatabasesController < DatabasesController
     @inc_account = IncAccount.find(params[:id])
     @inc_account_id = params[:id]
 
-    upload_file = params.require(:image)
-    adv = {}
-    if upload_file != nil
-      adv[:advertise_info] = params[:advertise_info]
-      adv[:image] = upload_file.read
-      adv[:inc_account_id] = params[:id]
-      adv[:contract_date] = Date.today
-    end
-    @advertising = Advertising.new(adv)
+    # upload_file = params.require(:image)
+    # adv = {}
+    # if upload_file != nil
+    #   adv[:advertise_info] = params[:advertise_info]
+    #   adv[:image] = upload_file.read
+    #   adv[:inc_account_id] = params[:id]
+    #   adv[:contract_date] = Date.today
+    # end
+    # @advertising = Advertising.new(adv)
 
-    @advertising.save
-    @advertising = Advertising.where(inc_account_id: @inc_account_id)
-    render :action => "showTables"
+    @advertising = Advertising.new
+    @advertising.advertise_info = params[:advertise_info]
+    @advertising.inc_account_id = @inc_account_id
+    if params[:image].present?
+      @advertising.image = params[:image].read
+    end
+
+    if @advertising.save
+      @advertising = Advertising.where(inc_account_id: @inc_account_id)
+      render :action => "showTables"
+    else
+      render :action => 'registerDatabases'
+    end
+
   end
 
   def update
@@ -76,8 +91,12 @@ class AdvertisingDatabasesController < DatabasesController
       @advertising.image = params[:image].read
     end
 
-    @advertising.save
-    redirect_to advertising_databases_showTables_path(@advertising.inc_account_id), notice: "広告情報の編集を完了しました"
+    if @advertising.save
+      redirect_to advertising_databases_showTables_path(@advertising.inc_account_id), notice: "広告情報の編集を完了しました"
+    else
+      render :action => 'editDatabases'
+    end
+
   end
 
   def destroy

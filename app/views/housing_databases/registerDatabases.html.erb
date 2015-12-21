@@ -18,40 +18,104 @@
 
       <tbody>
       <% if @message %><tr><td><center><font color="red"><%= @message %></font></center></td></tr><% end %>
-      <tr><td>画像</td> <td><%= file_field_tag 'image' %></td> </tr>
-      <tr><td>店舗選択</td> <td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %> <td><%= submit_tag "店舗情報新規登録" ,:name => 'store_register'%></td></td> </tr>
+
+      <tr><td>画像</td> </tr>
+      <tr><td><%= file_field_tag 'image',:accept => "image/png,image/gif,image/jpeg" %></td></tr>
+
+      <tr><td>店舗選択</td>  </tr>
+      <tr><td><%= collection_select(:selectedstore_id,:store_id,@store.all,:id,:store_name) %></td> <td><%= submit_tag "店舗情報新規登録" ,:name => 'store_register'%></td></tr>
       <tr><td colspan="2"><font color="red">　<%= if @store.blank?
                                                   "店舗情報がありません。登録してください" end %></font></td><tr>
-      <tr><td>住所</td> <td><%= text_field_tag :street_address,@housing.street_address, :placeholder => "住所" %></td> </tr>
+      <tr><td>住所</td>  </tr>
+      <tr><td><%= text_field_tag :street_address,@housing.street_address, :placeholder => "住所" %></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:street_address] %></font></td><tr>
 
-      <tr><td>家賃</td>  <td><%= text_field_tag :rent,@housing.rent,:placeholder => '家賃'%></td> </tr>
+      <tr><td>家賃（円単位、数字のみで入力）</td>   </tr>
+      <tr><td><%= text_field_tag :rent,@housing.rent,:placeholder => '家賃'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:rent] %></font></td><tr>
 
-      <tr><td>管理費</td>  <td><%= text_field_tag :administration_cost,@housing.administration_cost,:placeholder => '管理費'%></td> </tr>
+      <tr><td>管理費（円単位、数字のみで入力）</td>   </tr>
+      <tr><td><%= text_field_tag :administration_cost,@housing.administration_cost,:placeholder => '管理費'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:administration_cost] %></font></td><tr>
 
-      <tr><td>タイプ</td>  <td><%= text_field_tag :housing_type,@housing.housing_type,:placeholder => 'タイプ'%></td></tr>
-      <tr><td>建築年月</td>  <td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => Date.new(1950, 1, 1),:start_year =>1950,:end_year => 2050)%></td></tr>
-      <tr><td>向き</td>  <td><%= text_field_tag :direction,@housing.direction,:placeholder => '向き'%></td></tr>
-      <tr><td>間取り</td>  <td><%= text_field_tag :layout,@housing.layout,:placeholder => '間取り'%></td></tr>
-      <tr><td>面積</td>  <td><%= text_field_tag :area,@housing.area,:placeholder => '面積'%></td></tr>
-      <tr><td>構造</td>  <td><%= text_field_tag :structure,@housing.structure,:placeholder => '構造'%></td></tr>
-      <tr><td>階建て</td>  <td><%= text_field_tag :floor,@housing.floor,:placeholder => '階建て'%></td></tr>
-      <tr><td>敷金</td>  <td><%= text_field_tag :deposit,@housing.deposit,:placeholder => '敷金'%></td></tr>
-      <tr><td>礼金</td>  <td><%= text_field_tag :recompense,@housing.recompense,:placeholder => '礼金'%></td></tr>
-      <tr><td>保証金</td>  <td><%= text_field_tag :security_money,@housing.security_money,:placeholder => '保証金'%></td></tr>
-      <tr><td>敷引き</td>  <td><%= text_field_tag :shikibiki,@housing.shikibiki,:placeholder => '敷引き'%></td></tr>
-      <tr><td>保険料</td>  <td><%= text_field_tag :insurance,@housing.insurance,:placeholder => '保険料'%></td></tr>
-      <tr><td>駐車場使用料</td>  <td><%= text_field_tag :parking,@housing.parking,:placeholder => '駐車場使用料'%></td></tr>
-      <tr><td>取引態様</td>  <td><%= text_field_tag :trading_aspect,@housing.trading_aspect,:placeholder => '取引態様'%></td></tr>
-      <tr><td>他初期費用</td>  <td><%= text_field_tag :another_cost,@housing.another_cost,:placeholder => '他初期費用'%></td></tr>
-      <tr><td>空き部屋情報</td>  <td><%= text_field_tag :vacancy,@housing.vacancy,:placeholder => '空き部屋情報'%></td></tr>
-      <tr><td>詳細情報</td>  <td><%= text_area_tag :detail,@housing.detail,:placeholder => '詳細情報' ,:size => "50x10"%></td></tr>
+      <tr><td>タイプ（マンション、賃貸など）</td>  </tr>
+      <tr><td><%= text_field_tag :housing_type,@housing.housing_type,:placeholder => 'タイプ'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:housing_type] %></font></td><tr>
 
-      <tr><td>契約プラン</td>  <td><%= radio_button_tag :plan, 1 %> <%= label_tag :plan_name, "年契約" %>
-                                    <%= radio_button_tag :plan, 2 %> <%= label_tag :plan_name, "月契約" %></td></tr>
+      <tr><td>建築年月</td>  </tr>
+      <tr><td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => @housingdate,:start_year =>1950,:end_year => Time.now.year.to_i)%></td></tr>
+
+      <tr><td>向き</td> </tr>
+      <tr><td><%= text_field_tag :direction,@housing.direction,:placeholder => '向き'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:direction] %></font></td><tr>
+
+      <tr><td>間取り</td>  </tr>
+      <tr><td><%= text_field_tag :layout,@housing.layout,:placeholder => '間取り'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:layout] %></font></td><tr>
+
+      <tr><td>面積（数字のみ）記入例：12.2平方メートルの場合は「122」と入力</td>  </tr>
+      <tr><td><%= text_field_tag :area,@housing.area,:placeholder => '面積'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:area] %></font></td><tr>
+
+      <tr><td>構造（鉄筋コンクリート、木造など）</td>  </tr>
+      <tr><td><%= text_field_tag :structure,@housing.structure,:placeholder => '構造'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:structure] %></font></td><tr>
+
+      <tr><td>階建て（数字のみ）記入例：３階建ての場合は「3」と入力</td>  </tr>
+      <tr><td><%= text_field_tag :floor,@housing.floor,:placeholder => '階建て'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:floor] %></font></td><tr>
+
+      <tr><td>敷金（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :deposit,@housing.deposit,:placeholder => '敷金'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:deposit] %></font></td><tr>
+
+      <tr><td>礼金（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :recompense,@housing.recompense,:placeholder => '礼金'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:recompense] %></font></td><tr>
+
+      <tr><td>保証金（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :security_money,@housing.security_money,:placeholder => '保証金'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:security_money] %></font></td><tr>
+
+      <tr><td>敷引き（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :shikibiki,@housing.shikibiki,:placeholder => '敷引き'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:shikibiki] %></font></td><tr>
+
+      <tr><td>保険料（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :insurance,@housing.insurance,:placeholder => '保険料'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:insurance] %></font></td><tr>
+
+      <tr><td>駐車場使用料（円単位、数字のみで入力、駐車場がない場合は未記入）</td>  </tr>
+      <%= if @housing.parking == -1
+            @housing.parking = nil
+          end %>
+      <tr><td><%= text_field_tag :parking,@housing.parking,:placeholder => '駐車場使用料'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:parking] %></font></td><tr>
+
+      <tr><td>取引態様（仲介など）</td>  </tr>
+      <tr><td><%= text_field_tag :trading_aspect,@housing.trading_aspect,:placeholder => '取引態様'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:trading_aspect] %></font></td><tr>
+
+      <tr><td>他初期費用（円単位、数字のみで入力）</td>  </tr>
+      <tr><td><%= text_field_tag :another_cost,@housing.another_cost,:placeholder => '他初期費用'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:another_cost] %></font></td><tr>
+
+      <tr><td>空き部屋情報</td>  </tr>
+      <tr><td><%= text_field_tag :vacancy,@housing.vacancy,:placeholder => '空き部屋情報'%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:vacancy] %></font></td><tr>
+
+      <tr><td>詳細情報</td>  </tr>
+      <tr><td><%= text_area_tag :detail,@housing.detail,:placeholder => '詳細情報' ,:size => "50x10"%></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:detail] %></font></td><tr>
+
+      <tr><td>契約プラン</td>  </tr>
+      <tr><td><%= radio_button_tag :plan, 1 %> <%= label_tag :plan_name, "年契約" %>
+        <%= radio_button_tag :plan, 2 %> <%= label_tag :plan_name, "月契約" %></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:plan] %></font></td><tr>
 
 
       </tbody>
     </table>
 
-    <%= submit_tag "保存" ,:name => 'save'%>
+    <%= submit_tag "登録" ,:name => 'save',"data-confirm" => "登録を行いますか？"%>
 <% end %>

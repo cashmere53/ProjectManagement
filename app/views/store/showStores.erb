@@ -28,11 +28,14 @@
       </thead>
       <tbody>
       <% @store.each do |info| %>
+      <!-- 以下は@store毎にそれぞれの要素を表示-->
           <tr>
             <td><%= info.store_name %></td>
             <td><%= info.street_address %></td>
             <td><%= info.postal_code %></td>
-            <td><%= link_to '編集', editStores_path(info.id), class: "btn btn-warning" %> <%= link_to '削除', store_destroy_path(info.id),method: 'delete', class: "btn btn-warning","data-confirm" => "本当に削除しますか？" %></td>
+            <td><%= link_to '編集', editStores_path(info.id), class: "btn btn-warning" %>
+                <%= link_to '削除', store_destroy_path(info.id),method: 'delete', class: "btn btn-warning","data-confirm" => "本当に削除しますか？　\n
+                                                                                                                            この店舗が保有する全ての住宅情報も同時に削除されます。" %></td>
 
           </tr>
       <% end %>

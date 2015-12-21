@@ -5,9 +5,9 @@ class IncAccount < ActiveRecord::Base
 
   has_secure_password validations: false
   validates :inc_name,
-    presence: { message: "⚠︎ユーザ名を入力してください" },
-    uniqueness: { message: "⚠︎そのユーザ名は既に使われています" },
-    length: { maximum: 255, message: "⚠︎ユーザ名は255文字以内で入力してください"}
+    presence: { message: "⚠︎企業名を入力してください" },
+    uniqueness: { message: "⚠︎その企業名は既に使われています" },
+    length: { maximum: 255, message: "⚠︎企業名は255文字以内で入力してください"}
 
   validates :mail_address,
     presence: { message: "⚠︎メールアドレスを入力してください" },
@@ -28,6 +28,5 @@ class IncAccount < ActiveRecord::Base
 
   validates :account_name,
     presence: { message: "⚠︎口座名義を入力してください" },
-    length: { maximum: 255, message: "⚠︎口座名義は255文字以内で入力してください" },
-    format: { with: /\A[a-zA-Z0-9-_]+\z/, message: "⚠︎口座名義は「a〜z, A〜Z, 0〜9, -, _」のみ使用してください" }
+    length: { maximum: 255, message: "⚠︎口座名義は255文字以内で入力してください" }
 end
