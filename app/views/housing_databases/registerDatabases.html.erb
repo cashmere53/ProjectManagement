@@ -64,7 +64,9 @@ function UpdateRoute(id)
         if (status == google.maps.DirectionsStatus.OK)
         {
             directionsRenderer.setDirections(result);
-            $("input[name='distance["+id+"]'").val(GetDistance_meter(result.routes[0].legs));
+            var meter = GetDistance_meter(result.routes[0].legs);
+            alert(meter);
+            $("input[name='distance["+id+"]'").val(meter);
         }
     });
 }
@@ -97,12 +99,15 @@ function codeAddress() {
               });
             }
           }
-          originMarker = CreateMarker(new google.maps.LatLng(latlng.lat(), latlng.lng()));
+          var lat1 = latlng.lat();
+          var lng1 = latlng.lng();
           <% @facilities.each do |facility| %>
-            destinationMarker = CreateMarker(new google.maps.LatLng(<%= facility.lat %>, <%= facility.lng %>));
-            UpdateRoute(<%= facility.id %>);
+            var lat2 = <%= facility.lat %>;
+            var lng2 = <%= facility.lng %>;
+            var meter = Math.round(Math.sqrt(Math.pow((lat1-lat2)/0.0111, 2) + Math.pow((lng1-lng2)/0.0091, 2))*1000);
+            alert(meter);
+            $("input[name='distance["+<%= facility.id %>+"]'").val(meter);
           <% end %>
-          $('#save').attr('disabled', false);
         }else{
           alert("距離情報の取得に失敗しました。再度お試しください。");
         }
@@ -225,5 +230,5 @@ function codeAddress() {
       </tbody>
     </table>
 
-    <%= submit_tag "登録" ,:id => 'save', :name => 'save', :disabled => true, "data-confirm" => "登録を行いますか？" %>
+    <%= submit_tag "登録", :name => 'save' %>
 <% end %>

@@ -119,28 +119,26 @@ class HousingDatabasesController < DatabasesController
         @housing.image = params[:image].read
       end
 
-      #距離情報を登録
-      distances = params[:distance]
-      housing_id = Housing.last.id
-      store_id = @selected["store_id"].to_i
-      facilities = Facility.all
-      facilities.each{|facility|
-        distance = Distance.new
-        distance.distance = distances[facility.id.to_s]
-        distance.facility_id = facility.id
-        distance.housing_id = housing_id
-        distance.store_id = store_id
-        distance.inc_account_id = params[:id]
-        distance.save
-      }
-
       if @housing.save
+        #距離情報を登録
+        distances = params[:distance]
+        housing_id = Housing.last.id
+        store_id = @selected["store_id"].to_i
+        facilities = Facility.all
+        facilities.each{|facility|
+          distance = Distance.new
+          distance.distance = distances[facility.id.to_s]
+          distance.facility_id = facility.id
+          distance.housing_id = housing_id
+          distance.store_id = store_id
+          distance.inc_account_id = params[:id]
+          distance.save
+        }
         redirect_to housing_databases_showTables_path(params[:id]), notice: "住宅情報を登録しました"
       else
         @date = nil
         render action: "registerDatabases"
       end
-
     end
 
   end
