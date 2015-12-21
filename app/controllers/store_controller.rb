@@ -14,8 +14,11 @@ class StoreController < ApplicationController
   end
 
   def registerStores
+<<<<<<< Temporary merge branch 1
     @inc_account_id = params[:id]
+=======
     @store = Store.new
+>>>>>>> Temporary merge branch 2
   end
 
   def editStores

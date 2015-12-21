@@ -8,6 +8,9 @@
 # end of specification ;
 #############################################################-->
 
+<%= render 'shared/library' %>
+<%= render 'shared/incmenu' %>
+
 <%= form_tag('/advertising_databases/showTables', :method => :get) do %>
   <input type="hidden" name="inc_account_id" value="<%= @inc_account_id %>" >
   <input type="submit" value="戻る" formaction='/advertising_databases/showTables/<%= @inc_account_id %>' formmethod='get' class="btn btn-warning">
@@ -17,12 +20,15 @@
     <table>
 
       <tbody>
-      <tr><td>広告情報</td> <td><%= text_field_tag :advertise_info,@advertising.advertise_info, :placeholder => "広告情報" %></td> </tr>
-      <tr><td>画像</td> <td><%= file_field_tag 'image' %></td> </tr>
+      <tr><td>広告情報</td> </tr>
+      <tr><td><%= text_field_tag :advertise_info,@advertising.advertise_info, :placeholder => "広告情報" %></td></tr>
+      <tr height="30"><td colspan="2"><font color="red">　　<%= @advertising.errors.messages[:advertise_info] %></font></td><tr>
+      <tr><td>画像</td> </tr>
+      <tr><td><%= file_field_tag 'image',:accept => "image/png,image/gif,image/jpeg" %></td></tr>
       <tr height="30"><td colspan="2"><font color="red">　　<%= @advertising.errors.messages[:image] %></font></td><tr>
 
       </tbody>
     </table>
 
-    <%= submit_tag "保存" %>
+    <%= submit_tag "登録" ,"data-confirm" => "登録を行いますか？"%>
 <% end %>

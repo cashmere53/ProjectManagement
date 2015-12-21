@@ -32,8 +32,11 @@ class AdvertisingDatabasesController < DatabasesController
   end
 
   def registerDatabases
+<<<<<<< Temporary merge branch 1
     @inc_account_id = params[:id]
+=======
     @advertising = Advertising.new
+>>>>>>> Temporary merge branch 2
   end
 
   def editDatabases
