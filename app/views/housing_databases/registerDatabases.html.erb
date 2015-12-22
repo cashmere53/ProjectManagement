@@ -106,7 +106,7 @@ function codeAddress() {
             var lat2 = <%= facility.lat %>;
             var lng2 = <%= facility.lng %>;
             var meter = Math.round(Math.sqrt(Math.pow((lat1-lat2)/0.0111, 2) + Math.pow((lng1-lng2)/0.0091, 2))*1000);
-            $("input[name='distance["+<%= facility.id %>+"]'").val(meter);
+            $("#distance<%=facility.id%>").val(meter);
           <% end %>
         }else{
           alert("距離情報の取得に失敗しました。再度お試しください。");
@@ -127,7 +127,7 @@ function codeAddress() {
 
 <%= form_tag housing_databases_registerDatabases_path(params[:id]),multipart: true do%>
   <% @facilities.each do |facility| %>
-    <input type="hidden" name="distance[<%= facility.id %>]" value="" >
+    <input type="hidden" id="distance<%=facility.id%>" name="distance[<%= facility.id %>]" value="" >
   <% end %>
     <table>
 

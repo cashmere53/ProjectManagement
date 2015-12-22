@@ -9,7 +9,6 @@
 #############################################################
 
 class StoreController < ApplicationController
-  before_action :authenticate_user
   def showTables
 
   end

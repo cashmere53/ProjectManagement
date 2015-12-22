@@ -9,7 +9,6 @@
 #############################################################
 
 class AdvertisingDatabasesController < DatabasesController
-  before_action :authenticate_user, except: [:image]
   def showTables
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
