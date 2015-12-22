@@ -9,20 +9,10 @@
 #############################################################
 
 class AdvertisingDatabasesController < DatabasesController
+  before_action :authenticate_user, except: [:image]
   def showTables
     @inc_account_id = params[:id]
     @inc_account = IncAccount.find(@inc_account_id)
-    if session[@inc_account_id]==nil || session[@inc_account_id]==''
-      #広告取得
-      advertisings=Advertising.all
-      @advertisings=[]
-      if advertisings.length>0 then
-          (0..1).each{|num|
-              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
-          }
-      end
-      render :template => "search/form"
-    end
     @advertising = Advertising.where(inc_account_id: @inc_account_id)
   end
 
@@ -101,5 +91,21 @@ class AdvertisingDatabasesController < DatabasesController
     @inc_account_id = IncAccount.find(@advertising.inc_account_id).id
     @advertising.destroy
     redirect_to advertising_databases_showTables_path(@inc_account_id)
+  end
+
+  private
+  def authenticate_user
+    @inc_account_id = params[:id]
+    if session[@inc_account_id]==nil || session[@inc_account_id]==''
+      #広告取得
+      advertisings=Advertising.all
+      @advertisings=[]
+      if advertisings.length>0 then
+          (0..1).each{|num|
+              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+          }
+      end
+      render :template => "search/form"
+    end
   end
 end

@@ -39,7 +39,7 @@
       <tr height="30"><td colspan="2"><font color="red">　　<%= @housing.errors.messages[:housing_type] %></font></td><tr>
 
       <tr><td>建築年月</td>  </tr>
-      <tr><td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => @housingdate,:start_year =>1950,:end_year => Time.now.year.to_i)%></td></tr>
+      <tr><td><%= date_select(:date, :building_date, :use_month_numbers => true,:discard_day => true,:default => @housing.building_date,:start_year =>1950,:end_year => Time.now.year.to_i)%></td></tr>
 
       <tr><td>向き</td> </tr>
       <tr><td><%= text_field_tag :direction,@housing.direction,:placeholder => '向き'%></td></tr>

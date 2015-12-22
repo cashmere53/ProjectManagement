@@ -9,6 +9,7 @@
 #############################################################
 
 class StoreController < ApplicationController
+  before_action :authenticate_user
   def showTables
 
   end
@@ -70,5 +71,20 @@ class StoreController < ApplicationController
     @inc_account_id = IncAccount.find(@store.inc_account_id).id
     @store.destroy
     redirect_to showStores_path(@inc_account_id)
+  end
+  private
+  def authenticate_user
+    @inc_account_id = params[:id]
+    if session[@inc_account_id]==nil || session[@inc_account_id]==''
+      #広告取得
+      advertisings=Advertising.all
+      @advertisings=[]
+      if advertisings.length>0 then
+          (0..1).each{|num|
+              @advertisings[num]=advertisings[rand(0..advertisings.length-1)]
+          }
+      end
+      render :template => "search/form"
+    end
   end
 end

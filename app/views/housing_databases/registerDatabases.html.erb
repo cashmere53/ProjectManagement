@@ -37,6 +37,7 @@ function calculate()
 
     //ジオコーディング & 距離情報セット
     codeAddress();
+    $('#save').attr('disabled', false);
 }
 
 // マーカーを作成します。
@@ -105,7 +106,6 @@ function codeAddress() {
             var lat2 = <%= facility.lat %>;
             var lng2 = <%= facility.lng %>;
             var meter = Math.round(Math.sqrt(Math.pow((lat1-lat2)/0.0111, 2) + Math.pow((lng1-lng2)/0.0091, 2))*1000);
-            alert(meter);
             $("input[name='distance["+<%= facility.id %>+"]'").val(meter);
           <% end %>
         }else{
@@ -230,5 +230,5 @@ function codeAddress() {
       </tbody>
     </table>
 
-    <%= submit_tag "登録", :name => 'save' %>
+    <%= submit_tag "登録", :id => 'save', :name => 'save', :disabled => true %>
 <% end %>
